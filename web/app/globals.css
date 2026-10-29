@@ -1,9 +1,22 @@
 @import "tailwindcss";
 
+@utility container {
+  width: 100%;
+  max-width: var(--pagina-width);
+  margin-inline: auto;
+  padding-inline: var(--pagina-margin);
+
+  @media (width >= 64rem) {
+    padding-inline: var(--pagina-margin-lg);
+  }
+}
+
 /* Design tokens — Portfolio Pellegrino Piccolo.
-   Only these colors exist: Tailwind's default palette is reset. */
+   Extend Tailwind's default palette. */
 @theme {
-  --color-*: initial;
+  --pagina-width: 80rem;
+  --pagina-margin: 1rem;
+  --pagina-margin-lg: 2rem;
 
   /* Backgrounds */
   --color-page: #0b1020;
@@ -28,20 +41,21 @@
   --color-muted: #9aa4b8; /* secondary text, labels */
 
   /* Accent (indigo) */
-  --color-primary: #4f46e5; /* filled buttons */
+  --color-primary: #4e65a0; /* filled buttons */
   --color-indicator: #6366f1; /* indicators, underlines */
   --color-decision: #5b5bd6; /* decision badge border */
   --color-comment: #818cf8; /* mono comments */
   --color-link: #a5b4fc; /* links, section labels */
   --color-tag: #c7d2fe; /* tag text, link hover */
+  --color-indigo-bright: #5b4bff; /* vivid accent, highlights */
 
   /* Status */
   --color-available: #22c55e;
 
   /* Type scale */
   --text-hero: 6.5rem;
-  --text-hero--line-height: 1;
-  --text-hero--letter-spacing: -0.035em;
+  --text-hero--line-height: 1.1;
+  --text-hero--letter-spacing: -0.02em;
   --text-hero--font-weight: 700;
   --text-h1: 3.5rem;
   --text-h1--line-height: 1.1;
