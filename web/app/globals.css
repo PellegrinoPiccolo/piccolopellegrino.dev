@@ -12,13 +12,11 @@
 }
 
 /* Design tokens — Portfolio Pellegrino Piccolo.
-   Only these colors exist: Tailwind's default palette is reset. */
+   Extend Tailwind's default palette. */
 @theme {
   --pagina-width: 80rem;
   --pagina-margin: 1rem;
   --pagina-margin-lg: 2rem;
-
-  --color-*: initial;
 
   /* Backgrounds */
   --color-page: #0b1020;

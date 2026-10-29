@@ -28,7 +28,9 @@ export const metadata: Metadata = {
   },
   description,
   applicationName: siteName,
-  authors: [{ name: "Pellegrino Piccolo", url: "https://piccolopellegrino.dev" }],
+  authors: [
+    { name: "Pellegrino Piccolo", url: "https://piccolopellegrino.dev" },
+  ],
   creator: "Pellegrino Piccolo",
   keywords: ["Pellegrino Piccolo", "developer", "portfolio", "web development"],
   openGraph: {
