@@ -2,18 +2,22 @@
 
 @utility container {
   width: 100%;
-  max-width: var(--pagina-larghezza);
+  max-width: var(--pagina-width);
   margin-inline: auto;
-  padding-inline: var(--pagina-margine);
+  padding-inline: var(--pagina-margin);
 
   @media (width >= 64rem) {
-    padding-inline: var(--pagina-margine-lg);
+    padding-inline: var(--pagina-margin-lg);
   }
 }
 
 /* Design tokens — Portfolio Pellegrino Piccolo.
    Only these colors exist: Tailwind's default palette is reset. */
 @theme {
+  --pagina-width: 80rem;
+  --pagina-margin: 1rem;
+  --pagina-margin-lg: 2rem;
+
   --color-*: initial;
 
   /* Backgrounds */
