@@ -26,7 +26,7 @@ const Hero = () => {
           </Link>
           <Link
             href="#contact"
-            className="bg-page border border-divider text-heading px-8 py-3 rounded-full font-bold transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:shadow-[0_10px_30px_-12px_var(--color-indicator)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+            className="bg-page border-2 border-divider text-heading px-8 py-3 rounded-full font-bold transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:shadow-[0_10px_30px_-12px_var(--color-indicator)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
           >
             Contact Me
           </Link>
@@ -35,7 +35,7 @@ const Hero = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="group bg-page border border-divider text-heading p-3 rounded-full transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:text-link hover:shadow-[0_10px_30px_-12px_var(--color-indicator)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+            className="flex items-center justify-center group bg-page border-2 border-divider text-heading p-3 rounded-full transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:text-link hover:shadow-[0_10px_30px_-12px_var(--color-indicator)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
           >
             <FiGithub className="text-2xl transition-transform duration-300 ease-out group-hover:scale-110 group-hover:-rotate-8" />
           </a>
@@ -44,7 +44,7 @@ const Hero = () => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="group bg-page border border-divider text-heading p-3 rounded-full transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:text-link hover:shadow-[0_10px_30px_-12px_var(--color-indicator)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+            className="flex items-center justify-center group bg-page border-2 border-divider text-heading p-3 rounded-full transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:text-link hover:shadow-[0_10px_30px_-12px_var(--color-indicator)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
           >
             <FiLinkedin className="text-2xl transition-transform duration-300 ease-out group-hover:scale-110 group-hover:-rotate-8" />
           </a>
