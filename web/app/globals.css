@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+@utility container {
+  width: 100%;
+  max-width: var(--pagina-larghezza);
+  margin-inline: auto;
+  padding-inline: var(--pagina-margine);
+
+  @media (width >= 64rem) {
+    padding-inline: var(--pagina-margine-lg);
+  }
+}
+
 /* Design tokens — Portfolio Pellegrino Piccolo.
    Only these colors exist: Tailwind's default palette is reset. */
 @theme {
