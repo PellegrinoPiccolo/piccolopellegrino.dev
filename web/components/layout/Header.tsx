@@ -62,7 +62,7 @@ const Header = () => {
               alt="Logo"
               width={40}
               height={48}
-              className="w-65"
+              className="w-50 md:w-65"
               loading="eager"
             />
           </Link>
