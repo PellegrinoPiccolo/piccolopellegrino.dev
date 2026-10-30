@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FeaturedProjects } from "@/constants/type";
 import ProjectCard from "../ui/ProjectCard";
+import { FaArrowRight } from "react-icons/fa6";
 
 type ProjectsProps = {
   featuredProjects: FeaturedProjects;
@@ -9,16 +10,31 @@ type ProjectsProps = {
 const Projects = ({ featuredProjects }: ProjectsProps) => {
   return (
     <div className="w-full bg-section scroll-mt-20" id="projects">
-      <div className="container">
-        {featuredProjects?.length ? (
-          featuredProjects.map((project) => (
-            <div key={project._id}>
-              <ProjectCard project={project} />
-            </div>
-          ))
-        ) : (
-          <EmptyProjects />
-        )}
+      <div className="container py-20 flex flex-col gap-2">
+        <p className="text-primary font-mono text-base">01 — Projects</p>
+        <div className="flex flex-row justify-between items-center">
+          <h2 className="text-3xl md:text-5xl font-bold text-heading">
+            Selected work
+          </h2>
+          <Link
+            href="/projects"
+            className="text-sm md:text-base text-link flex flex-row items-center gap-2"
+          >
+            <p>All Projects</p>
+            <FaArrowRight />
+          </Link>
+        </div>
+        <div className="mt-8">
+          {featuredProjects?.length ? (
+            featuredProjects.map((project) => (
+              <div key={project._id}>
+                <ProjectCard project={project} />
+              </div>
+            ))
+          ) : (
+            <EmptyProjects />
+          )}
+        </div>
       </div>
     </div>
   );
