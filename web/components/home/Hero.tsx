@@ -1,8 +1,29 @@
 import { FiGithub } from "react-icons/fi";
 import { FiLinkedin } from "react-icons/fi";
 import Link from "next/link";
+import type { FeaturedProjects } from "@/constants/type";
 
-const Hero = () => {
+/**
+ * featuredProjects: Array<{...}> | null
+ *
+ * - _id: string
+ * - title: string | null
+ * - slug: string | null
+ * - kind: "Mobile app" | "Web app" | "Website" | "Desktop app" | "Tool" | null
+ * - category: "app" | "web" | "desktop" | null
+ * - isClientWork: boolean | null
+ * - releaseDate: string | null (YYYY-MM-DD)
+ * - excerpt: string | null
+ * - stack: string[] | null
+ * - icon: image | null
+ * - cover: { asset: { _id, metadata: { lqip } }, alt?, hotspot?, crop? } | null
+ */
+
+type HeroProps = {
+  featuredProjects: FeaturedProjects;
+};
+
+const Hero = ({ featuredProjects }: HeroProps) => {
   return (
     <div className="flex flex-col py-20 gap-4 md:gap-0">
       <p className="font-mono text-sm lg:text-base text-primary font-medium">
