@@ -12,12 +12,12 @@ export const PROJECTS_QUERY = defineQuery(`
     excerpt,
     stack,
     icon,
-    cover { ..., asset->{ _id, metadata { lqip } } }
+    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }
   }
 `);
 
 export const FEATURED_PROJECTS_QUERY = defineQuery(`
-  *[_id == "featuredProjects"][0].projects[]->[defined(slug.current)] {
+  *[_id == "featuredProjects"][0].projects[defined(@->slug.current)]-> {
     _id,
     title,
     "slug": slug.current,
@@ -27,8 +27,9 @@ export const FEATURED_PROJECTS_QUERY = defineQuery(`
     releaseDate,
     excerpt,
     stack,
+    links,
     icon,
-    cover { ..., asset->{ _id, metadata { lqip } } }
+    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }
   }
 `);
 
