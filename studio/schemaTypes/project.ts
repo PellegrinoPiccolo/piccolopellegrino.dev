@@ -1,4 +1,5 @@
 import {defineArrayMember, defineField, defineType} from 'sanity'
+import {PaddedObjectInput} from '../components/PaddedObjectInput'
 
 const LAYER_ICONS = [
   'phone',
@@ -147,13 +148,6 @@ export const project = defineType({
       ],
     }),
     defineField({
-      name: 'featured',
-      type: 'boolean',
-      group: 'general',
-      description: 'Show on the home page and badge it in the list',
-      initialValue: false,
-    }),
-    defineField({
       name: 'order',
       type: 'number',
       group: 'general',
@@ -199,6 +193,7 @@ export const project = defineType({
         defineArrayMember({
           name: 'layer',
           type: 'object',
+          components: {input: PaddedObjectInput},
           fields: [
             defineField({name: 'name', type: 'string', validation: (rule) => rule.required()}),
             defineField({name: 'tech', type: 'string', description: 'Technology or short description'}),
@@ -268,6 +263,7 @@ export const project = defineType({
         defineArrayMember({
           name: 'decision',
           type: 'object',
+          components: {input: PaddedObjectInput},
           fields: [
             defineField({
               name: 'code',

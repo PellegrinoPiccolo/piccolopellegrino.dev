@@ -9,7 +9,22 @@ export const PROJECTS_QUERY = defineQuery(`
     category,
     isClientWork,
     releaseDate,
-    featured,
+    excerpt,
+    stack,
+    icon,
+    cover { ..., asset->{ _id, metadata { lqip } } }
+  }
+`);
+
+export const FEATURED_PROJECTS_QUERY = defineQuery(`
+  *[_id == "featuredProjects"][0].projects[]->[defined(slug.current)] {
+    _id,
+    title,
+    "slug": slug.current,
+    kind,
+    category,
+    isClientWork,
+    releaseDate,
     excerpt,
     stack,
     icon,
