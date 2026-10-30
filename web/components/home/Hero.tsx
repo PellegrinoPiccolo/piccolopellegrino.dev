@@ -125,7 +125,7 @@ const RecentProjectCard = ({ project }: { project: ProjectItem }) => {
       </div>
       <div className="flex flex-row justify-between items-center">
         <p className="text-heading font-bold text-lg">{project.title}</p>
-        <p className="text-heading text-sm">{project.kind}</p>
+        <p className="font-mono text-fg text-sm">{project.kind}</p>
       </div>
     </Link>
   );
