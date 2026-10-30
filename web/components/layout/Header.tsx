@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
 
@@ -46,6 +47,26 @@ const Header = () => {
 
   const closeMenu = () => setMenuOpen(false);
 
+  const pathname = usePathname();
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    closeMenu();
+    if (pathname !== "/") return;
+
+    const hash = href.slice(href.indexOf("#"));
+    const target = document.getElementById(hash.slice(1));
+    if (!target) return;
+
+    e.preventDefault();
+    target.scrollIntoView({ behavior: "smooth" });
+    if (window.location.hash !== hash) {
+      window.history.pushState(null, "", hash);
+    }
+  };
+
   return (
     <>
       <header
@@ -68,12 +89,18 @@ const Header = () => {
           </Link>
           <nav className="hidden md:flex flex-row items-center gap-4">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="text-fg">
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
+                className="text-fg"
+              >
                 {item.label}
               </Link>
             ))}
             <Link
               href="/#contact"
+              onClick={(e) => handleNavClick(e, "/#contact")}
               className="text-fg border border-divider rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong"
             >
               Contact
@@ -134,7 +161,7 @@ const Header = () => {
             <Link
               key={item.href}
               href={item.href}
-              onClick={closeMenu}
+              onClick={(e) => handleNavClick(e, item.href)}
               className="py-3 text-body-lg text-fg border-b border-divider"
             >
               {item.label}
@@ -142,7 +169,7 @@ const Header = () => {
           ))}
           <Link
             href="/#contact"
-            onClick={closeMenu}
+            onClick={(e) => handleNavClick(e, "/#contact")}
             className="mt-6 text-center text-fg border border-divider rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong"
           >
             Contact
