@@ -12,7 +12,7 @@ export const PROJECTS_QUERY = defineQuery(`
     excerpt,
     stack,
     icon,
-    cover { ..., asset->{ _id, metadata { lqip } } }
+    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }
   }
 `);
 
@@ -28,7 +28,7 @@ export const FEATURED_PROJECTS_QUERY = defineQuery(`
     excerpt,
     stack,
     icon,
-    cover { ..., asset->{ _id, metadata { lqip } } }
+    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }
   }
 `);
 

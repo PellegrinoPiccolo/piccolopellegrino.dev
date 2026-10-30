@@ -1,7 +1,10 @@
 import { FiGithub } from "react-icons/fi";
 import { FiLinkedin } from "react-icons/fi";
 import Link from "next/link";
-import type { Projects } from "@/constants/type";
+import type { ProjectItem, Projects } from "@/constants/type";
+import { SanityImageSource } from "@sanity/image-url/signed";
+import { urlFor } from "@/sanity/image";
+import Image from "next/image";
 
 /**
  * recentProjects: Array<{...}> (3 most recent by releaseDate)
@@ -75,8 +78,55 @@ const Hero = ({ recentProjects }: HeroProps) => {
           </div>
         </div>
       </div>
+      <div className="flex flex-col gap-4 mt-8 lg:mt-16">
+        <div className="flex flex-row justify-between items-center">
+          <p className="font-mono text-fg text-xs md:text-sm">Latest work</p>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-500 rounded-full" />
+            <p className="font-mono text-fg text-xs md:text-sm">
+              Available for freelance
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {recentProjects.map((project) => (
+            <RecentProjectCard key={project._id} project={project} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
 
 export default Hero;
+
+const RecentProjectCard = ({ project }: { project: ProjectItem }) => {
+  return (
+    <Link
+      href={`/projects/${project.slug}`}
+      className="flex flex-col gap-4 bg-card p-4 rounded-lg"
+    >
+      <div className="flex w-full aspect-16/10 items-center justify-center overflow-hidden rounded-lg border-2 border-line-card border-dashed p-2">
+        <Image
+          src={urlFor(project.cover as SanityImageSource)
+            .width(600)
+            .url()}
+          alt={project.cover?.alt ?? project.title ?? "Project cover"}
+          width={600}
+          height={Math.round(
+            600 /
+              (project.cover?.asset?.metadata?.dimensions?.aspectRatio ??
+                16 / 10),
+          )}
+          loading="eager"
+          sizes="(width >= 48rem) 33vw, (width >= 40rem) 50vw, 100vw"
+          className="max-h-full max-w-full w-auto h-auto rounded-md"
+        />
+      </div>
+      <div className="flex flex-row justify-between items-center">
+        <p className="text-heading font-bold text-lg">{project.title}</p>
+        <p className="text-heading text-sm">{project.kind}</p>
+      </div>
+    </Link>
+  );
+};
