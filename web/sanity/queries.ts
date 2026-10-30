@@ -27,6 +27,7 @@ export const FEATURED_PROJECTS_QUERY = defineQuery(`
     releaseDate,
     excerpt,
     stack,
+    links,
     icon,
     cover { ..., asset->{ _id, metadata { lqip, dimensions } } }
   }

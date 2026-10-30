@@ -24,17 +24,17 @@ const Projects = ({ featuredProjects }: ProjectsProps) => {
             <FaArrowRight />
           </Link>
         </div>
-        <div className="mt-8">
-          {featuredProjects?.length ? (
-            featuredProjects.map((project) => (
-              <div key={project._id}>
-                <ProjectCard project={project} />
-              </div>
-            ))
-          ) : (
+        {featuredProjects?.length ? (
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredProjects.map((project) => (
+              <ProjectCard key={project._id} project={project} />
+            ))}
+          </div>
+        ) : (
+          <div className="mt-8">
             <EmptyProjects />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

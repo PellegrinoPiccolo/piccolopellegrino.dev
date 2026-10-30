@@ -308,7 +308,7 @@ export type PROJECTS_QUERY_RESULT = Array<{
 
 // Source: ../web/sanity/queries.ts
 // Variable: FEATURED_PROJECTS_QUERY
-// Query: *[_id == "featuredProjects"][0].projects[]->[defined(slug.current)] {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    icon,    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }  }
+// Query: *[_id == "featuredProjects"][0].projects[defined(@->slug.current)]-> {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    links,    icon,    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }  }
 export type FEATURED_PROJECTS_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
@@ -319,6 +319,12 @@ export type FEATURED_PROJECTS_QUERY_RESULT = Array<{
   releaseDate: string | null;
   excerpt: string | null;
   stack: Array<string> | null;
+  links: {
+    repo?: string;
+    live?: string;
+    store?: string;
+    storeLabel?: string;
+  } | null;
   icon: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -449,7 +455,7 @@ export type PROJECT_QUERY_RESULT = {
 declare global {
   interface SanityQueries {
     '\n  *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': PROJECTS_QUERY_RESULT;
-    '\n  *[_id == "featuredProjects"][0].projects[]->[defined(slug.current)] {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
+    '\n  *[_id == "featuredProjects"][0].projects[defined(@->slug.current)]-> {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    links,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
     '\n  *[_type == "project" && defined(slug.current)].slug.current\n': PROJECT_SLUGS_QUERY_RESULT;
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    role,\n    platforms,\n    architectureSummary,\n    links,\n    icon,\n    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },\n    layersBoundary,\n    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },\n    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },\n    seoTitle,\n    seoDescription,\n    ogImage,\n    cover,\n    "siblings": *[_type == "project" && defined(slug.current)] | order(order asc, releaseDate desc) {\n      title,\n      "slug": slug.current\n    }\n  }\n': PROJECT_QUERY_RESULT;
   }
