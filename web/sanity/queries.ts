@@ -17,7 +17,7 @@ export const PROJECTS_QUERY = defineQuery(`
 `);
 
 export const FEATURED_PROJECTS_QUERY = defineQuery(`
-  *[_id == "featuredProjects"][0].projects[]->[defined(slug.current)] {
+  *[_id == "featuredProjects"][0].projects[defined(@->slug.current)]-> {
     _id,
     title,
     "slug": slug.current,
