@@ -33,7 +33,7 @@ const Hero = ({ recentProjects }: HeroProps) => {
         <p className="font-mono text-sm lg:text-base text-primary font-medium">
           /* Full-stack & mobile developer */
         </p>
-        <h1 className="text-6xl md:text-hero font-bold text-heading">
+        <h1 className="text-6xl md:text-hero font-bold text-heading leading-[1.1]">
           Pellegrino <br /> Piccolo
         </h1>
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mt-4">
