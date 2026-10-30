@@ -1,6 +1,6 @@
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
-import {schemaTypes} from './schemaTypes'
+import {schemaTypes, singletonTypes} from './schemaTypes'
 import {structure} from './structure'
 import {StudioIcon} from './components/StudioIcon'
 import {deployTool} from './tools/deployTool'
@@ -25,5 +25,16 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
+    templates: (templates) => templates.filter(({schemaType}) => !singletonTypes.has(schemaType)),
+  },
+
+  document: {
+    actions: (actions, {schemaType}) =>
+      singletonTypes.has(schemaType)
+        ? actions.filter(
+            ({action}) =>
+              action === 'publish' || action === 'discardChanges' || action === 'restore',
+          )
+        : actions,
   },
 })
