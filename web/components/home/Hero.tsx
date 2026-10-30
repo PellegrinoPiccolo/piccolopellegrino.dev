@@ -1,10 +1,10 @@
 import { FiGithub } from "react-icons/fi";
 import { FiLinkedin } from "react-icons/fi";
 import Link from "next/link";
-import type { FeaturedProjects } from "@/constants/type";
+import type { Projects } from "@/constants/type";
 
 /**
- * featuredProjects: Array<{...}> | null
+ * recentProjects: Array<{...}> (3 most recent by releaseDate)
  *
  * - _id: string
  * - title: string | null
@@ -20,10 +20,10 @@ import type { FeaturedProjects } from "@/constants/type";
  */
 
 type HeroProps = {
-  featuredProjects: FeaturedProjects;
+  recentProjects: Projects;
 };
 
-const Hero = ({ featuredProjects }: HeroProps) => {
+const Hero = ({ recentProjects }: HeroProps) => {
   return (
     <div className="flex flex-col py-20 gap-4 md:gap-0">
       <p className="font-mono text-sm lg:text-base text-primary font-medium">

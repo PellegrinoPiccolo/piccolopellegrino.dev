@@ -20,7 +20,7 @@ export default async function Home() {
   return (
     <div className="w-full bg-page">
       <div className="container">
-        <Hero featuredProjects={featuredProjects} />
+        <Hero recentProjects={projects.slice(0, 3)} />
       </div>
     </div>
   );
