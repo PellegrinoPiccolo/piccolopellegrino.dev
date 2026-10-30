@@ -15,6 +15,26 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type ProjectReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "project";
+};
+
+export type FeaturedProjects = {
+  _id: string;
+  _type: "featuredProjects";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  projects?: Array<
+    {
+      _key: string;
+    } & ProjectReference
+  >;
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -60,7 +80,6 @@ export type Project = {
     store?: string;
     storeLabel?: string;
   };
-  featured?: boolean;
   order?: number;
   gallery?: Array<{
     asset?: SanityImageAssetReference;
@@ -235,6 +254,8 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | ProjectReference
+  | FeaturedProjects
   | SanityImageAssetReference
   | Project
   | SanityImageCrop
@@ -251,7 +272,7 @@ export type AllSanitySchemaTypes =
 
 // Source: ../web/sanity/queries.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    featured,    excerpt,    stack,    icon,    cover { ..., asset->{ _id, metadata { lqip } } }  }
+// Query: *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    icon,    cover { ..., asset->{ _id, metadata { lqip } } }  }
 export type PROJECTS_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
@@ -260,7 +281,6 @@ export type PROJECTS_QUERY_RESULT = Array<{
   category: "app" | "desktop" | "web" | null;
   isClientWork: boolean | null;
   releaseDate: string | null;
-  featured: boolean | null;
   excerpt: string | null;
   stack: Array<string> | null;
   icon: {
@@ -284,6 +304,41 @@ export type PROJECTS_QUERY_RESULT = Array<{
     _type: "image";
   } | null;
 }>;
+
+// Source: ../web/sanity/queries.ts
+// Variable: FEATURED_PROJECTS_QUERY
+// Query: *[_id == "featuredProjects"][0].projects[]->[defined(slug.current)] {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    icon,    cover { ..., asset->{ _id, metadata { lqip } } }  }
+export type FEATURED_PROJECTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  kind: "Desktop app" | "Mobile app" | "Tool" | "Web app" | "Website" | null;
+  category: "app" | "desktop" | "web" | null;
+  isClientWork: boolean | null;
+  releaseDate: string | null;
+  excerpt: string | null;
+  stack: Array<string> | null;
+  icon: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  } | null;
+  cover: {
+    asset: {
+      _id: string;
+      metadata: {
+        lqip: string | null;
+      } | null;
+    } | null;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+}> | null;
 
 // Source: ../web/sanity/queries.ts
 // Variable: PROJECT_SLUGS_QUERY
@@ -391,7 +446,8 @@ export type PROJECT_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    featured,\n    excerpt,\n    stack,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip } } }\n  }\n': PROJECTS_QUERY_RESULT;
+    '\n  *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip } } }\n  }\n': PROJECTS_QUERY_RESULT;
+    '\n  *[_id == "featuredProjects"][0].projects[]->[defined(slug.current)] {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip } } }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
     '\n  *[_type == "project" && defined(slug.current)].slug.current\n': PROJECT_SLUGS_QUERY_RESULT;
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    role,\n    platforms,\n    architectureSummary,\n    links,\n    icon,\n    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },\n    layersBoundary,\n    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },\n    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },\n    seoTitle,\n    seoDescription,\n    ogImage,\n    cover,\n    "siblings": *[_type == "project" && defined(slug.current)] | order(order asc, releaseDate desc) {\n      title,\n      "slug": slug.current\n    }\n  }\n': PROJECT_QUERY_RESULT;
   }
