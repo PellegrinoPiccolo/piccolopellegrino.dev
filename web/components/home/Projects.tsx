@@ -8,7 +8,7 @@ type ProjectsProps = {
 
 const Projects = ({ featuredProjects }: ProjectsProps) => {
   return (
-    <div className="w-full bg-page scroll-mt-20" id="projects">
+    <div className="w-full bg-section scroll-mt-20" id="projects">
       <div className="container">
         {featuredProjects?.length ? (
           featuredProjects.map((project) => (
