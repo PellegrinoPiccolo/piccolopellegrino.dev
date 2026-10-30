@@ -106,7 +106,7 @@ const RecentProjectCard = ({ project }: { project: ProjectItem }) => {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="flex flex-col gap-4 bg-card p-4 rounded-lg"
+      className="flex flex-col gap-4 bg-card p-4 rounded-lg transition-shadow duration-300 hover:shadow-[0_10px_30px_-12px_var(--color-indicator)]"
     >
       <div className="flex w-full aspect-16/10 items-center justify-center overflow-hidden rounded-lg border-2 border-line-card border-dashed p-2">
         <Image
