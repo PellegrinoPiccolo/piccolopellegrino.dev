@@ -57,7 +57,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${notoSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="font-sans">
+      <body className="font-sans bg-page min-h-full">
         <Header />
         {children}
         <Footer />
