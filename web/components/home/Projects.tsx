@@ -9,18 +9,25 @@ type ProjectsProps = {
 
 const Projects = ({ featuredProjects }: ProjectsProps) => {
   return (
-    <div className="w-full bg-section scroll-mt-20" id="projects">
+    <section
+      className="w-full bg-section scroll-mt-20"
+      id="projects"
+      aria-labelledby="projects-heading"
+    >
       <div className="container py-20 flex flex-col gap-2">
         <p className="text-primary font-mono text-base">01 — Projects</p>
         <div className="flex flex-row justify-between items-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-heading">
+          <h2
+            id="projects-heading"
+            className="text-3xl md:text-5xl font-bold text-heading"
+          >
             Selected work
           </h2>
           <Link
             href="/projects"
             className="text-sm md:text-base text-link flex flex-row items-center gap-2"
           >
-            <p>All Projects</p>
+            <span>All Projects</span>
             <FaArrowRight />
           </Link>
         </div>
@@ -36,7 +43,7 @@ const Projects = ({ featuredProjects }: ProjectsProps) => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
@@ -49,9 +56,9 @@ const EmptyProjects = () => {
         <p className="font-mono text-sm md:text-base text-comment">
           /* Work in progress */
         </p>
-        <h2 className="text-3xl md:text-h2 text-heading">
+        <h3 className="text-3xl md:text-h2 text-heading">
           New projects coming soon
-        </h2>
+        </h3>
         <p className="max-w-xl text-sm md:text-lg text-description">
           I&apos;m curating a selection of my best work. In the meantime, feel
           free to reach out to talk about your next idea.

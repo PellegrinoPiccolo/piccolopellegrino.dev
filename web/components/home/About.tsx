@@ -23,7 +23,11 @@ const workSteps = [
 
 const About = () => {
   return (
-    <div className="w-full bg-page scroll-mt-20" id="about">
+    <section
+      className="w-full bg-page scroll-mt-20"
+      id="about"
+      aria-labelledby="about-heading"
+    >
       <div className="container py-12 md:py-20 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
         <div className="w-full max-w-sm lg:max-w-none aspect-square relative lg:flex-1">
           <Image
@@ -37,7 +41,10 @@ const About = () => {
         </div>
         <div className="lg:flex-2 w-full flex flex-col gap-4">
           <p className="text-primary font-mono text-base">02 — About</p>
-          <h2 className="text-3xl md:text-5xl font-bold text-heading">
+          <h2
+            id="about-heading"
+            className="text-3xl md:text-5xl font-bold text-heading"
+          >
             A builder, end to end.
           </h2>
           <p className="text-base md:text-lg text-body font-medium leading-relaxed md:leading-loose">
@@ -67,7 +74,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

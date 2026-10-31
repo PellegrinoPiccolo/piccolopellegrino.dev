@@ -27,7 +27,11 @@ const Contacts = [
 
 const Contact = () => {
   return (
-    <div className="w-full bg-page scroll-mt-40" id="contact">
+    <section
+      className="w-full bg-page scroll-mt-40"
+      id="contact"
+      aria-labelledby="contact-heading"
+    >
       <div className="container my-20 py-10 flex flex-col lg:flex-row lg:items-start bg-section rounded-lg border border-primary/40 gap-8">
         <div className="flex flex-col gap-8 flex-1">
           <div className="flex flex-row items-center justify-between">
@@ -39,7 +43,10 @@ const Contact = () => {
               </p>
             </div>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-heading leading-snug">
+          <h2
+            id="contact-heading"
+            className="text-3xl md:text-5xl font-bold text-heading leading-snug"
+          >
             Have a project <br /> in mind?
           </h2>
           <p className="text-description text-lg">
@@ -82,7 +89,7 @@ const Contact = () => {
           <Form />
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
