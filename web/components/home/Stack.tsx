@@ -8,10 +8,17 @@ type StackProps = {
 
 const Stack = ({ stack }: StackProps) => {
   return (
-    <div className="w-full bg-section scroll-mt-20" id="stack">
+    <section
+      className="w-full bg-section scroll-mt-20"
+      id="stack"
+      aria-labelledby="stack-heading"
+    >
       <div className="container py-20 flex flex-col items-start gap-4">
         <p className="text-primary font-mono text-base">03 — Stack</p>
-        <h2 className="text-3xl md:text-5xl font-bold text-heading">
+        <h2
+          id="stack-heading"
+          className="text-3xl md:text-5xl font-bold text-heading"
+        >
           Tools I ship with
         </h2>
         <p className="text-description text-lg">
@@ -27,7 +34,7 @@ const Stack = ({ stack }: StackProps) => {
           <EmptyStack />
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
