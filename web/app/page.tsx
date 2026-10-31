@@ -1,6 +1,7 @@
 import Hero from "@/components/home/Hero";
 import Projects from "@/components/home/Projects";
 import About from "@/components/home/About";
+import Contact from "@/components/home/Contact";
 import { client } from "@/sanity/client";
 import {
   FEATURED_PROJECTS_QUERY,
@@ -32,6 +33,7 @@ export default async function Home() {
       <Projects featuredProjects={featuredProjects} />
       <About />
       <Stack stack={stack} />
+      <Contact />
     </div>
   );
 }
