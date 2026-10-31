@@ -2,6 +2,7 @@ import Form from "./ui/Form";
 import { MdOutlineEmail } from "react-icons/md";
 import { FiGithub } from "react-icons/fi";
 import { FiLinkedin } from "react-icons/fi";
+import { LuMapPin } from "react-icons/lu";
 
 const Contacts = [
   {
@@ -26,8 +27,8 @@ const Contacts = [
 
 const Contact = () => {
   return (
-    <div className="w-full bg-page scroll-mt-20" id="contact">
-      <div className="container my-20 py-10 flex flex-row items-center bg-section rounded-lg border border-primary/40">
+    <div className="w-full bg-page scroll-mt-40" id="contact">
+      <div className="container my-20 py-10 flex flex-col lg:flex-row lg:items-start bg-section rounded-lg border border-primary/40 gap-8">
         <div className="flex flex-col gap-8 flex-1">
           <div className="flex flex-row items-center justify-between">
             <p className="text-primary font-mono text-base">04 — Contact</p>
@@ -38,8 +39,8 @@ const Contact = () => {
               </p>
             </div>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-heading">
-            Have a project in mind?
+          <h2 className="text-3xl md:text-5xl font-bold text-heading leading-snug">
+            Have a project <br /> in mind?
           </h2>
           <p className="text-description text-lg">
             Tell me what you're building: an app, a website or a tool. I'll get
@@ -60,7 +61,7 @@ const Contact = () => {
                   </p>
                   <a
                     href={contact.link}
-                    className="text-heading text-lg font-bold"
+                    className="text-heading text-base md:text-lg font-bold"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -69,6 +70,12 @@ const Contact = () => {
                 </div>
               </div>
             ))}
+            <div className="flex flex-row items-center gap-2 mt-4">
+              <LuMapPin className="text-description text-sm" />
+              <p className="text-description text-sm">
+                Italy - working remotely in Italian and English
+              </p>
+            </div>
           </div>
         </div>
         <div className="flex-1">
