@@ -1,4 +1,5 @@
 import {CogIcon} from '@sanity/icons/Cog'
+import {StackIcon} from '@sanity/icons/Stack'
 import {StarIcon} from '@sanity/icons/Star'
 import type {StructureResolver} from 'sanity/structure'
 
@@ -34,6 +35,10 @@ export const structure: StructureResolver = (S) =>
                     .documentId('featuredProjects')
                     .title('Featured projects'),
                 ),
+              S.listItem()
+                .title('Stack')
+                .icon(StackIcon)
+                .child(S.document().schemaType('stack').documentId('stack').title('Stack')),
             ]),
         ),
     ])

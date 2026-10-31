@@ -32,6 +32,7 @@ const About = () => {
             className="rounded-lg object-cover"
             sizes="(min-width: 1024px) 33vw, 384px"
             fill
+            loading="lazy"
           />
         </div>
         <div className="lg:flex-2 w-full flex flex-col gap-4">

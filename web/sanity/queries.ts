@@ -33,6 +33,20 @@ export const FEATURED_PROJECTS_QUERY = defineQuery(`
   }
 `);
 
+export const STACK_QUERY = defineQuery(`
+  *[_id == "stack"][0].groups[] {
+    _key,
+    title,
+    items,
+    "projects": projects[defined(@->slug.current)]-> {
+      _id,
+      title,
+      "slug": slug.current
+    },
+    note
+  }
+`);
+
 export const PROJECT_SLUGS_QUERY = defineQuery(`
   *[_type == "project" && defined(slug.current)].slug.current
 `);
