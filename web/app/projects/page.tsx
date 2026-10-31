@@ -29,6 +29,25 @@ export const metadata: Metadata = {
   },
 };
 
+// ProjectItem = {
+//   _id: string;
+//   title: string | null;
+//   slug: string | null;
+//   kind: "Desktop app" | "Mobile app" | "Tool" | "Web app" | "Website" | null;
+//   category: "app" | "desktop" | "web" | null;
+//   isClientWork: boolean | null;
+//   releaseDate: string | null;
+//   excerpt: string | null;
+//   stack: string[] | null;
+//   icon: SanityImage | null;
+//   cover: (SanityImage & {
+//     alt?: string;
+//     asset: {
+//       _id: string;
+//       metadata: { lqip: string | null; dimensions: SanityImageDimensions | null } | null;
+//     } | null;
+//   }) | null;
+// }
 const Page = async () => {
   const projects = await getProjects();
 

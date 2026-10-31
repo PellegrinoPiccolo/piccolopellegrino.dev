@@ -70,6 +70,56 @@ export async function generateMetadata({
   };
 }
 
+// ProjectDetail = {
+//   _id: string;
+//   title: string | null;
+//   slug: string | null;
+//   kind: "Desktop app" | "Mobile app" | "Tool" | "Web app" | "Website" | null;
+//   isClientWork: boolean | null;
+//   releaseDate: string | null;
+//   excerpt: string | null;
+//   stack: string[] | null;
+//   role: string | null;
+//   platforms: string | null;
+//   architectureSummary: string | null;
+//   links: { repo?: string; live?: string; store?: string; storeLabel?: string } | null;
+//   icon: SanityImage | null;
+//   gallery: (SanityImage & {
+//     _key: string;
+//     alt?: string;
+//     caption?: string;
+//     asset: {
+//       _id: string;
+//       metadata: { lqip: string | null; dimensions: SanityImageDimensions | null } | null;
+//     } | null;
+//   })[] | null;
+//   layersBoundary: string | null;
+//   layers: {
+//     _key: string;
+//     name: string | null;
+//     tech: string | null;
+//     icon: "bell" | "cloud-off" | "cloud" | "code" | "database" | "globe" | "lock" | "phone" | "server" | null;
+//     group: "absent" | "core" | null;
+//     connector: string | null;
+//     sideBySide: boolean | null;
+//     decisions: string[] | null;
+//   }[] | null;
+//   decisions: {
+//     _key: string;
+//     code: string | null;
+//     title: string | null;
+//     shortLabel: string | null;
+//     context: string | null;
+//     decision: string | null;
+//     tradeoff: string | null;
+//     alternatives: string[] | null;
+//   }[] | null;
+//   seoTitle: string | null;
+//   seoDescription: string | null;
+//   ogImage: SanityImage | null;
+//   cover: (SanityImage & { alt?: string }) | null;
+//   siblings: { title: string | null; slug: string | null }[];
+// }
 const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
   const { slug } = await params;
   const project = await getProject(slug);
