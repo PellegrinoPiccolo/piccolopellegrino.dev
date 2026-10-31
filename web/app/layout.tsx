@@ -55,7 +55,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${notoSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${notoSans.variable} ${jetbrainsMono.variable} h-full antialiased scroll-smooth`}
     >
       <body className="font-sans bg-page min-h-full scheme-dark">
         <Header />

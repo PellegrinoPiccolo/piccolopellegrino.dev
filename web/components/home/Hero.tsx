@@ -29,11 +29,11 @@ type HeroProps = {
 const Hero = ({ recentProjects }: HeroProps) => {
   return (
     <div className="w-full bg-page">
-      <div className="container flex flex-col py-20 gap-4 md:gap-0">
+      <div className="container flex flex-col pt-15 pb-20 md:py-20 gap-4 md:gap-0">
         <p className="font-mono text-sm lg:text-base text-primary font-medium">
           /* Full-stack & mobile developer */
         </p>
-        <h1 className="text-6xl md:text-hero font-bold text-heading">
+        <h1 className="text-6xl md:text-hero font-bold text-heading leading-[1.1]">
           Pellegrino <br /> Piccolo
         </h1>
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mt-4">

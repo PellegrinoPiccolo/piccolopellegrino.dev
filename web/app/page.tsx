@@ -1,5 +1,6 @@
 import Hero from "@/components/home/Hero";
 import Projects from "@/components/home/Projects";
+import About from "@/components/home/About";
 import { client } from "@/sanity/client";
 import { FEATURED_PROJECTS_QUERY, PROJECTS_QUERY } from "@/sanity/queries";
 import type { Metadata } from "next";
@@ -22,6 +23,7 @@ export default async function Home() {
     <div className="w-full bg-page">
       <Hero recentProjects={projects.slice(0, 3)} />
       <Projects featuredProjects={featuredProjects} />
+      <About />
     </div>
   );
 }
