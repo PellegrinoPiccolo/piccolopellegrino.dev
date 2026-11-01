@@ -3,7 +3,7 @@ import Image from "next/image";
 import { FiDownload, FiExternalLink, FiGithub } from "react-icons/fi";
 import { FaArrowRight } from "react-icons/fa6";
 import type { SanityImageSource } from "@sanity/image-url/signed";
-import type { FeaturedProjectItem } from "@/constants/type";
+import type { FeaturedProjectItem, ProjectItem } from "@/constants/type";
 import { urlFor } from "@/sanity/image";
 
 /**
@@ -24,7 +24,7 @@ import { urlFor } from "@/sanity/image";
  */
 
 type ProjectCardProps = {
-  project: FeaturedProjectItem;
+  project: FeaturedProjectItem | ProjectItem;
 };
 
 const ProjectCard = ({ project }: ProjectCardProps) => {
