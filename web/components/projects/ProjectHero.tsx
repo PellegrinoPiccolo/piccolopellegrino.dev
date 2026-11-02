@@ -32,7 +32,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8">
-      <div className="flex flex-col gap-4 md:flex-2">
+      <div className="flex w-full min-w-0 flex-col gap-4 md:flex-2">
         <Link
           href="/projects"
           className="flex items-center gap-2 text-indicator"
@@ -40,7 +40,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
           <FaArrowLeft />
           All projects
         </Link>
-        <div className="flex flex-row items-center gap-4">
+        <div className="flex min-w-0 flex-row items-center gap-4">
           {project.icon?.asset ? (
             <Image
               src={urlFor(project.icon as SanityImageSource)
@@ -50,15 +50,17 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
               alt=""
               width={64}
               height={64}
-              className="size-16 rounded-icon object-cover"
+              className="size-16 shrink-0 rounded-icon object-cover"
             />
           ) : (
-            <div className="flex size-16 items-center justify-center rounded-icon bg-indigo-bright text-2xl font-bold text-heading">
+            <div className="flex size-16 shrink-0 items-center justify-center rounded-icon bg-indigo-bright text-2xl font-bold text-heading">
               {project.title?.charAt(0)}
             </div>
           )}
-          <div className="flex flex-col gap-2">
-            <h1 className="text-4xl font-bold text-heading">{project.title}</h1>
+          <div className="flex min-w-0 flex-col gap-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-heading wrap-break-word">
+              {project.title}
+            </h1>
             <p className="text-base text-description">
               {[
                 project.kind,
@@ -124,7 +126,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
           )}
         </div>
       </div>
-      <div className="flex flex-col gap-4 mt-8 bg-card border border-primary/40 rounded-lg p-8 w-full md:flex-1">
+      <div className="flex flex-col gap-4 mt-8 bg-card border border-primary/40 rounded-lg p-4 md:p-8 w-full md:flex-1">
         {InfoSection.map((info) => (
           <div key={info.title} className="flex flex-col">
             <span className="font-bold text-description uppercase text-sm">
