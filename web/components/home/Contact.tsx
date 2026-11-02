@@ -51,7 +51,7 @@ const Contact = () => {
           </h2>
           <p className="text-description text-lg">
             Tell me what you're building: an app, a website or a tool. I'll get
-            back to you within an hour.
+            back to you within 24 hours.
           </p>
           <div className="flex flex-col border-t border-divider">
             {Contacts.map((contact, index) => (

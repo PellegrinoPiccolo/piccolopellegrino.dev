@@ -151,7 +151,7 @@ export const project = defineType({
       name: 'order',
       type: 'number',
       group: 'general',
-      description: 'Manual ordering, also used for previous/next navigation',
+      description: 'Tie-breaker for projects with the same release date (lists and previous/next navigation)',
     }),
 
     // Gallery

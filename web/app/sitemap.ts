@@ -25,6 +25,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    {
+      url: absoluteUrl("/privacy"),
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
     ...projects
       .filter((project) => project.slug)
       .map((project) => ({

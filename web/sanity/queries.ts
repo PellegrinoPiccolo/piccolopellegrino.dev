@@ -83,7 +83,7 @@ export const PROJECT_QUERY = defineQuery(`
     ogImage,
     cover,
     _updatedAt,
-    "siblings": *[_type == "project" && defined(slug.current)] | order(order asc, releaseDate desc) {
+    "siblings": *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {
       title,
       "slug": slug.current
     }

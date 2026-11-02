@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Footer = () => {
   return (
     <footer className="w-full bg-page border-t border-divider">
@@ -7,7 +9,10 @@ const Footer = () => {
           {new Date().getFullYear()}
         </p>
         <p className="text-sm lg:text-base text-body">
-          Built with Next.js & Tailwind
+          Built with Next.js & Tailwind ·{" "}
+          <Link href="/privacy" className="hover:text-link hover:underline">
+            Privacy
+          </Link>
         </p>
       </div>
     </footer>
