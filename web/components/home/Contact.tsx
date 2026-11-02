@@ -81,7 +81,8 @@ const Contact = () => {
             <div className="flex flex-row items-center gap-2 mt-4">
               <LuMapPin className="text-description text-sm" />
               <p className="text-description text-sm">
-                Italy - working remotely in Italian and English
+                Montesarchio (BN), Italy - working locally and remotely in
+                Italian and English
               </p>
             </div>
           </div>
