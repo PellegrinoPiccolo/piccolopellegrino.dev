@@ -13,7 +13,6 @@ import { cache } from "react";
 import Stack from "@/components/home/Stack";
 import JsonLd from "@/components/ui/JsonLd";
 import {
-  absoluteUrl,
   personId,
   siteDescription,
   siteName,
@@ -54,7 +53,6 @@ export default async function Home() {
         "@id": personId,
         name: siteName,
         url: siteUrl,
-        image: absoluteUrl("/about.jpg"),
         jobTitle: "Full-stack & Mobile Developer",
         description: siteDescription,
         knowsAbout: [
