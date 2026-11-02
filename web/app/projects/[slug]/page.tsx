@@ -8,6 +8,7 @@ import { PROJECT_QUERY, PROJECT_SLUGS_QUERY } from "@/sanity/queries";
 import ProjectHero from "@/components/projects/ProjectHero";
 import ProjectGallery from "@/components/projects/ProjectGallery";
 import ProjectArchitecture from "@/components/projects/ProjectArchitecture";
+import ProjectDecisions from "@/components/projects/ProjectDecisions";
 
 const getProject = cache((slug: string) =>
   client.fetch(PROJECT_QUERY, { slug }),
@@ -141,6 +142,7 @@ const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
         <div className="container py-20 flex flex-col gap-20">
           <ProjectGallery project={project} />
           <ProjectArchitecture project={project} />
+          <ProjectDecisions project={project} />
         </div>
       </div>
     </div>

@@ -108,6 +108,17 @@
   --radius-icon: 14px;
   --radius-tag: 6px;
 
+  /* Animations */
+  --animate-highlight: highlight 3s ease-out;
+
+  @keyframes highlight {
+    0%,
+    60% {
+      border-color: var(--color-indicator);
+      background-color: color-mix(in oklab, var(--color-indicator) 5%, var(--color-card));
+    }
+  }
+
   /* shadcn/ui aliases */
   --color-background: var(--color-page);
   --color-foreground: var(--color-fg);
