@@ -80,9 +80,9 @@ const Header = () => {
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.png"
-              alt="Logo"
-              width={40}
-              height={48}
+              alt="Pellegrino Piccolo — home"
+              width={429}
+              height={72}
               className="w-50 md:w-65"
               loading="eager"
             />
@@ -140,9 +140,9 @@ const Header = () => {
           <Link href="/" className="flex items-center" onClick={closeMenu}>
             <Image
               src="/logo.png"
-              alt="Logo"
-              width={40}
-              height={48}
+              alt="Pellegrino Piccolo — home"
+              width={429}
+              height={72}
               className="w-50"
               loading="eager"
             />
