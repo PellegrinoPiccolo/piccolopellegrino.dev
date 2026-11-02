@@ -2,7 +2,7 @@ export const siteUrl = "https://piccolopellegrino.dev";
 export const siteName = "Pellegrino Piccolo";
 export const siteTitle = `${siteName} — Full-stack & Mobile Developer`;
 export const siteDescription =
-  "Pellegrino Piccolo is a full-stack and mobile developer building web, mobile and desktop apps with React Native, Next.js and Electron, from design to release.";
+  "Pellegrino Piccolo is a full-stack and mobile developer based in Montesarchio (Benevento), Italy, building web, mobile and desktop apps with React Native, Next.js and Electron.";
 
 export const contactEmail = "piccolopellegrino.dev@gmail.com";
 

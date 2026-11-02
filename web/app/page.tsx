@@ -66,6 +66,15 @@ export default async function Home() {
           "Web development",
           "Cloud computing",
         ],
+        homeLocation: {
+          "@type": "Place",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Montesarchio",
+            addressRegion: "BN",
+            addressCountry: "IT",
+          },
+        },
         affiliation: {
           "@type": "CollegeOrUniversity",
           name: "University of Salerno",
