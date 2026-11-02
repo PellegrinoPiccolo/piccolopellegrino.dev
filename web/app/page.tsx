@@ -10,6 +10,7 @@ import {
 } from "@/sanity/queries";
 import type { Metadata } from "next";
 import { cache } from "react";
+import { getResumeUrl } from "@/sanity/resume";
 import Stack from "@/components/home/Stack";
 import JsonLd from "@/components/ui/JsonLd";
 import {
@@ -35,6 +36,7 @@ export default async function Home() {
   const projects = await getProjects();
   const featuredProjects = await getFeaturedProjects();
   const stack = await getStack();
+  const resumeUrl = await getResumeUrl();
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -78,7 +80,7 @@ export default async function Home() {
       <JsonLd data={jsonLd} />
       <Hero recentProjects={projects.slice(0, 3)} />
       <Projects featuredProjects={featuredProjects} />
-      <About />
+      <About resumeUrl={resumeUrl} />
       <Stack stack={stack} />
       <Contact />
     </div>

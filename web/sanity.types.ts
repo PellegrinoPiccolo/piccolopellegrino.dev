@@ -15,6 +15,27 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: schema.json
+export type SanityFileAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+};
+
+export type Resume = {
+  _id: string;
+  _type: "resume";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  file?: {
+    asset?: SanityFileAssetReference;
+    media?: unknown;
+    _type: "file";
+  };
+  fileName?: string;
+};
+
 export type ProjectReference = {
   _ref: string;
   _type: "reference";
@@ -274,6 +295,8 @@ export type Geopoint = {
 };
 
 export type AllSanitySchemaTypes =
+  | SanityFileAssetReference
+  | Resume
   | ProjectReference
   | Stack
   | FeaturedProjects
@@ -389,6 +412,14 @@ export type STACK_QUERY_RESULT = Array<{
   }> | null;
   note: string | null;
 }> | null;
+
+// Source: ../web/sanity/queries.ts
+// Variable: RESUME_QUERY
+// Query: *[_id == "resume" && defined(file.asset)][0] {    "url": file.asset->url,    fileName  }
+export type RESUME_QUERY_RESULT = {
+  url: string | null;
+  fileName: string | null;
+} | null;
 
 // Source: ../web/sanity/queries.ts
 // Variable: PROJECT_SLUGS_QUERY
@@ -508,6 +539,7 @@ declare global {
     '\n  *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    links,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': PROJECTS_QUERY_RESULT;
     '\n  *[_id == "featuredProjects"][0].projects[defined(@->slug.current)]-> {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    links,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
     '\n  *[_id == "stack"][0].groups[] {\n    _key,\n    title,\n    items,\n    "projects": projects[defined(@->slug.current)]-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n    note\n  }\n': STACK_QUERY_RESULT;
+    '\n  *[_id == "resume" && defined(file.asset)][0] {\n    "url": file.asset->url,\n    fileName\n  }\n': RESUME_QUERY_RESULT;
     '\n  *[_type == "project" && defined(slug.current)].slug.current\n': PROJECT_SLUGS_QUERY_RESULT;
     '\n  *[_type == "project" && defined(slug.current)] {\n    "slug": slug.current,\n    _updatedAt\n  }\n': SITEMAP_QUERY_RESULT;
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    role,\n    platforms,\n    architectureSummary,\n    links,\n    icon,\n    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },\n    layersBoundary,\n    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },\n    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },\n    seoTitle,\n    seoDescription,\n    ogImage,\n    cover,\n    _updatedAt,\n    "siblings": *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {\n      title,\n      "slug": slug.current\n    }\n  }\n': PROJECT_QUERY_RESULT;

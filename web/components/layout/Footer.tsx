@@ -1,7 +1,13 @@
 import Link from "next/link";
-import { FiArrowUp, FiGithub, FiLinkedin } from "react-icons/fi";
+import {
+  FiArrowUp,
+  FiDownload,
+  FiGithub,
+  FiLinkedin,
+} from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
 import { contactEmail, navItems, siteName, socialLinks } from "@/lib/site";
+import { getResumeUrl } from "@/sanity/resume";
 
 const footerNav = [
   ...navItems,
@@ -18,7 +24,12 @@ const connectLinks = [
 const linkClass =
   "text-sm lg:text-base text-body transition-colors hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator";
 
-const Footer = () => {
+const Footer = async () => {
+  const resumeUrl = await getResumeUrl();
+  const links = resumeUrl
+    ? [...connectLinks, { href: resumeUrl, label: "Resume", icon: FiDownload }]
+    : connectLinks;
+
   return (
     <footer className="w-full bg-page border-t border-divider">
       <div className="container py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr] gap-10">
@@ -52,11 +63,15 @@ const Footer = () => {
         <div className="flex flex-col gap-4">
           <p className="font-mono text-sm uppercase text-primary">Connect</p>
           <ul className="flex flex-col gap-2">
-            {connectLinks.map((item) => (
+            {links.map((item) => (
               <li key={item.label}>
                 <a
                   href={item.href}
-                  target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                  target={
+                    item.href.startsWith("mailto:") || item.href === resumeUrl
+                      ? undefined
+                      : "_blank"
+                  }
                   rel="noopener noreferrer"
                   className={`${linkClass} inline-flex items-center gap-2`}
                 >

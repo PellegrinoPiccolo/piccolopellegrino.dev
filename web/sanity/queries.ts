@@ -48,6 +48,13 @@ export const STACK_QUERY = defineQuery(`
   }
 `);
 
+export const RESUME_QUERY = defineQuery(`
+  *[_id == "resume" && defined(file.asset)][0] {
+    "url": file.asset->url,
+    fileName
+  }
+`);
+
 export const PROJECT_SLUGS_QUERY = defineQuery(`
   *[_type == "project" && defined(slug.current)].slug.current
 `);
