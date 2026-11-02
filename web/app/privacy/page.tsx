@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
-import { siteName } from "@/lib/site";
+import { contactEmail as email, siteName } from "@/lib/site";
 
-const email = "piccolopellegrino.dev@gmail.com";
 const lastUpdated = "November 2, 2026";
 
 export const metadata: Metadata = {

@@ -5,6 +5,7 @@ import type { ProjectItem, Projects } from "@/constants/type";
 import { SanityImageSource } from "@sanity/image-url/signed";
 import { urlFor } from "@/sanity/image";
 import Image from "next/image";
+import { socialLinks } from "@/lib/site";
 
 /**
  * recentProjects: Array<{...}> (3 most recent by releaseDate)
@@ -59,7 +60,7 @@ const Hero = ({ recentProjects }: HeroProps) => {
             </div>
             <div className="flex gap-2">
               <a
-                href="https://github.com/PellegrinoPiccolo"
+                href={socialLinks.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -68,7 +69,7 @@ const Hero = ({ recentProjects }: HeroProps) => {
                 <FiGithub className="text-xl md:text-2xl transition-transform duration-300 ease-out group-hover:scale-110 group-hover:-rotate-8" />
               </a>
               <a
-                href="https://www.linkedin.com/in/pellegrino-piccolo-2a6739247"
+                href={socialLinks.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -121,6 +122,8 @@ const RecentProjectCard = ({ project }: { project: ProjectItem }) => {
                 16 / 10),
           )}
           loading="eager"
+          placeholder={project.cover?.asset?.metadata?.lqip ? "blur" : "empty"}
+          blurDataURL={project.cover?.asset?.metadata?.lqip ?? undefined}
           sizes="(width >= 48rem) 33vw, (width >= 40rem) 50vw, 100vw"
           className="max-h-full max-w-full w-auto h-auto rounded-md"
         />
