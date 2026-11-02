@@ -110,23 +110,29 @@ const RecentProjectCard = ({ project }: { project: ProjectItem }) => {
       className="flex flex-col gap-4 bg-card p-4 rounded-lg transition-shadow duration-300 hover:shadow-[0_10px_30px_-12px_var(--color-indicator)]"
     >
       <div className="flex w-full aspect-16/10 items-center justify-center overflow-hidden rounded-lg border-2 border-line-card border-dashed p-2">
-        <Image
-          src={urlFor(project.cover as SanityImageSource)
-            .width(600)
-            .url()}
-          alt={project.cover?.alt ?? project.title ?? "Project cover"}
-          width={600}
-          height={Math.round(
-            600 /
-              (project.cover?.asset?.metadata?.dimensions?.aspectRatio ??
-                16 / 10),
-          )}
-          loading="eager"
-          placeholder={project.cover?.asset?.metadata?.lqip ? "blur" : "empty"}
-          blurDataURL={project.cover?.asset?.metadata?.lqip ?? undefined}
-          sizes="(width >= 48rem) 33vw, (width >= 40rem) 50vw, 100vw"
-          className="max-h-full max-w-full w-auto h-auto rounded-md"
-        />
+        {project.cover?.asset ? (
+          <Image
+            src={urlFor(project.cover as SanityImageSource)
+              .width(600)
+              .url()}
+            alt={project.cover.alt ?? project.title ?? "Project cover"}
+            width={600}
+            height={Math.round(
+              600 /
+                (project.cover.asset.metadata?.dimensions?.aspectRatio ??
+                  16 / 10),
+            )}
+            loading="eager"
+            placeholder={project.cover.asset.metadata?.lqip ? "blur" : "empty"}
+            blurDataURL={project.cover.asset.metadata?.lqip ?? undefined}
+            sizes="(width >= 48rem) 33vw, (width >= 40rem) 50vw, 100vw"
+            className="max-h-full max-w-full w-auto h-auto rounded-md"
+          />
+        ) : (
+          <span className="font-mono text-caption text-muted">
+            {project.title}
+          </span>
+        )}
       </div>
       <div className="flex flex-row justify-between items-center">
         <p className="text-heading font-bold text-lg">{project.title}</p>

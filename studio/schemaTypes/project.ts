@@ -73,6 +73,13 @@ export const project = defineType({
       initialValue: false,
     }),
     defineField({
+      name: 'hidden',
+      type: 'boolean',
+      group: 'general',
+      description: 'Hide this project from the site without deleting it',
+      initialValue: false,
+    }),
+    defineField({
       name: 'releaseDate',
       type: 'date',
       group: 'general',
@@ -327,6 +334,11 @@ export const project = defineType({
     },
   ],
   preview: {
-    select: {title: 'title', subtitle: 'kind', media: 'icon'},
+    select: {title: 'title', subtitle: 'kind', media: 'icon', hidden: 'hidden'},
+    prepare: ({title, subtitle, media, hidden}) => ({
+      title,
+      subtitle: hidden ? ['Hidden', subtitle].filter(Boolean).join(' · ') : subtitle,
+      media,
+    }),
   },
 })
