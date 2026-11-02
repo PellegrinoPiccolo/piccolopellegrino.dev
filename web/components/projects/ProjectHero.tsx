@@ -40,7 +40,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
           <FaArrowLeft />
           All projects
         </Link>
-        <div className="flex min-w-0 flex-row items-center gap-4">
+        <div className="flex min-w-0 flex-col md:flex-row items-center justify-center md:justify-start gap-4 mt-4">
           {project.icon?.asset ? (
             <Image
               src={urlFor(project.icon as SanityImageSource)
@@ -57,7 +57,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
               {project.title?.charAt(0)}
             </div>
           )}
-          <div className="flex min-w-0 flex-col gap-2">
+          <div className="flex min-w-0 flex-col gap-2 text-center md:text-left">
             <h1 className="text-3xl md:text-4xl font-bold text-heading wrap-break-word">
               {project.title}
             </h1>
@@ -79,8 +79,10 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
             </p>
           </div>
         </div>
-        <p className="text-base text-description">{project.excerpt}</p>
-        <div className="flex flex-row gap-4 mt-4 flex-wrap">
+        <p className="text-base text-description text-center md:text-left">
+          {project.excerpt}
+        </p>
+        <div className="flex flex-row items-center justify-center md:justify-start gap-4 mt-4 flex-wrap">
           {project.stack?.map((stack) => (
             <span
               key={stack}
@@ -90,7 +92,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
             </span>
           ))}
         </div>
-        <div className="flex flex-row gap-4 mt-4 flex-wrap">
+        <div className="flex flex-row justify-center md:justify-start gap-4 mt-4 flex-wrap">
           {project.links?.repo && (
             <a
               href={project.links.repo}
