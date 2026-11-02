@@ -6,6 +6,7 @@ import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/image";
 import { PROJECT_QUERY, PROJECT_SLUGS_QUERY } from "@/sanity/queries";
 import { FaArrowLeft } from "react-icons/fa6";
+import { FiArrowUpRight, FiGithub } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -211,12 +212,47 @@ const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
                   </span>
                 ))}
               </div>
+              <div className="flex flex-row gap-4 mt-4 flex-wrap">
+                {project.links?.repo && (
+                  <a
+                    href={project.links.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 rounded-lg border border-line-strong bg-card px-6 py-3 font-bold text-heading transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+                  >
+                    <FiGithub className="text-xl" />
+                    Code
+                  </a>
+                )}
+                {project.links?.live && (
+                  <a
+                    href={project.links.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 rounded-lg bg-primary px-6 py-3 font-bold text-heading transition-all duration-300 ease-out hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+                  >
+                    Visit site
+                    <FiArrowUpRight className="text-lg transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                )}
+                {project.links?.store && (
+                  <a
+                    href={project.links.store}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-3 rounded-lg bg-green-700 px-6 py-3 font-bold text-heading transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+                  >
+                    {project.links.storeLabel ?? "Download"}
+                    <FiArrowUpRight className="text-lg transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                )}
+              </div>
             </div>
             <div className="flex flex-col gap-4 mt-8 bg-card border border-primary/40 rounded-lg p-8 flex-1">
               {InfoSection.map((info) => (
-                <div key={info.title} className="flex flex-col gap-2">
+                <div key={info.title} className="flex flex-col">
                   <span className="font-bold text-description uppercase text-sm">
-                    {info.title}:
+                    {info.title}
                   </span>
                   <span className="text-base text-heading font-bold">
                     {info.value}
