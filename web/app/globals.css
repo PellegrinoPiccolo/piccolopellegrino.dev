@@ -1,4 +1,8 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 
 @utility container {
   width: 100%;
@@ -103,6 +107,17 @@
   --radius-layer: 14px; /* layer rows, boxes */
   --radius-icon: 14px;
   --radius-tag: 6px;
+
+  /* shadcn/ui aliases */
+  --color-background: var(--color-page);
+  --color-foreground: var(--color-fg);
+  --color-primary-foreground: var(--color-heading);
+  --color-secondary: var(--color-indigo-deep);
+  --color-secondary-foreground: var(--color-tag);
+  --color-border: var(--color-line-strong);
+  --color-input: var(--color-line);
+  --color-ring: var(--color-indicator);
+  --color-destructive: #f87171;
 }
 
 @theme inline {
