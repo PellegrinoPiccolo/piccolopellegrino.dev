@@ -11,6 +11,12 @@ export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/pellegrino-piccolo-2a6739247",
 };
 
+export const navItems = [
+  { href: "/#projects", label: "Projects" },
+  { href: "/#about", label: "About" },
+  { href: "/#stack", label: "Stack" },
+];
+
 export const defaultOgImage = {
   url: "/og.png",
   width: 1200,

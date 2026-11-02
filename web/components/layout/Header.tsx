@@ -5,16 +5,19 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
+import { navItems } from "@/lib/site";
 
-const navItems = [
-  { href: "/#projects", label: "Projects" },
-  { href: "/#about", label: "About" },
-  { href: "/#stack", label: "Stack" },
+const sectionIds = [
+  ...navItems.map((item) => item.href.slice(item.href.indexOf("#") + 1)),
+  "contact",
 ];
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
@@ -45,9 +48,39 @@ const Header = () => {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (!isHome) return;
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => section !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const sorted = [...entries].sort(
+          (a, b) => Number(a.isIntersecting) - Number(b.isIntersecting),
+        );
+        for (const entry of sorted) {
+          const id = entry.target.id;
+          if (entry.isIntersecting) {
+            setActiveSection(id);
+          } else {
+            setActiveSection((prev) => (prev === id ? null : prev));
+          }
+        }
+      },
+      { rootMargin: "-45% 0px -50% 0px" },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [isHome]);
+
   const closeMenu = () => setMenuOpen(false);
 
-  const pathname = usePathname();
+  const currentSection = isHome ? activeSection : null;
+  const isActive = (href: string) =>
+    currentSection !== null && href === `/#${currentSection}`;
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -93,7 +126,12 @@ const Header = () => {
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="text-fg"
+                aria-current={isActive(item.href) ? "location" : undefined}
+                className={`relative py-1 transition-colors hover:text-link after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-indicator after:transition-transform after:duration-300 ${
+                  isActive(item.href)
+                    ? "text-link after:scale-x-100"
+                    : "text-fg after:scale-x-0"
+                }`}
               >
                 {item.label}
               </Link>
@@ -101,7 +139,12 @@ const Header = () => {
             <Link
               href="/#contact"
               onClick={(e) => handleNavClick(e, "/#contact")}
-              className="text-fg border border-divider rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong"
+              aria-current={isActive("/#contact") ? "location" : undefined}
+              className={`border rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong ${
+                isActive("/#contact")
+                  ? "text-link border-indicator"
+                  : "text-fg border-divider"
+              }`}
             >
               Contact
             </Link>
@@ -162,7 +205,10 @@ const Header = () => {
               key={item.href}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
-              className="py-3 text-body-lg text-fg border-b border-divider"
+              aria-current={isActive(item.href) ? "location" : undefined}
+              className={`py-3 text-body-lg border-b border-divider ${
+                isActive(item.href) ? "text-link" : "text-fg"
+              }`}
             >
               {item.label}
             </Link>
@@ -170,7 +216,12 @@ const Header = () => {
           <Link
             href="/#contact"
             onClick={(e) => handleNavClick(e, "/#contact")}
-            className="mt-6 text-center text-fg border border-divider rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong"
+            aria-current={isActive("/#contact") ? "location" : undefined}
+            className={`mt-6 text-center border rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong ${
+              isActive("/#contact")
+                ? "text-link border-indicator"
+                : "text-fg border-divider"
+            }`}
           >
             Contact
           </Link>
