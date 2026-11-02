@@ -122,6 +122,7 @@ const Form = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={inputClass}
+            suppressHydrationWarning
           />
         </label>
       </div>

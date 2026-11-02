@@ -5,6 +5,11 @@ import type { SanityImageSource } from "@sanity/image-url";
 import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/image";
 import { PROJECT_QUERY, PROJECT_SLUGS_QUERY } from "@/sanity/queries";
+import ProjectHero from "@/components/projects/ProjectHero";
+import ProjectGallery from "@/components/projects/ProjectGallery";
+import ProjectArchitecture from "@/components/projects/ProjectArchitecture";
+import ProjectDecisions from "@/components/projects/ProjectDecisions";
+import ProjectNavigation from "@/components/projects/ProjectNavigation";
 
 const getProject = cache((slug: string) =>
   client.fetch(PROJECT_QUERY, { slug }),
@@ -120,13 +125,30 @@ export async function generateMetadata({
 //   cover: (SanityImage & { alt?: string }) | null;
 //   siblings: { title: string | null; slug: string | null }[];
 // }
+
 const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
   const { slug } = await params;
   const project = await getProject(slug);
 
   if (!project) notFound();
 
-  return <div>Project Details Page</div>;
+  return (
+    <div className="flex flex-col">
+      <div className="w-full bg-section">
+        <div className="container pt-15 pb-20 md:py-20 flex flex-col gap-4">
+          <ProjectHero project={project} />
+        </div>
+      </div>
+      <div className="w-full bg-page">
+        <div className="container py-20 flex flex-col gap-20">
+          <ProjectGallery project={project} />
+          <ProjectArchitecture project={project} />
+          <ProjectDecisions project={project} />
+          <ProjectNavigation project={project} />
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Page;
