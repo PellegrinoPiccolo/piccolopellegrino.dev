@@ -79,11 +79,16 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
       <div className="flex flex-1 flex-col gap-3 px-6 pt-12 pb-6">
         <div className="flex items-baseline justify-between gap-4">
-          <h3 className="text-h3 md:text-3xl font-bold text-heading">
+          <h3
+            title={project.title ?? undefined}
+            className="min-w-0 truncate text-h3 md:text-3xl font-bold text-heading"
+          >
             {project.title}
           </h3>
           {year && (
-            <span className="font-mono text-caption text-muted">{year}</span>
+            <span className="shrink-0 font-mono text-caption text-muted">
+              {year}
+            </span>
           )}
         </div>
         {project.excerpt && (
