@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
+import {
+  defaultOgImage,
+  siteDescription,
+  siteName,
+  siteTitle,
+  siteUrl,
+} from "@/lib/site";
 
 const notoSans = Noto_Sans({
   variable: "--font-noto-sans",
@@ -16,39 +23,57 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
-const siteName = "Pellegrino Piccolo";
-const description =
-  "Personal website of Pellegrino Piccolo, developer. Projects, writing and contact.";
-
 export const metadata: Metadata = {
-  metadataBase: new URL("https://piccolopellegrino.dev"),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: siteName,
+    default: siteTitle,
     template: `%s — ${siteName}`,
   },
-  description,
+  description: siteDescription,
   applicationName: siteName,
-  authors: [
-    { name: "Pellegrino Piccolo", url: "https://piccolopellegrino.dev" },
+  authors: [{ name: siteName, url: siteUrl }],
+  creator: siteName,
+  keywords: [
+    "Pellegrino Piccolo",
+    "full-stack developer",
+    "mobile developer",
+    "React Native developer",
+    "Next.js developer",
+    "Electron",
+    "freelance developer",
+    "portfolio",
   ],
-  creator: "Pellegrino Piccolo",
-  keywords: ["Pellegrino Piccolo", "developer", "portfolio", "web development"],
   openGraph: {
     type: "website",
     siteName,
-    title: siteName,
-    description,
+    title: siteTitle,
+    description: siteDescription,
+    url: "/",
     locale: "en_US",
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteName,
-    description,
+    title: siteTitle,
+    description: siteDescription,
+    images: [defaultOgImage],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0b1020",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -60,7 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="font-sans bg-page min-h-full scheme-dark">
         <Header />
-        {children}
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

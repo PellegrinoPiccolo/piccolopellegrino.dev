@@ -52,6 +52,13 @@ export const PROJECT_SLUGS_QUERY = defineQuery(`
   *[_type == "project" && defined(slug.current)].slug.current
 `);
 
+export const SITEMAP_QUERY = defineQuery(`
+  *[_type == "project" && defined(slug.current)] {
+    "slug": slug.current,
+    _updatedAt
+  }
+`);
+
 export const PROJECT_QUERY = defineQuery(`
   *[_type == "project" && slug.current == $slug][0] {
     _id,
@@ -75,6 +82,7 @@ export const PROJECT_QUERY = defineQuery(`
     seoDescription,
     ogImage,
     cover,
+    _updatedAt,
     "siblings": *[_type == "project" && defined(slug.current)] | order(order asc, releaseDate desc) {
       title,
       "slug": slug.current

@@ -32,7 +32,7 @@ const About = () => {
         <div className="w-full max-w-sm lg:max-w-none aspect-square relative lg:flex-1">
           <Image
             src="/about.jpg"
-            alt="About Me"
+            alt=""
             className="rounded-lg object-cover"
             sizes="(min-width: 1024px) 33vw, 384px"
             fill

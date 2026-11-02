@@ -10,6 +10,17 @@ import ProjectGallery from "@/components/projects/ProjectGallery";
 import ProjectArchitecture from "@/components/projects/ProjectArchitecture";
 import ProjectDecisions from "@/components/projects/ProjectDecisions";
 import ProjectNavigation from "@/components/projects/ProjectNavigation";
+import JsonLd from "@/components/ui/JsonLd";
+import {
+  absoluteUrl,
+  defaultOgImage,
+  personId,
+  siteName,
+  websiteId,
+} from "@/lib/site";
+
+const ogImageUrl = (image: SanityImageSource) =>
+  urlFor(image).width(1200).height(630).fit("crop").url();
 
 const getProject = cache((slug: string) =>
   client.fetch(PROJECT_QUERY, { slug }),
@@ -39,17 +50,13 @@ export async function generateMetadata({
   const images = image?.asset
     ? [
         {
-          url: urlFor(image as SanityImageSource)
-            .width(1200)
-            .height(630)
-            .fit("crop")
-            .url(),
+          url: ogImageUrl(image as SanityImageSource),
           width: 1200,
           height: 630,
           alt: project.title ?? title,
         },
       ]
-    : undefined;
+    : [defaultOgImage];
 
   return {
     title,
@@ -59,18 +66,22 @@ export async function generateMetadata({
     },
     openGraph: {
       type: "article",
-      siteName: "Pellegrino Piccolo",
+      siteName,
       locale: "en_US",
       title,
       description,
       url: `/projects/${slug}`,
       images,
+      authors: [siteName],
+      publishedTime: project.releaseDate ?? undefined,
+      modifiedTime: project._updatedAt,
+      tags: project.stack ?? undefined,
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: images?.map((img) => img.url),
+      images,
     },
   };
 }
@@ -132,8 +143,60 @@ const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
 
   if (!project) notFound();
 
+  const url = absoluteUrl(`/projects/${slug}`);
+  const image = project.ogImage?.asset ? project.ogImage : project.cover;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CreativeWork",
+        "@id": `${url}#project`,
+        url,
+        name: project.title,
+        headline: project.seoTitle ?? project.title,
+        description: project.seoDescription ?? project.excerpt,
+        image: image?.asset
+          ? ogImageUrl(image as SanityImageSource)
+          : undefined,
+        genre: project.kind,
+        keywords: project.stack?.join(", "),
+        datePublished: project.releaseDate,
+        dateModified: project._updatedAt,
+        author: { "@id": personId },
+        creator: { "@id": personId },
+        isPartOf: { "@id": websiteId },
+        sameAs: [project.links?.live, project.links?.repo].filter(Boolean),
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: absoluteUrl("/"),
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Projects",
+            item: absoluteUrl("/projects"),
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: project.title ?? slug,
+            item: url,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="flex flex-col">
+      <JsonLd data={jsonLd} />
       <div className="w-full bg-section">
         <div className="container pt-15 pb-20 md:py-20 flex flex-col gap-4">
           <ProjectHero project={project} />
