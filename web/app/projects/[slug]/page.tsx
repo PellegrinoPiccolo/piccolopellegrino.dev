@@ -9,6 +9,7 @@ import ProjectHero from "@/components/projects/ProjectHero";
 import ProjectGallery from "@/components/projects/ProjectGallery";
 import ProjectArchitecture from "@/components/projects/ProjectArchitecture";
 import ProjectDecisions from "@/components/projects/ProjectDecisions";
+import ProjectNavigation from "@/components/projects/ProjectNavigation";
 
 const getProject = cache((slug: string) =>
   client.fetch(PROJECT_QUERY, { slug }),
@@ -143,6 +144,7 @@ const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
           <ProjectGallery project={project} />
           <ProjectArchitecture project={project} />
           <ProjectDecisions project={project} />
+          <ProjectNavigation project={project} />
         </div>
       </div>
     </div>
