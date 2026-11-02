@@ -3,23 +3,24 @@ import { MdOutlineEmail } from "react-icons/md";
 import { FiGithub } from "react-icons/fi";
 import { FiLinkedin } from "react-icons/fi";
 import { LuMapPin } from "react-icons/lu";
+import { contactEmail, siteName, socialLinks } from "@/lib/site";
 
 const Contacts = [
   {
     icon: MdOutlineEmail,
-    link: "mailto:piccolopellegrino.dev@gmail.com",
+    link: `mailto:${contactEmail}`,
     title: "Email",
-    value: "piccolopellegrino.dev@gmail.com",
+    value: contactEmail,
   },
   {
     icon: FiLinkedin,
-    link: "https://www.linkedin.com/in/pellegrino-piccolo-2a6739247",
+    link: socialLinks.linkedin,
     title: "LinkedIn",
-    value: "Pellegrino Piccolo",
+    value: siteName,
   },
   {
     icon: FiGithub,
-    link: "https://github.com/PellegrinoPiccolo",
+    link: socialLinks.github,
     title: "GitHub",
     value: "PellegrinoPiccolo",
   },
@@ -51,7 +52,7 @@ const Contact = () => {
           </h2>
           <p className="text-description text-lg">
             Tell me what you're building: an app, a website or a tool. I'll get
-            back to you within an hour.
+            back to you within 24 hours.
           </p>
           <div className="flex flex-col border-t border-divider">
             {Contacts.map((contact, index) => (

@@ -68,6 +68,10 @@ const Carousel = ({ images }: CarouselProps) => {
                               16 / 10),
                         )}
                         loading={index === 0 ? "eager" : "lazy"}
+                        placeholder={
+                          image.asset?.metadata?.lqip ? "blur" : "empty"
+                        }
+                        blurDataURL={image.asset?.metadata?.lqip ?? undefined}
                         className="max-h-full max-w-full w-auto h-auto cursor-zoom-in rounded-lg"
                       />
                     </PhotoView>
