@@ -6,6 +6,14 @@ import { FaArrowLeft } from "react-icons/fa6";
 import Link from "next/link";
 import ProjectCard from "@/components/ui/ProjectCard";
 import ProjectsList from "@/components/projects/ProjectsList";
+import JsonLd from "@/components/ui/JsonLd";
+import {
+  absoluteUrl,
+  defaultOgImage,
+  personId,
+  siteName,
+  websiteId,
+} from "@/lib/site";
 
 const getProjects = cache(() => client.fetch(PROJECTS_QUERY));
 
@@ -20,16 +28,18 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    siteName: "Pellegrino Piccolo",
+    siteName,
     locale: "en_US",
-    title: "Projects",
+    title: `Projects — ${siteName}`,
     description,
     url: "/projects",
+    images: [defaultOgImage],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Projects",
+    title: `Projects — ${siteName}`,
     description,
+    images: [defaultOgImage],
   },
 };
 
@@ -56,8 +66,51 @@ const Page = async () => {
   const projects = await getProjects();
   const length = projects.length;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": absoluteUrl("/projects"),
+        url: absoluteUrl("/projects"),
+        name: `Projects — ${siteName}`,
+        description,
+        isPartOf: { "@id": websiteId },
+        author: { "@id": personId },
+        mainEntity: {
+          "@type": "ItemList",
+          numberOfItems: length,
+          itemListElement: projects.map((project, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            url: absoluteUrl(`/projects/${project.slug}`),
+            name: project.title,
+          })),
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: absoluteUrl("/"),
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Projects",
+            item: absoluteUrl("/projects"),
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="w-full bg-page">
+      <JsonLd data={jsonLd} />
       <div className="container pt-15 pb-20 md:py-20 flex flex-col gap-4">
         <Link href="/" className="flex items-center gap-2 text-indicator">
           <FaArrowLeft />

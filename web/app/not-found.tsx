@@ -5,11 +5,15 @@ import MissingPath from "@/components/ui/MissingPath";
 
 export const metadata: Metadata = {
   title: "Page not found",
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 const NotFound = () => {
   return (
-    <main className="relative w-full overflow-hidden bg-page">
+    <div className="relative w-full overflow-hidden bg-page">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,var(--color-divider)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-divider)_1px,transparent_1px)] bg-size-[48px_48px] opacity-40 mask-[radial-gradient(ellipse_at_center,black_20%,transparent_70%)]"
@@ -75,7 +79,7 @@ const NotFound = () => {
           </Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 };
 
