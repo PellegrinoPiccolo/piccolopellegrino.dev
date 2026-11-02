@@ -443,6 +443,13 @@
         },
         "optional": true
       },
+      "hidden": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "boolean"
+        },
+        "optional": true
+      },
       "releaseDate": {
         "type": "objectAttribute",
         "value": {

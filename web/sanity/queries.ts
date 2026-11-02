@@ -1,7 +1,7 @@
 import { defineQuery } from "next-sanity";
 
 export const PROJECTS_QUERY = defineQuery(`
-  *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {
+  *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {
     _id,
     title,
     "slug": slug.current,
@@ -18,7 +18,7 @@ export const PROJECTS_QUERY = defineQuery(`
 `);
 
 export const FEATURED_PROJECTS_QUERY = defineQuery(`
-  *[_id == "featuredProjects"][0].projects[defined(@->slug.current)]-> {
+  *[_id == "featuredProjects"][0].projects[defined(@->slug.current) && @->hidden != true]-> {
     _id,
     title,
     "slug": slug.current,
@@ -39,7 +39,7 @@ export const STACK_QUERY = defineQuery(`
     _key,
     title,
     items,
-    "projects": projects[defined(@->slug.current)]-> {
+    "projects": projects[defined(@->slug.current) && @->hidden != true]-> {
       _id,
       title,
       "slug": slug.current
@@ -56,18 +56,18 @@ export const RESUME_QUERY = defineQuery(`
 `);
 
 export const PROJECT_SLUGS_QUERY = defineQuery(`
-  *[_type == "project" && defined(slug.current)].slug.current
+  *[_type == "project" && defined(slug.current) && hidden != true].slug.current
 `);
 
 export const SITEMAP_QUERY = defineQuery(`
-  *[_type == "project" && defined(slug.current)] {
+  *[_type == "project" && defined(slug.current) && hidden != true] {
     "slug": slug.current,
     _updatedAt
   }
 `);
 
 export const PROJECT_QUERY = defineQuery(`
-  *[_type == "project" && slug.current == $slug][0] {
+  *[_type == "project" && slug.current == $slug && hidden != true][0] {
     _id,
     title,
     "slug": slug.current,
@@ -90,7 +90,7 @@ export const PROJECT_QUERY = defineQuery(`
     ogImage,
     cover,
     _updatedAt,
-    "siblings": *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {
+    "siblings": *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {
       title,
       "slug": slug.current
     }

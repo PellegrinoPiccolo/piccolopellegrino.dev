@@ -94,6 +94,7 @@ export type Project = {
   kind?: "Mobile app" | "Web app" | "Website" | "Desktop app" | "Tool";
   category?: "app" | "web" | "desktop";
   isClientWork?: boolean;
+  hidden?: boolean;
   releaseDate?: string;
   icon?: {
     asset?: SanityImageAssetReference;
@@ -316,7 +317,7 @@ export type AllSanitySchemaTypes =
 
 // Source: ../web/sanity/queries.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    links,    icon,    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }  }
+// Query: *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    links,    icon,    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }  }
 export type PROJECTS_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
@@ -358,7 +359,7 @@ export type PROJECTS_QUERY_RESULT = Array<{
 
 // Source: ../web/sanity/queries.ts
 // Variable: FEATURED_PROJECTS_QUERY
-// Query: *[_id == "featuredProjects"][0].projects[defined(@->slug.current)]-> {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    links,    icon,    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }  }
+// Query: *[_id == "featuredProjects"][0].projects[defined(@->slug.current) && @->hidden != true]-> {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    links,    icon,    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }  }
 export type FEATURED_PROJECTS_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
@@ -400,7 +401,7 @@ export type FEATURED_PROJECTS_QUERY_RESULT = Array<{
 
 // Source: ../web/sanity/queries.ts
 // Variable: STACK_QUERY
-// Query: *[_id == "stack"][0].groups[] {    _key,    title,    items,    "projects": projects[defined(@->slug.current)]-> {      _id,      title,      "slug": slug.current    },    note  }
+// Query: *[_id == "stack"][0].groups[] {    _key,    title,    items,    "projects": projects[defined(@->slug.current) && @->hidden != true]-> {      _id,      title,      "slug": slug.current    },    note  }
 export type STACK_QUERY_RESULT = Array<{
   _key: string;
   title: string | null;
@@ -423,12 +424,12 @@ export type RESUME_QUERY_RESULT = {
 
 // Source: ../web/sanity/queries.ts
 // Variable: PROJECT_SLUGS_QUERY
-// Query: *[_type == "project" && defined(slug.current)].slug.current
+// Query: *[_type == "project" && defined(slug.current) && hidden != true].slug.current
 export type PROJECT_SLUGS_QUERY_RESULT = Array<string | null>;
 
 // Source: ../web/sanity/queries.ts
 // Variable: SITEMAP_QUERY
-// Query: *[_type == "project" && defined(slug.current)] {    "slug": slug.current,    _updatedAt  }
+// Query: *[_type == "project" && defined(slug.current) && hidden != true] {    "slug": slug.current,    _updatedAt  }
 export type SITEMAP_QUERY_RESULT = Array<{
   slug: string | null;
   _updatedAt: string;
@@ -436,7 +437,7 @@ export type SITEMAP_QUERY_RESULT = Array<{
 
 // Source: ../web/sanity/queries.ts
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && slug.current == $slug][0] {    _id,    title,    "slug": slug.current,    kind,    isClientWork,    releaseDate,    excerpt,    stack,    role,    platforms,    architectureSummary,    links,    icon,    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },    layersBoundary,    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },    seoTitle,    seoDescription,    ogImage,    cover,    _updatedAt,    "siblings": *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {      title,      "slug": slug.current    }  }
+// Query: *[_type == "project" && slug.current == $slug && hidden != true][0] {    _id,    title,    "slug": slug.current,    kind,    isClientWork,    releaseDate,    excerpt,    stack,    role,    platforms,    architectureSummary,    links,    icon,    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },    layersBoundary,    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },    seoTitle,    seoDescription,    ogImage,    cover,    _updatedAt,    "siblings": *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {      title,      "slug": slug.current    }  }
 export type PROJECT_QUERY_RESULT = {
   _id: string;
   title: string | null;
@@ -536,13 +537,13 @@ export type PROJECT_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    links,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': PROJECTS_QUERY_RESULT;
-    '\n  *[_id == "featuredProjects"][0].projects[defined(@->slug.current)]-> {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    links,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
-    '\n  *[_id == "stack"][0].groups[] {\n    _key,\n    title,\n    items,\n    "projects": projects[defined(@->slug.current)]-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n    note\n  }\n': STACK_QUERY_RESULT;
+    '\n  *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    links,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': PROJECTS_QUERY_RESULT;
+    '\n  *[_id == "featuredProjects"][0].projects[defined(@->slug.current) && @->hidden != true]-> {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    links,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
+    '\n  *[_id == "stack"][0].groups[] {\n    _key,\n    title,\n    items,\n    "projects": projects[defined(@->slug.current) && @->hidden != true]-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n    note\n  }\n': STACK_QUERY_RESULT;
     '\n  *[_id == "resume" && defined(file.asset)][0] {\n    "url": file.asset->url,\n    fileName\n  }\n': RESUME_QUERY_RESULT;
-    '\n  *[_type == "project" && defined(slug.current)].slug.current\n': PROJECT_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "project" && defined(slug.current)] {\n    "slug": slug.current,\n    _updatedAt\n  }\n': SITEMAP_QUERY_RESULT;
-    '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    role,\n    platforms,\n    architectureSummary,\n    links,\n    icon,\n    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },\n    layersBoundary,\n    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },\n    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },\n    seoTitle,\n    seoDescription,\n    ogImage,\n    cover,\n    _updatedAt,\n    "siblings": *[_type == "project" && defined(slug.current)] | order(releaseDate desc, order asc) {\n      title,\n      "slug": slug.current\n    }\n  }\n': PROJECT_QUERY_RESULT;
+    '\n  *[_type == "project" && defined(slug.current) && hidden != true].slug.current\n': PROJECT_SLUGS_QUERY_RESULT;
+    '\n  *[_type == "project" && defined(slug.current) && hidden != true] {\n    "slug": slug.current,\n    _updatedAt\n  }\n': SITEMAP_QUERY_RESULT;
+    '\n  *[_type == "project" && slug.current == $slug && hidden != true][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    role,\n    platforms,\n    architectureSummary,\n    links,\n    icon,\n    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },\n    layersBoundary,\n    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },\n    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },\n    seoTitle,\n    seoDescription,\n    ogImage,\n    cover,\n    _updatedAt,\n    "siblings": *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {\n      title,\n      "slug": slug.current\n    }\n  }\n': PROJECT_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too
