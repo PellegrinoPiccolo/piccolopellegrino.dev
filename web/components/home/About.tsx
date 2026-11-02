@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { FiDownload } from "react-icons/fi";
 
 const workSteps = [
   {
@@ -21,7 +22,11 @@ const workSteps = [
   },
 ];
 
-const About = () => {
+type AboutProps = {
+  resumeUrl: string | null;
+};
+
+const About = ({ resumeUrl }: AboutProps) => {
   return (
     <section
       className="w-full bg-page scroll-mt-20"
@@ -55,6 +60,15 @@ const About = () => {
             the University of Salerno, so I spend a lot of time on how systems
             are built, not just how they look.
           </p>
+          {resumeUrl && (
+            <a
+              href={resumeUrl}
+              className="group self-start flex items-center justify-center gap-2 whitespace-nowrap bg-page border-2 border-divider text-heading text-sm md:text-base px-6 py-2.5 md:py-3 rounded-full font-bold transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:shadow-[0_10px_30px_-12px_var(--color-indicator)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+            >
+              <FiDownload className="transition-transform duration-300 group-hover:translate-y-0.5" />
+              Download CV
+            </a>
+          )}
           <p className="text-sm uppercase font-mono text-body mt-4">
             HOW I WORK
           </p>

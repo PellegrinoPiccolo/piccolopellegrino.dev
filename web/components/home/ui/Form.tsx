@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { FiSend } from "react-icons/fi";
 
@@ -15,6 +16,7 @@ const Form = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [message, setMessage] = React.useState("");
+  const [honeypot, setHoneypot] = React.useState("");
   const [type, setType] = React.useState<(typeof TYPES)[number]>("Mobile app");
   const [status, setStatus] = React.useState<
     "idle" | "sending" | "success" | "error"
@@ -35,6 +37,10 @@ const Form = () => {
     }
     if (name.trim() === "" || message.trim() === "") {
       fail("Please fill in all required fields.");
+      return;
+    }
+    if (honeypot !== "") {
+      setStatus("success");
       return;
     }
     setStatus("sending");
@@ -137,6 +143,19 @@ const Form = () => {
           className={`${inputClass} resize-y`}
         />
       </label>
+      <div aria-hidden="true" className="absolute -left-2500 h-px w-px overflow-hidden">
+        <label>
+          Company
+          <input
+            type="text"
+            name="company"
+            tabIndex={-1}
+            autoComplete="off"
+            value={honeypot}
+            onChange={(e) => setHoneypot(e.target.value)}
+          />
+        </label>
+      </div>
       <button
         type="submit"
         disabled={status === "sending"}
@@ -169,6 +188,13 @@ const Form = () => {
           : status === "error"
             ? error
             : "No spam, no newsletter — your message comes straight to my inbox."}
+      </p>
+      <p className="-mt-4 text-xs text-center text-muted">
+        By sending this form you agree to the{" "}
+        <Link href="/privacy" className="text-link hover:underline">
+          privacy policy
+        </Link>
+        .
       </p>
     </form>
   );
