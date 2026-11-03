@@ -32,7 +32,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
   const { repo, live, store, storeLabel } = project.links ?? {};
 
   return (
-    <article className="flex flex-col h-full overflow-hidden bg-card border border-line-card rounded-card transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-line hover:shadow-[0_10px_30px_-12px_var(--color-indicator)]">
+    <article className="relative flex flex-col h-full overflow-hidden bg-card border border-line-card rounded-card transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-line hover:shadow-[0_10px_30px_-12px_var(--color-indicator)]">
       <div className="relative aspect-16/10 bg-page border-b border-line-card">
         {project.cover?.asset ? (
           <Image
@@ -112,12 +112,13 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         <div className="mt-auto flex items-center justify-between gap-4 pt-6">
           <Link
             href={`/projects/${project.slug}`}
-            className="group flex items-center gap-2 font-bold text-link transition-colors hover:text-tag focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+            aria-label={`Read case study: ${project.title ?? "project"}`}
+            className="group flex items-center gap-2 font-bold text-link transition-colors after:absolute after:inset-0 after:rounded-card hover:text-tag focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
           >
             Read case study
             <FaArrowRight className="text-sm transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-          <div className="flex gap-2">
+          <div className="relative z-10 flex gap-2">
             {repo && (
               <ProjectLink href={repo} label="Source code">
                 <FiGithub />
