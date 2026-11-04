@@ -1,6 +1,7 @@
 import {StackIcon} from '@sanity/icons/Stack'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import {PaddedObjectInput} from '../components/PaddedObjectInput'
+import {localized} from '../languages'
 
 export const stack = defineType({
   name: 'stack',
@@ -20,8 +21,8 @@ export const stack = defineType({
           fields: [
             defineField({
               name: 'title',
-              type: 'string',
-              placeholder: 'Mobile',
+              type: 'internationalizedArrayString',
+              description: 'e.g. Mobile',
               validation: (rule) => rule.required(),
             }),
             defineField({
@@ -40,15 +41,14 @@ export const stack = defineType({
             }),
             defineField({
               name: 'note',
-              type: 'string',
-              description: 'Shown after the linked projects, or alone if there are none',
-              placeholder: 'this portfolio',
+              type: 'internationalizedArrayString',
+              description: 'Shown after the linked projects, or alone if there are none, e.g. this portfolio',
             }),
           ],
           preview: {
             select: {title: 'title', items: 'items'},
             prepare: ({title, items}) => ({
-              title,
+              title: localized(title),
               subtitle: (items as string[] | undefined)?.join(' · '),
             }),
           },

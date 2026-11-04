@@ -14,7 +14,7 @@ import type { SiteContent } from "@/content/types";
 import { getResumeUrl } from "@/sanity/resume";
 import Stack from "@/components/home/Stack";
 import JsonLd from "@/components/ui/JsonLd";
-import { localizePath } from "@/lib/i18n";
+import { localizePath, type Locale } from "@/lib/i18n";
 import {
   absoluteUrl,
   localeAlternates,
@@ -25,9 +25,13 @@ import {
   websiteId,
 } from "@/lib/site";
 
-const getProjects = cache(() => client.fetch(PROJECTS_QUERY));
-const getFeaturedProjects = cache(() => client.fetch(FEATURED_PROJECTS_QUERY));
-const getStack = cache(() => client.fetch(STACK_QUERY));
+const getProjects = cache((lang: Locale) =>
+  client.fetch(PROJECTS_QUERY, { lang }),
+);
+const getFeaturedProjects = cache((lang: Locale) =>
+  client.fetch(FEATURED_PROJECTS_QUERY, { lang }),
+);
+const getStack = cache((lang: Locale) => client.fetch(STACK_QUERY, { lang }));
 
 type HomePageProps = {
   content: SiteContent;
@@ -39,9 +43,9 @@ export const homeMetadata = ({ locale }: SiteContent): Metadata => ({
 
 export async function HomePage({ content }: HomePageProps) {
   const { meta, locale } = content;
-  const projects = await getProjects();
-  const featuredProjects = await getFeaturedProjects();
-  const stack = await getStack();
+  const projects = await getProjects(locale);
+  const featuredProjects = await getFeaturedProjects(locale);
+  const stack = await getStack(locale);
   const resumeUrl = await getResumeUrl();
 
   const jsonLd = {

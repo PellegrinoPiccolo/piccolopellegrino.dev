@@ -5,7 +5,7 @@ import { PROJECTS_QUERY } from "@/sanity/queries";
 import { FaArrowLeft } from "react-icons/fa6";
 import Link from "next/link";
 import type { SiteContent } from "@/content/types";
-import { format, localizePath } from "@/lib/i18n";
+import { format, localizePath, type Locale } from "@/lib/i18n";
 import ProjectCard from "@/components/ui/ProjectCard";
 import ProjectsList from "@/components/projects/ProjectsList";
 import JsonLd from "@/components/ui/JsonLd";
@@ -18,7 +18,9 @@ import {
   websiteId,
 } from "@/lib/site";
 
-const getProjects = cache(() => client.fetch(PROJECTS_QUERY));
+const getProjects = cache((lang: Locale) =>
+  client.fetch(PROJECTS_QUERY, { lang }),
+);
 
 export const projectsMetadata = (content: SiteContent): Metadata => {
   const { projectsPage, locale, ogLocale } = content;
@@ -53,7 +55,7 @@ type ProjectsPageProps = {
 
 export async function ProjectsPage({ content }: ProjectsPageProps) {
   const { projectsPage: t, nav, locale } = content;
-  const projects = await getProjects();
+  const projects = await getProjects(locale);
   const length = projects.length;
   const pageUrl = absoluteUrl(localizePath(locale, "/projects"));
 

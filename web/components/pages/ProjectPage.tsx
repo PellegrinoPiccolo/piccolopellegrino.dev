@@ -2,7 +2,7 @@ import { cache } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import type { SiteContent } from "@/content/types";
-import { localizePath } from "@/lib/i18n";
+import { localizePath, type Locale } from "@/lib/i18n";
 import type { SanityImageSource } from "@sanity/image-url";
 import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/image";
@@ -25,8 +25,8 @@ import {
 const ogImageUrl = (image: SanityImageSource) =>
   urlFor(image).width(1200).height(630).fit("crop").url();
 
-const getProject = cache((slug: string) =>
-  client.fetch(PROJECT_QUERY, { slug }),
+const getProject = cache((slug: string, lang: Locale) =>
+  client.fetch(PROJECT_QUERY, { slug, lang }),
 );
 
 export async function projectStaticParams() {
@@ -41,7 +41,7 @@ export async function projectMetadata(
   { locale, ogLocale }: SiteContent,
   slug: string,
 ): Promise<Metadata> {
-  const project = await getProject(slug);
+  const project = await getProject(slug, locale);
 
   if (!project) return {};
 
@@ -93,7 +93,7 @@ type ProjectPageProps = {
 
 export async function ProjectPage({ content, slug }: ProjectPageProps) {
   const { locale, nav, projectsPage } = content;
-  const project = await getProject(slug);
+  const project = await getProject(slug, locale);
 
   if (!project) notFound();
 

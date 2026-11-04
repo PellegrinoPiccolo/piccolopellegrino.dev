@@ -9,11 +9,11 @@ export const PROJECTS_QUERY = defineQuery(`
     category,
     isClientWork,
     releaseDate,
-    excerpt,
+    "excerpt": coalesce(excerpt[language == $lang][0].value, excerpt[language == "en"][0].value, excerpt[language == "it"][0].value),
     stack,
-    links,
+    links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },
     icon,
-    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }
+    cover { ..., "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value), asset->{ _id, metadata { lqip, dimensions } } }
   }
 `);
 
@@ -26,25 +26,25 @@ export const FEATURED_PROJECTS_QUERY = defineQuery(`
     category,
     isClientWork,
     releaseDate,
-    excerpt,
+    "excerpt": coalesce(excerpt[language == $lang][0].value, excerpt[language == "en"][0].value, excerpt[language == "it"][0].value),
     stack,
-    links,
+    links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },
     icon,
-    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }
+    cover { ..., "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value), asset->{ _id, metadata { lqip, dimensions } } }
   }
 `);
 
 export const STACK_QUERY = defineQuery(`
   *[_id == "stack"][0].groups[] {
     _key,
-    title,
+    "title": coalesce(title[language == $lang][0].value, title[language == "en"][0].value, title[language == "it"][0].value),
     items,
     "projects": projects[defined(@->slug.current) && @->hidden != true]-> {
       _id,
       title,
       "slug": slug.current
     },
-    note
+    "note": coalesce(note[language == $lang][0].value, note[language == "en"][0].value, note[language == "it"][0].value)
   }
 `);
 
@@ -74,21 +74,44 @@ export const PROJECT_QUERY = defineQuery(`
     kind,
     isClientWork,
     releaseDate,
-    excerpt,
+    "excerpt": coalesce(excerpt[language == $lang][0].value, excerpt[language == "en"][0].value, excerpt[language == "it"][0].value),
     stack,
-    role,
-    platforms,
-    architectureSummary,
-    links,
+    "role": coalesce(role[language == $lang][0].value, role[language == "en"][0].value, role[language == "it"][0].value),
+    "platforms": coalesce(platforms[language == $lang][0].value, platforms[language == "en"][0].value, platforms[language == "it"][0].value),
+    "architectureSummary": coalesce(architectureSummary[language == $lang][0].value, architectureSummary[language == "en"][0].value, architectureSummary[language == "it"][0].value),
+    links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },
     icon,
-    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },
-    layersBoundary,
-    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },
-    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },
-    seoTitle,
-    seoDescription,
+    gallery[] {
+      ...,
+      "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value),
+      "caption": coalesce(caption[language == $lang][0].value, caption[language == "en"][0].value, caption[language == "it"][0].value),
+      asset->{ _id, metadata { lqip, dimensions } }
+    },
+    "layersBoundary": coalesce(layersBoundary[language == $lang][0].value, layersBoundary[language == "en"][0].value, layersBoundary[language == "it"][0].value),
+    layers[] {
+      _key,
+      "name": coalesce(name[language == $lang][0].value, name[language == "en"][0].value, name[language == "it"][0].value),
+      "tech": coalesce(tech[language == $lang][0].value, tech[language == "en"][0].value, tech[language == "it"][0].value),
+      icon,
+      group,
+      "connector": coalesce(connector[language == $lang][0].value, connector[language == "en"][0].value, connector[language == "it"][0].value),
+      sideBySide,
+      decisions
+    },
+    decisions[] {
+      _key,
+      code,
+      "title": coalesce(title[language == $lang][0].value, title[language == "en"][0].value, title[language == "it"][0].value),
+      "shortLabel": coalesce(shortLabel[language == $lang][0].value, shortLabel[language == "en"][0].value, shortLabel[language == "it"][0].value),
+      "context": coalesce(context[language == $lang][0].value, context[language == "en"][0].value, context[language == "it"][0].value),
+      "decision": coalesce(decision[language == $lang][0].value, decision[language == "en"][0].value, decision[language == "it"][0].value),
+      "tradeoff": coalesce(tradeoff[language == $lang][0].value, tradeoff[language == "en"][0].value, tradeoff[language == "it"][0].value),
+      "alternatives": coalesce(alternatives[language == $lang][0].value, alternatives[language == "en"][0].value, alternatives[language == "it"][0].value)
+    },
+    "seoTitle": coalesce(seoTitle[language == $lang][0].value, seoTitle[language == "en"][0].value, seoTitle[language == "it"][0].value),
+    "seoDescription": coalesce(seoDescription[language == $lang][0].value, seoDescription[language == "en"][0].value, seoDescription[language == "it"][0].value),
     ogImage,
-    cover,
+    cover { ..., "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value) },
     _updatedAt,
     "siblings": *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {
       title,
