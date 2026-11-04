@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-
-export type ProjectCategory = "app" | "web" | "desktop";
+import type { ProjectCategory, ProjectsListContent } from "@/content/types";
 
 export type ProjectsListItem = {
   id: string;
@@ -13,20 +12,17 @@ export type ProjectsListItem = {
 
 type Filter = ProjectCategory | "all";
 
-const CATEGORY_LABELS: Record<ProjectCategory, string> = {
-  app: "App",
-  web: "Web",
-  desktop: "Desktop",
-};
+const CATEGORIES: ProjectCategory[] = ["app", "web", "desktop"];
 
 type ProjectsListProps = {
+  content: ProjectsListContent;
   items: ProjectsListItem[];
 };
 
-const ProjectsList = ({ items }: ProjectsListProps) => {
+const ProjectsList = ({ content, items }: ProjectsListProps) => {
   const [filter, setFilter] = useState<Filter>("all");
 
-  const categories = (Object.keys(CATEGORY_LABELS) as ProjectCategory[]).filter(
+  const categories = CATEGORIES.filter(
     (category) => items.some((item) => item.category === category),
   );
   const filters: Filter[] = ["all", ...categories];
@@ -36,7 +32,7 @@ const ProjectsList = ({ items }: ProjectsListProps) => {
 
   const groups = visible.reduce<{ year: string; items: ProjectsListItem[] }[]>(
     (acc, item) => {
-      const year = item.year ?? "Upcoming";
+      const year = item.year ?? "upcoming";
       const group = acc.find((g) => g.year === year);
       if (group) group.items.push(item);
       else acc.push({ year, items: [item] });
@@ -49,7 +45,7 @@ const ProjectsList = ({ items }: ProjectsListProps) => {
     <div className="flex flex-col gap-12">
       <div
         role="group"
-        aria-label="Filter projects by category"
+        aria-label={content.filterLabel}
         className="flex flex-wrap gap-3"
       >
         {filters.map((value) => {
@@ -66,7 +62,7 @@ const ProjectsList = ({ items }: ProjectsListProps) => {
                   : "border-line-strong text-fg hover:border-indicator hover:bg-indigo-deep hover:text-link"
               }`}
             >
-              {value === "all" ? "All" : CATEGORY_LABELS[value]}
+              {value === "all" ? content.all : content.categories[value]}
             </button>
           );
         })}
@@ -84,7 +80,7 @@ const ProjectsList = ({ items }: ProjectsListProps) => {
                 id={`year-${group.year}`}
                 className="font-mono text-2xl md:text-3xl font-medium text-muted"
               >
-                {group.year}
+                {group.year === "upcoming" ? content.upcoming : group.year}
               </h2>
               <span aria-hidden className="h-px flex-1 bg-divider" />
             </div>

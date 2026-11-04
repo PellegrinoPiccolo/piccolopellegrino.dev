@@ -50,18 +50,24 @@ export type Stack = {
   _updatedAt: string;
   _rev: string;
   groups?: Array<{
-    title?: string;
+    title?: InternationalizedArrayString;
     items?: Array<string>;
     projects?: Array<
       {
         _key: string;
       } & ProjectReference
     >;
-    note?: string;
+    note?: InternationalizedArrayString;
     _type: "stackGroup";
     _key: string;
   }>;
 };
+
+export type InternationalizedArrayString = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayStringValue
+>;
 
 export type FeaturedProjects = {
   _id: string;
@@ -108,19 +114,19 @@ export type Project = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt?: InternationalizedArrayString;
     _type: "image";
   };
-  excerpt?: string;
+  excerpt?: InternationalizedArrayText;
   stack?: Array<string>;
-  role?: string;
-  platforms?: string;
-  architectureSummary?: string;
+  role?: InternationalizedArrayString;
+  platforms?: InternationalizedArrayString;
+  architectureSummary?: InternationalizedArrayString;
   links?: {
     repo?: string;
     live?: string;
     store?: string;
-    storeLabel?: string;
+    storeLabel?: InternationalizedArrayString;
   };
   order?: number;
   gallery?: Array<{
@@ -128,15 +134,15 @@ export type Project = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
-    caption?: string;
+    alt?: InternationalizedArrayString;
+    caption?: InternationalizedArrayString;
     _type: "image";
     _key: string;
   }>;
-  layersBoundary?: string;
+  layersBoundary?: InternationalizedArrayString;
   layers?: Array<{
-    name?: string;
-    tech?: string;
+    name?: InternationalizedArrayString;
+    tech?: InternationalizedArrayString;
     icon?:
       | "phone"
       | "code"
@@ -148,7 +154,7 @@ export type Project = {
       | "lock"
       | "globe";
     group?: "core" | "absent";
-    connector?: string;
+    connector?: InternationalizedArrayString;
     sideBySide?: boolean;
     decisions?: Array<string>;
     _type: "layer";
@@ -156,17 +162,17 @@ export type Project = {
   }>;
   decisions?: Array<{
     code?: string;
-    title?: string;
-    shortLabel?: string;
-    context?: string;
-    decision?: string;
-    tradeoff?: string;
-    alternatives?: Array<string>;
+    title?: InternationalizedArrayString;
+    shortLabel?: InternationalizedArrayString;
+    context?: InternationalizedArrayText;
+    decision?: InternationalizedArrayText;
+    tradeoff?: InternationalizedArrayText;
+    alternatives?: InternationalizedArrayStringList;
     _type: "decision";
     _key: string;
   }>;
-  seoTitle?: string;
-  seoDescription?: string;
+  seoTitle?: InternationalizedArrayString;
+  seoDescription?: InternationalizedArrayText;
   ogImage?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -192,10 +198,40 @@ export type SanityImageHotspot = {
   width?: number;
 };
 
+export type InternationalizedArrayText = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayTextValue
+>;
+
+export type InternationalizedArrayStringList = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayStringListValue
+>;
+
 export type Slug = {
   _type: "slug";
   current?: string;
   source?: string;
+};
+
+export type InternationalizedArrayStringListValue = {
+  _type: "internationalizedArrayStringListValue";
+  value?: Array<string>;
+  language?: string;
+};
+
+export type InternationalizedArrayTextValue = {
+  _type: "internationalizedArrayTextValue";
+  value?: string;
+  language?: string;
+};
+
+export type InternationalizedArrayStringValue = {
+  _type: "internationalizedArrayStringValue";
+  value?: string;
+  language?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -300,12 +336,18 @@ export type AllSanitySchemaTypes =
   | Resume
   | ProjectReference
   | Stack
+  | InternationalizedArrayString
   | FeaturedProjects
   | SanityImageAssetReference
   | Project
   | SanityImageCrop
   | SanityImageHotspot
+  | InternationalizedArrayText
+  | InternationalizedArrayStringList
   | Slug
+  | InternationalizedArrayStringListValue
+  | InternationalizedArrayTextValue
+  | InternationalizedArrayStringValue
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -317,7 +359,7 @@ export type AllSanitySchemaTypes =
 
 // Source: ../web/sanity/queries.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    links,    icon,    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }  }
+// Query: *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    "excerpt": coalesce(excerpt[language == $lang][0].value, excerpt[language == "en"][0].value, excerpt[language == "it"][0].value),    stack,    links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },    icon,    cover { ..., "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value), asset->{ _id, metadata { lqip, dimensions } } }  }
 export type PROJECTS_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
@@ -329,10 +371,10 @@ export type PROJECTS_QUERY_RESULT = Array<{
   excerpt: string | null;
   stack: Array<string> | null;
   links: {
-    repo?: string;
-    live?: string;
-    store?: string;
-    storeLabel?: string;
+    repo: string | null;
+    live: string | null;
+    store: string | null;
+    storeLabel: string | null;
   } | null;
   icon: {
     asset?: SanityImageAssetReference;
@@ -352,14 +394,14 @@ export type PROJECTS_QUERY_RESULT = Array<{
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string | null;
     _type: "image";
   } | null;
 }>;
 
 // Source: ../web/sanity/queries.ts
 // Variable: FEATURED_PROJECTS_QUERY
-// Query: *[_id == "featuredProjects"][0].projects[defined(@->slug.current) && @->hidden != true]-> {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    excerpt,    stack,    links,    icon,    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }  }
+// Query: *[_id == "featuredProjects"][0].projects[defined(@->slug.current) && @->hidden != true]-> {    _id,    title,    "slug": slug.current,    kind,    category,    isClientWork,    releaseDate,    "excerpt": coalesce(excerpt[language == $lang][0].value, excerpt[language == "en"][0].value, excerpt[language == "it"][0].value),    stack,    links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },    icon,    cover { ..., "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value), asset->{ _id, metadata { lqip, dimensions } } }  }
 export type FEATURED_PROJECTS_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
@@ -371,10 +413,10 @@ export type FEATURED_PROJECTS_QUERY_RESULT = Array<{
   excerpt: string | null;
   stack: Array<string> | null;
   links: {
-    repo?: string;
-    live?: string;
-    store?: string;
-    storeLabel?: string;
+    repo: string | null;
+    live: string | null;
+    store: string | null;
+    storeLabel: string | null;
   } | null;
   icon: {
     asset?: SanityImageAssetReference;
@@ -394,14 +436,14 @@ export type FEATURED_PROJECTS_QUERY_RESULT = Array<{
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string | null;
     _type: "image";
   } | null;
 }> | null;
 
 // Source: ../web/sanity/queries.ts
 // Variable: STACK_QUERY
-// Query: *[_id == "stack"][0].groups[] {    _key,    title,    items,    "projects": projects[defined(@->slug.current) && @->hidden != true]-> {      _id,      title,      "slug": slug.current    },    note  }
+// Query: *[_id == "stack"][0].groups[] {    _key,    "title": coalesce(title[language == $lang][0].value, title[language == "en"][0].value, title[language == "it"][0].value),    items,    "projects": projects[defined(@->slug.current) && @->hidden != true]-> {      _id,      title,      "slug": slug.current    },    "note": coalesce(note[language == $lang][0].value, note[language == "en"][0].value, note[language == "it"][0].value)  }
 export type STACK_QUERY_RESULT = Array<{
   _key: string;
   title: string | null;
@@ -437,7 +479,7 @@ export type SITEMAP_QUERY_RESULT = Array<{
 
 // Source: ../web/sanity/queries.ts
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && slug.current == $slug && hidden != true][0] {    _id,    title,    "slug": slug.current,    kind,    isClientWork,    releaseDate,    excerpt,    stack,    role,    platforms,    architectureSummary,    links,    icon,    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },    layersBoundary,    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },    seoTitle,    seoDescription,    ogImage,    cover,    _updatedAt,    "siblings": *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {      title,      "slug": slug.current    }  }
+// Query: *[_type == "project" && slug.current == $slug && hidden != true][0] {    _id,    title,    "slug": slug.current,    kind,    isClientWork,    releaseDate,    "excerpt": coalesce(excerpt[language == $lang][0].value, excerpt[language == "en"][0].value, excerpt[language == "it"][0].value),    stack,    "role": coalesce(role[language == $lang][0].value, role[language == "en"][0].value, role[language == "it"][0].value),    "platforms": coalesce(platforms[language == $lang][0].value, platforms[language == "en"][0].value, platforms[language == "it"][0].value),    "architectureSummary": coalesce(architectureSummary[language == $lang][0].value, architectureSummary[language == "en"][0].value, architectureSummary[language == "it"][0].value),    links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },    icon,    gallery[] {      ...,      "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value),      "caption": coalesce(caption[language == $lang][0].value, caption[language == "en"][0].value, caption[language == "it"][0].value),      asset->{ _id, metadata { lqip, dimensions } }    },    "layersBoundary": coalesce(layersBoundary[language == $lang][0].value, layersBoundary[language == "en"][0].value, layersBoundary[language == "it"][0].value),    layers[] {      _key,      "name": coalesce(name[language == $lang][0].value, name[language == "en"][0].value, name[language == "it"][0].value),      "tech": coalesce(tech[language == $lang][0].value, tech[language == "en"][0].value, tech[language == "it"][0].value),      icon,      group,      "connector": coalesce(connector[language == $lang][0].value, connector[language == "en"][0].value, connector[language == "it"][0].value),      sideBySide,      decisions    },    decisions[] {      _key,      code,      "title": coalesce(title[language == $lang][0].value, title[language == "en"][0].value, title[language == "it"][0].value),      "shortLabel": coalesce(shortLabel[language == $lang][0].value, shortLabel[language == "en"][0].value, shortLabel[language == "it"][0].value),      "context": coalesce(context[language == $lang][0].value, context[language == "en"][0].value, context[language == "it"][0].value),      "decision": coalesce(decision[language == $lang][0].value, decision[language == "en"][0].value, decision[language == "it"][0].value),      "tradeoff": coalesce(tradeoff[language == $lang][0].value, tradeoff[language == "en"][0].value, tradeoff[language == "it"][0].value),      "alternatives": coalesce(alternatives[language == $lang][0].value, alternatives[language == "en"][0].value, alternatives[language == "it"][0].value)    },    "seoTitle": coalesce(seoTitle[language == $lang][0].value, seoTitle[language == "en"][0].value, seoTitle[language == "it"][0].value),    "seoDescription": coalesce(seoDescription[language == $lang][0].value, seoDescription[language == "en"][0].value, seoDescription[language == "it"][0].value),    ogImage,    cover { ..., "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value) },    _updatedAt,    "siblings": *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {      title,      "slug": slug.current    }  }
 export type PROJECT_QUERY_RESULT = {
   _id: string;
   title: string | null;
@@ -451,10 +493,10 @@ export type PROJECT_QUERY_RESULT = {
   platforms: string | null;
   architectureSummary: string | null;
   links: {
-    repo?: string;
-    live?: string;
-    store?: string;
-    storeLabel?: string;
+    repo: string | null;
+    live: string | null;
+    store: string | null;
+    storeLabel: string | null;
   } | null;
   icon: {
     asset?: SanityImageAssetReference;
@@ -474,8 +516,8 @@ export type PROJECT_QUERY_RESULT = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
-    caption?: string;
+    alt: string | null;
+    caption: string | null;
     _type: "image";
     _key: string;
   }> | null;
@@ -524,7 +566,7 @@ export type PROJECT_QUERY_RESULT = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
+    alt: string | null;
     _type: "image";
   } | null;
   _updatedAt: string;
@@ -537,13 +579,13 @@ export type PROJECT_QUERY_RESULT = {
 // Query TypeMap
 declare global {
   interface SanityQueries {
-    '\n  *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    links,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': PROJECTS_QUERY_RESULT;
-    '\n  *[_id == "featuredProjects"][0].projects[defined(@->slug.current) && @->hidden != true]-> {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    links,\n    icon,\n    cover { ..., asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
-    '\n  *[_id == "stack"][0].groups[] {\n    _key,\n    title,\n    items,\n    "projects": projects[defined(@->slug.current) && @->hidden != true]-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n    note\n  }\n': STACK_QUERY_RESULT;
+    '\n  *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    "excerpt": coalesce(excerpt[language == $lang][0].value, excerpt[language == "en"][0].value, excerpt[language == "it"][0].value),\n    stack,\n    links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },\n    icon,\n    cover { ..., "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value), asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': PROJECTS_QUERY_RESULT;
+    '\n  *[_id == "featuredProjects"][0].projects[defined(@->slug.current) && @->hidden != true]-> {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    category,\n    isClientWork,\n    releaseDate,\n    "excerpt": coalesce(excerpt[language == $lang][0].value, excerpt[language == "en"][0].value, excerpt[language == "it"][0].value),\n    stack,\n    links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },\n    icon,\n    cover { ..., "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value), asset->{ _id, metadata { lqip, dimensions } } }\n  }\n': FEATURED_PROJECTS_QUERY_RESULT;
+    '\n  *[_id == "stack"][0].groups[] {\n    _key,\n    "title": coalesce(title[language == $lang][0].value, title[language == "en"][0].value, title[language == "it"][0].value),\n    items,\n    "projects": projects[defined(@->slug.current) && @->hidden != true]-> {\n      _id,\n      title,\n      "slug": slug.current\n    },\n    "note": coalesce(note[language == $lang][0].value, note[language == "en"][0].value, note[language == "it"][0].value)\n  }\n': STACK_QUERY_RESULT;
     '\n  *[_id == "resume" && defined(file.asset)][0] {\n    "url": file.asset->url,\n    fileName\n  }\n': RESUME_QUERY_RESULT;
     '\n  *[_type == "project" && defined(slug.current) && hidden != true].slug.current\n': PROJECT_SLUGS_QUERY_RESULT;
     '\n  *[_type == "project" && defined(slug.current) && hidden != true] {\n    "slug": slug.current,\n    _updatedAt\n  }\n': SITEMAP_QUERY_RESULT;
-    '\n  *[_type == "project" && slug.current == $slug && hidden != true][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    isClientWork,\n    releaseDate,\n    excerpt,\n    stack,\n    role,\n    platforms,\n    architectureSummary,\n    links,\n    icon,\n    gallery[] { ..., asset->{ _id, metadata { lqip, dimensions } } },\n    layersBoundary,\n    layers[] { _key, name, tech, icon, group, connector, sideBySide, decisions },\n    decisions[] { _key, code, title, shortLabel, context, decision, tradeoff, alternatives },\n    seoTitle,\n    seoDescription,\n    ogImage,\n    cover,\n    _updatedAt,\n    "siblings": *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {\n      title,\n      "slug": slug.current\n    }\n  }\n': PROJECT_QUERY_RESULT;
+    '\n  *[_type == "project" && slug.current == $slug && hidden != true][0] {\n    _id,\n    title,\n    "slug": slug.current,\n    kind,\n    isClientWork,\n    releaseDate,\n    "excerpt": coalesce(excerpt[language == $lang][0].value, excerpt[language == "en"][0].value, excerpt[language == "it"][0].value),\n    stack,\n    "role": coalesce(role[language == $lang][0].value, role[language == "en"][0].value, role[language == "it"][0].value),\n    "platforms": coalesce(platforms[language == $lang][0].value, platforms[language == "en"][0].value, platforms[language == "it"][0].value),\n    "architectureSummary": coalesce(architectureSummary[language == $lang][0].value, architectureSummary[language == "en"][0].value, architectureSummary[language == "it"][0].value),\n    links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },\n    icon,\n    gallery[] {\n      ...,\n      "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value),\n      "caption": coalesce(caption[language == $lang][0].value, caption[language == "en"][0].value, caption[language == "it"][0].value),\n      asset->{ _id, metadata { lqip, dimensions } }\n    },\n    "layersBoundary": coalesce(layersBoundary[language == $lang][0].value, layersBoundary[language == "en"][0].value, layersBoundary[language == "it"][0].value),\n    layers[] {\n      _key,\n      "name": coalesce(name[language == $lang][0].value, name[language == "en"][0].value, name[language == "it"][0].value),\n      "tech": coalesce(tech[language == $lang][0].value, tech[language == "en"][0].value, tech[language == "it"][0].value),\n      icon,\n      group,\n      "connector": coalesce(connector[language == $lang][0].value, connector[language == "en"][0].value, connector[language == "it"][0].value),\n      sideBySide,\n      decisions\n    },\n    decisions[] {\n      _key,\n      code,\n      "title": coalesce(title[language == $lang][0].value, title[language == "en"][0].value, title[language == "it"][0].value),\n      "shortLabel": coalesce(shortLabel[language == $lang][0].value, shortLabel[language == "en"][0].value, shortLabel[language == "it"][0].value),\n      "context": coalesce(context[language == $lang][0].value, context[language == "en"][0].value, context[language == "it"][0].value),\n      "decision": coalesce(decision[language == $lang][0].value, decision[language == "en"][0].value, decision[language == "it"][0].value),\n      "tradeoff": coalesce(tradeoff[language == $lang][0].value, tradeoff[language == "en"][0].value, tradeoff[language == "it"][0].value),\n      "alternatives": coalesce(alternatives[language == $lang][0].value, alternatives[language == "en"][0].value, alternatives[language == "it"][0].value)\n    },\n    "seoTitle": coalesce(seoTitle[language == $lang][0].value, seoTitle[language == "en"][0].value, seoTitle[language == "it"][0].value),\n    "seoDescription": coalesce(seoDescription[language == $lang][0].value, seoDescription[language == "en"][0].value, seoDescription[language == "it"][0].value),\n    ogImage,\n    cover { ..., "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value) },\n    _updatedAt,\n    "siblings": *[_type == "project" && defined(slug.current) && hidden != true] | order(releaseDate desc, order asc) {\n      title,\n      "slug": slug.current\n    }\n  }\n': PROJECT_QUERY_RESULT;
   }
 }
 // Lets @sanity/client releases that predate the global registry read it too

@@ -5,19 +5,35 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { IoClose, IoMenu } from "react-icons/io5";
-import { navItems } from "@/lib/site";
+import type { NavContent } from "@/content/types";
+import {
+  delocalizePath,
+  format,
+  localizePath,
+  locales,
+  type Locale,
+} from "@/lib/i18n";
+import { navSections } from "@/lib/site";
 
-const sectionIds = [
-  ...navItems.map((item) => item.href.slice(item.href.indexOf("#") + 1)),
-  "contact",
-];
+const sectionIds = [...navSections, "contact"];
 
-const Header = () => {
+type HeaderProps = {
+  content: NavContent;
+  locale: Locale;
+};
+
+const Header = ({ content, locale }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const pathname = usePathname();
-  const isHome = pathname === "/";
+  const home = localizePath(locale);
+  const isHome = pathname === home;
+  const navItems = navSections.map((section) => ({
+    href: `${home}#${section}`,
+    label: content[section],
+  }));
+  const contactHref = `${home}#contact`;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
@@ -80,14 +96,14 @@ const Header = () => {
 
   const currentSection = isHome ? activeSection : null;
   const isActive = (href: string) =>
-    currentSection !== null && href === `/#${currentSection}`;
+    currentSection !== null && href === `${home}#${currentSection}`;
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     href: string,
   ) => {
     closeMenu();
-    if (pathname !== "/") return;
+    if (!isHome) return;
 
     const hash = href.slice(href.indexOf("#"));
     const target = document.getElementById(hash.slice(1));
@@ -110,13 +126,13 @@ const Header = () => {
         }`}
       >
         <div className="container flex flex-row items-center justify-between py-4">
-          <Link href="/" className="flex items-center">
+          <Link href={home} className="flex items-center">
             <Image
               src="/logo.png"
-              alt="Pellegrino Piccolo — home"
+              alt={content.logoAlt}
               width={429}
               height={72}
-              className="w-50 md:w-65"
+              className="w-50 md:w-60 lg:w-65"
               loading="eager"
             />
           </Link>
@@ -127,7 +143,7 @@ const Header = () => {
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
                 aria-current={isActive(item.href) ? "location" : undefined}
-                className={`relative py-1 transition-colors hover:text-link after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-indicator after:transition-transform after:duration-300 ${
+                className={`relative md:text-sm lg:text-base py-1 transition-colors hover:text-link after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-indicator after:transition-transform after:duration-300 ${
                   isActive(item.href)
                     ? "text-link after:scale-x-100"
                     : "text-fg after:scale-x-0"
@@ -137,17 +153,18 @@ const Header = () => {
               </Link>
             ))}
             <Link
-              href="/#contact"
-              onClick={(e) => handleNavClick(e, "/#contact")}
-              aria-current={isActive("/#contact") ? "location" : undefined}
-              className={`border rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong ${
-                isActive("/#contact")
+              href={contactHref}
+              onClick={(e) => handleNavClick(e, contactHref)}
+              aria-current={isActive(contactHref) ? "location" : undefined}
+              className={`border md:text-sm lg:text-base rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong ${
+                isActive(contactHref)
                   ? "text-link border-indicator"
                   : "text-fg border-divider"
               }`}
             >
-              Contact
+              {content.contact}
             </Link>
+            <LanguageSwitcher content={content} locale={locale} />
           </nav>
           <button
             type="button"
@@ -155,7 +172,7 @@ const Header = () => {
             onClick={() => setMenuOpen(true)}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            aria-label="Open menu"
+            aria-label={content.openMenu}
           >
             <IoMenu size={24} />
           </button>
@@ -174,16 +191,16 @@ const Header = () => {
         id="mobile-menu"
         role="dialog"
         aria-modal="true"
-        aria-label="Menu"
+        aria-label={content.menu}
         className={`md:hidden fixed inset-y-0 right-0 z-60 flex w-4/5 max-w-xs flex-col bg-page border-l border-divider transition-[translate,visibility] duration-300 ease-in-out ${
           menuOpen ? "visible translate-x-0" : "invisible translate-x-full"
         }`}
       >
         <div className="flex justify-between px-4 py-4">
-          <Link href="/" className="flex items-center" onClick={closeMenu}>
+          <Link href={home} className="flex items-center" onClick={closeMenu}>
             <Image
               src="/logo.png"
-              alt="Pellegrino Piccolo — home"
+              alt={content.logoAlt}
               width={429}
               height={72}
               className="w-50"
@@ -194,7 +211,7 @@ const Header = () => {
             type="button"
             className="-mr-2 p-2 text-fg rounded-md transition-colors hover:bg-card"
             onClick={closeMenu}
-            aria-label="Close menu"
+            aria-label={content.closeMenu}
           >
             <IoClose size={24} />
           </button>
@@ -214,17 +231,24 @@ const Header = () => {
             </Link>
           ))}
           <Link
-            href="/#contact"
-            onClick={(e) => handleNavClick(e, "/#contact")}
-            aria-current={isActive("/#contact") ? "location" : undefined}
+            href={contactHref}
+            onClick={(e) => handleNavClick(e, contactHref)}
+            aria-current={isActive(contactHref) ? "location" : undefined}
             className={`mt-6 text-center border rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong ${
-              isActive("/#contact")
+              isActive(contactHref)
                 ? "text-link border-indicator"
                 : "text-fg border-divider"
             }`}
           >
-            Contact
+            {content.contact}
           </Link>
+          <div className="mt-6 flex justify-center">
+            <LanguageSwitcher
+              content={content}
+              locale={locale}
+              onSelect={closeMenu}
+            />
+          </div>
         </nav>
       </div>
     </>
@@ -232,3 +256,39 @@ const Header = () => {
 };
 
 export default Header;
+
+const LanguageSwitcher = ({
+  content,
+  locale,
+  onSelect,
+}: HeaderProps & { onSelect?: () => void }) => {
+  const pathname = usePathname();
+  const { path } = delocalizePath(pathname ?? "/");
+
+  return (
+    <div
+      role="group"
+      aria-label={content.language}
+      className="flex items-center rounded-md border border-divider p-1 font-mono text-sm"
+    >
+      {locales.map((l) => (
+        <Link
+          key={l}
+          href={localizePath(l, path)}
+          hrefLang={l}
+          lang={l}
+          onClick={onSelect}
+          aria-current={l === locale ? "true" : undefined}
+          aria-label={format(content.switchTo, {
+            language: content.languages[l],
+          })}
+          className={`rounded px-2 py-1 uppercase transition-colors ${
+            l === locale ? "bg-card text-link" : "text-fg hover:text-link"
+          }`}
+        >
+          {l}
+        </Link>
+      ))}
+    </div>
+  );
+};

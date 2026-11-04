@@ -4,20 +4,22 @@ import React from "react";
 import Link from "next/link";
 import { FiArrowRight } from "react-icons/fi";
 import { FiSend } from "react-icons/fi";
+import type { FormContent, ProjectType } from "@/content/types";
+import { localizePath, type Locale } from "@/lib/i18n";
 
-const TYPES = [
-  "Mobile app",
-  "Website",
-  "Desktop app",
-  "Something else",
-] as const;
+const TYPES: ProjectType[] = ["mobile", "website", "desktop", "other"];
 
-const Form = () => {
+type FormProps = {
+  content: FormContent;
+  locale: Locale;
+};
+
+const Form = ({ content, locale }: FormProps) => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [honeypot, setHoneypot] = React.useState("");
-  const [type, setType] = React.useState<(typeof TYPES)[number]>("Mobile app");
+  const [type, setType] = React.useState<ProjectType>("mobile");
   const [status, setStatus] = React.useState<
     "idle" | "sending" | "success" | "error"
   >("idle");
@@ -32,11 +34,11 @@ const Form = () => {
     e.preventDefault();
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!regexEmail.test(email)) {
-      fail("Please enter a valid email address.");
+      fail(content.errors.invalidEmail);
       return;
     }
     if (name.trim() === "" || message.trim() === "") {
-      fail("Please fill in all required fields.");
+      fail(content.errors.required);
       return;
     }
     if (honeypot !== "") {
@@ -46,7 +48,7 @@ const Form = () => {
     setStatus("sending");
     try {
       let messageSend = message;
-      messageSend += `\nType: ${type}`;
+      messageSend += `\nType: ${content.types[type]}`;
       const response = await fetch("https://api.staticforms.dev/submit", {
         method: "POST",
         headers: {
@@ -64,14 +66,14 @@ const Form = () => {
         setName("");
         setEmail("");
         setMessage("");
-        setType("Mobile app");
+        setType("mobile");
       } else {
         console.error("Failed to send message:", response.statusText);
-        fail("Failed to send message. Please try again later.");
+        fail(content.errors.failed);
       }
     } catch (err) {
       console.error("Error sending message:", err);
-      fail("An error occurred. Please try again later.");
+      fail(content.errors.generic);
     }
   };
   const inputClass =
@@ -85,7 +87,7 @@ const Form = () => {
     >
       <fieldset className="flex flex-col gap-3">
         <legend className="text-body-light text-base mb-3">
-          What do you need?
+          {content.legend}
         </legend>
         <div className="flex flex-wrap gap-2">
           {TYPES.map((option) => (
@@ -100,31 +102,31 @@ const Form = () => {
                   : "border-line-card text-body-light hover:border-line-strong"
               }`}
             >
-              {option}
+              {content.types[option]}
             </button>
           ))}
         </div>
       </fieldset>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <label className="flex flex-col gap-2">
-          <span className="text-body-light text-base">Name</span>
+          <span className="text-body-light text-base">{content.name}</span>
           <input
             type="text"
             name="name"
             autoComplete="name"
-            placeholder="Your name"
+            placeholder={content.namePlaceholder}
             value={name}
             onChange={(e) => setName(e.target.value)}
             className={inputClass}
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-body-light text-base">Email</span>
+          <span className="text-body-light text-base">{content.email}</span>
           <input
             type="email"
             name="email"
             autoComplete="email"
-            placeholder="you@company.com"
+            placeholder={content.emailPlaceholder}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={inputClass}
@@ -133,11 +135,11 @@ const Form = () => {
         </label>
       </div>
       <label className="flex flex-col gap-2">
-        <span className="text-body-light text-base">Message</span>
+        <span className="text-body-light text-base">{content.message}</span>
         <textarea
           name="message"
           rows={5}
-          placeholder="A few lines about the project, timeline and goals"
+          placeholder={content.messagePlaceholder}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className={`${inputClass} resize-y`}
@@ -163,12 +165,12 @@ const Form = () => {
       >
         {status === "sending" ? (
           <>
-            Sending...
+            {content.sending}
             <FiSend />
           </>
         ) : (
           <>
-            Send message
+            {content.send}
             <FiArrowRight />
           </>
         )}
@@ -184,17 +186,20 @@ const Form = () => {
         aria-live="polite"
       >
         {status === "success"
-          ? "Message sent successfully!"
+          ? content.success
           : status === "error"
             ? error
-            : "No spam, no newsletter — your message comes straight to my inbox."}
+            : content.idle}
       </p>
       <p className="-mt-4 text-xs text-center text-muted">
-        By sending this form you agree to the{" "}
-        <Link href="/privacy" className="text-link hover:underline">
-          privacy policy
+        {content.consent.before}
+        <Link
+          href={localizePath(locale, "/privacy")}
+          className="text-link hover:underline"
+        >
+          {content.consent.link}
         </Link>
-        .
+        {content.consent.after}
       </p>
     </form>
   );

@@ -1,8 +1,8 @@
+import type { Metadata } from "next";
+import { defaultLocale, localizePath, locales, type Locale } from "./i18n";
+
 export const siteUrl = "https://piccolopellegrino.dev";
 export const siteName = "Pellegrino Piccolo";
-export const siteTitle = `${siteName} — Full-stack & Mobile Developer`;
-export const siteDescription =
-  "Pellegrino Piccolo is a full-stack and mobile developer based in Montesarchio (Benevento), Italy, building web, mobile and desktop apps with React Native, Next.js and Electron.";
 
 export const contactEmail = "piccolopellegrino.dev@gmail.com";
 
@@ -11,20 +11,54 @@ export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/pellegrino-piccolo-2a6739247",
 };
 
-export const navItems = [
-  { href: "/#projects", label: "Projects" },
-  { href: "/#about", label: "About" },
-  { href: "/#stack", label: "Stack" },
-];
+export const navSections = [
+  "projects",
+  "about",
+  "stack",
+  "services",
+] as const;
+
+export const serviceArea = {
+  home: "Montesarchio",
+  towns: [
+    "Montesarchio",
+    "Airola",
+    "Arpaia",
+    "Bonea",
+    "Bucciano",
+    "Forchia",
+    "Moiano",
+    "Pannarano",
+    "Paolisi",
+    "Cervinara",
+    "Rotondi",
+    "San Martino Valle Caudina",
+    "Roccabascerana",
+    "Sant'Agata de' Goti",
+    "Tocco Caudio",
+    "Benevento",
+  ],
+  regions: ["Valle Caudina", "Provincia di Benevento", "Campania"],
+};
 
 export const defaultOgImage = {
   url: "/og.png",
   width: 1200,
   height: 630,
-  alt: siteTitle,
 };
 
 export const personId = `${siteUrl}/#person`;
 export const websiteId = `${siteUrl}/#website`;
 
 export const absoluteUrl = (path: string) => new URL(path, siteUrl).toString();
+
+export const localeAlternates = (
+  locale: Locale,
+  path = "/",
+): Metadata["alternates"] => ({
+  canonical: localizePath(locale, path),
+  languages: {
+    ...Object.fromEntries(locales.map((l) => [l, localizePath(l, path)])),
+    "x-default": localizePath(defaultLocale, path),
+  },
+});
