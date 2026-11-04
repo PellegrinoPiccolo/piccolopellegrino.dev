@@ -10,12 +10,15 @@ import {
 } from "@/sanity/queries";
 import type { Metadata } from "next";
 import { cache } from "react";
+import type { SiteContent } from "@/content/types";
 import { getResumeUrl } from "@/sanity/resume";
 import Stack from "@/components/home/Stack";
 import JsonLd from "@/components/ui/JsonLd";
+import { localizePath } from "@/lib/i18n";
 import {
+  absoluteUrl,
+  localeAlternates,
   personId,
-  siteDescription,
   siteName,
   siteUrl,
   socialLinks,
@@ -26,13 +29,16 @@ const getProjects = cache(() => client.fetch(PROJECTS_QUERY));
 const getFeaturedProjects = cache(() => client.fetch(FEATURED_PROJECTS_QUERY));
 const getStack = cache(() => client.fetch(STACK_QUERY));
 
-export const metadata: Metadata = {
-  alternates: {
-    canonical: "/",
-  },
+type HomePageProps = {
+  content: SiteContent;
 };
 
-export default async function Home() {
+export const homeMetadata = ({ locale }: SiteContent): Metadata => ({
+  alternates: localeAlternates(locale),
+});
+
+export async function HomePage({ content }: HomePageProps) {
+  const { meta, locale } = content;
   const projects = await getProjects();
   const featuredProjects = await getFeaturedProjects();
   const stack = await getStack();
@@ -44,10 +50,10 @@ export default async function Home() {
       {
         "@type": "WebSite",
         "@id": websiteId,
-        url: siteUrl,
+        url: absoluteUrl(localizePath(locale)),
         name: siteName,
-        description: siteDescription,
-        inLanguage: "en",
+        description: meta.description,
+        inLanguage: locale,
         publisher: { "@id": personId },
       },
       {
@@ -55,8 +61,8 @@ export default async function Home() {
         "@id": personId,
         name: siteName,
         url: siteUrl,
-        jobTitle: "Full-stack & Mobile Developer",
-        description: siteDescription,
+        jobTitle: meta.jobTitle,
+        description: meta.description,
         knowsAbout: [
           "React Native",
           "Next.js",
@@ -87,11 +93,11 @@ export default async function Home() {
   return (
     <div className="w-full bg-page">
       <JsonLd data={jsonLd} />
-      <Hero recentProjects={projects.slice(0, 3)} />
-      <Projects featuredProjects={featuredProjects} />
-      <About resumeUrl={resumeUrl} />
-      <Stack stack={stack} />
-      <Contact />
+      <Hero content={content} recentProjects={projects.slice(0, 3)} />
+      <Projects content={content} featuredProjects={featuredProjects} />
+      <About content={content.about} resumeUrl={resumeUrl} />
+      <Stack content={content} stack={stack} />
+      <Contact content={content} />
     </div>
   );
 }

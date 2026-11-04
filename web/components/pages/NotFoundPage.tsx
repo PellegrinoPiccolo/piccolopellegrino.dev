@@ -2,16 +2,24 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
 import MissingPath from "@/components/ui/MissingPath";
+import type { SiteContent } from "@/content/types";
+import { localizePath } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Page not found",
+export const notFoundMetadata = ({ notFound }: SiteContent): Metadata => ({
+  title: notFound.title,
   robots: {
     index: false,
     follow: true,
   },
+});
+
+type NotFoundPageProps = {
+  content: SiteContent;
 };
 
-const NotFound = () => {
+export function NotFoundPage({ content }: NotFoundPageProps) {
+  const { notFound: t, locale } = content;
+
   return (
     <div className="relative w-full overflow-hidden bg-page">
       <div
@@ -25,7 +33,7 @@ const NotFound = () => {
 
       <div className="container relative flex min-h-[calc(100svh-10rem)] flex-col items-center justify-center gap-8 py-20 text-center">
         <p className="font-mono text-sm lg:text-base text-primary font-medium">
-          {"/* Error 404 — route not found */"}
+          {t.eyebrow}
         </p>
 
         <h1 className="bg-linear-to-b from-heading via-tag to-indicator/40 bg-clip-text text-[8rem] font-bold leading-none tracking-tight text-transparent md:text-[12rem] animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -34,11 +42,10 @@ const NotFound = () => {
 
         <div className="flex max-w-xl flex-col gap-3">
           <h2 className="text-3xl md:text-4xl font-bold text-heading">
-            This page went off the map
+            {t.heading}
           </h2>
           <p className="text-fg text-sm md:text-lg">
-            The page you&apos;re looking for doesn&apos;t exist, was moved, or
-            never made it past the drawing board.
+            {t.description}
           </p>
         </div>
 
@@ -54,10 +61,10 @@ const NotFound = () => {
               <span className="text-available">~</span>{" "}
               <span className="text-comment">$</span> cd <MissingPath />
             </p>
-            <p className="text-destructive">cd: no such file or directory</p>
+            <p className="text-destructive">{t.terminalError}</p>
             <p className="text-fg">
               <span className="text-available">~</span>{" "}
-              <span className="text-comment">$</span> cd /
+              <span className="text-comment">$</span> cd {localizePath(locale)}
               <span className="ml-1 inline-block h-4 w-2 translate-y-0.5 animate-pulse bg-link" />
             </p>
           </div>
@@ -65,22 +72,20 @@ const NotFound = () => {
 
         <div className="flex flex-wrap justify-center gap-2">
           <Link
-            href="/"
+            href={localizePath(locale)}
             className="group flex items-center justify-center gap-2 whitespace-nowrap bg-indigo-bright text-heading text-sm md:text-base px-6 md:px-8 py-2.5 md:py-3 rounded-full font-bold transition-all duration-300 ease-out hover:-translate-y-0.5 hover:brightness-110 hover:shadow-[0_10px_30px_-8px_var(--color-indigo-bright)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
           >
             <FaArrowLeft className="transition-transform duration-300 group-hover:-translate-x-0.5" />
-            Back to home
+            {t.backHome}
           </Link>
           <Link
-            href="/projects"
+            href={localizePath(locale, "/projects")}
             className="flex items-center justify-center whitespace-nowrap bg-page border-2 border-divider text-heading text-sm md:text-base px-6 md:px-8 py-2.5 md:py-3 rounded-full font-bold transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:shadow-[0_10px_30px_-12px_var(--color-indicator)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
           >
-            View Projects
+            {t.viewProjects}
           </Link>
         </div>
       </div>
     </div>
   );
-};
-
-export default NotFound;
+}

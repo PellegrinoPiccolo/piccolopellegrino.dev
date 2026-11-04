@@ -4,28 +4,32 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { FiArrowUpRight, FiGithub } from "react-icons/fi";
 import type { SanityImageSource } from "@sanity/image-url";
 import type { ProjectDetail } from "@/constants/type";
+import type { SiteContent } from "@/content/types";
+import { format, localizePath } from "@/lib/i18n";
 import { urlFor } from "@/sanity/image";
 
 type ProjectHeroProps = {
+  content: SiteContent;
   project: ProjectDetail;
 };
 
-const ProjectHero = ({ project }: ProjectHeroProps) => {
+const ProjectHero = ({ content, project }: ProjectHeroProps) => {
+  const t = content.projectHero;
   const InfoSection = [
     {
-      title: "Role",
+      title: t.role,
       value: project.role,
     },
     {
-      title: "Platforms",
+      title: t.platforms,
       value: project.platforms,
     },
     {
-      title: "Architecture",
+      title: t.architecture,
       value: project.architectureSummary,
     },
     {
-      title: "Key decisions",
+      title: t.keyDecisions,
       value: project.decisions?.length ?? 0,
     },
   ];
@@ -34,11 +38,11 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
     <div className="flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8">
       <div className="flex w-full min-w-0 flex-col gap-4 md:flex-2">
         <Link
-          href="/projects"
+          href={localizePath(content.locale, "/projects")}
           className="flex items-center gap-2 text-indicator"
         >
           <FaArrowLeft />
-          All projects
+          {t.allProjects}
         </Link>
         <div className="flex min-w-0 flex-col md:flex-row items-center justify-center md:justify-start gap-4 mt-4">
           {project.icon?.asset ? (
@@ -63,16 +67,18 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
             </h1>
             <p className="text-base text-description">
               {[
-                project.kind,
+                project.kind && content.kinds[project.kind],
                 project.releaseDate &&
-                  `Released ${new Date(project.releaseDate).toLocaleDateString(
-                    "en-US",
-                    {
-                      month: "short",
-                      year: "numeric",
-                      timeZone: "UTC",
-                    },
-                  )}`,
+                  format(t.released, {
+                    date: new Date(project.releaseDate).toLocaleDateString(
+                      content.dateLocale,
+                      {
+                        month: "short",
+                        year: "numeric",
+                        timeZone: "UTC",
+                      },
+                    ),
+                  }),
               ]
                 .filter(Boolean)
                 .join(" · ")}
@@ -101,7 +107,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
               className="group flex items-center gap-3 rounded-lg border border-line-strong bg-card px-6 py-3 font-bold text-heading transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-indicator hover:bg-indigo-deep hover:text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
             >
               <FiGithub className="text-xl" />
-              Code
+              {t.code}
             </a>
           )}
           {project.links?.live && (
@@ -111,7 +117,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
               rel="noopener noreferrer"
               className="group flex items-center gap-3 rounded-lg bg-primary px-6 py-3 font-bold text-heading transition-all duration-300 ease-out hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
             >
-              Visit site
+              {t.visitSite}
               <FiArrowUpRight className="text-lg transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           )}
@@ -122,7 +128,7 @@ const ProjectHero = ({ project }: ProjectHeroProps) => {
               rel="noopener noreferrer"
               className="group flex items-center gap-3 rounded-lg bg-green-700 px-6 py-3 font-bold text-heading transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-green-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
             >
-              {project.links.storeLabel ?? "Download"}
+              {project.links.storeLabel ?? t.download}
               <FiArrowUpRight className="text-lg transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           )}

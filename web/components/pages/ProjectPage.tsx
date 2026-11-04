@@ -1,6 +1,8 @@
 import { cache } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import type { SiteContent } from "@/content/types";
+import { localizePath } from "@/lib/i18n";
 import type { SanityImageSource } from "@sanity/image-url";
 import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/image";
@@ -14,6 +16,7 @@ import JsonLd from "@/components/ui/JsonLd";
 import {
   absoluteUrl,
   defaultOgImage,
+  localeAlternates,
   personId,
   siteName,
   websiteId,
@@ -26,9 +29,7 @@ const getProject = cache((slug: string) =>
   client.fetch(PROJECT_QUERY, { slug }),
 );
 
-export const dynamicParams = false;
-
-export async function generateStaticParams() {
+export async function projectStaticParams() {
   const slugs = await client.fetch(PROJECT_SLUGS_QUERY);
 
   return slugs
@@ -36,10 +37,10 @@ export async function generateStaticParams() {
     .map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps<"/projects/[slug]">): Promise<Metadata> {
-  const { slug } = await params;
+export async function projectMetadata(
+  { locale, ogLocale }: SiteContent,
+  slug: string,
+): Promise<Metadata> {
   const project = await getProject(slug);
 
   if (!project) return {};
@@ -61,16 +62,14 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: {
-      canonical: `/projects/${slug}`,
-    },
+    alternates: localeAlternates(locale, `/projects/${slug}`),
     openGraph: {
       type: "article",
       siteName,
-      locale: "en_US",
+      locale: ogLocale,
       title,
       description,
-      url: `/projects/${slug}`,
+      url: localizePath(locale, `/projects/${slug}`),
       images,
       authors: [siteName],
       publishedTime: project.releaseDate ?? undefined,
@@ -86,64 +85,19 @@ export async function generateMetadata({
   };
 }
 
-// ProjectDetail = {
-//   _id: string;
-//   title: string | null;
-//   slug: string | null;
-//   kind: "Desktop app" | "Mobile app" | "Tool" | "Web app" | "Website" | null;
-//   isClientWork: boolean | null;
-//   releaseDate: string | null;
-//   excerpt: string | null;
-//   stack: string[] | null;
-//   role: string | null;
-//   platforms: string | null;
-//   architectureSummary: string | null;
-//   links: { repo?: string; live?: string; store?: string; storeLabel?: string } | null;
-//   icon: SanityImage | null;
-//   gallery: (SanityImage & {
-//     _key: string;
-//     alt?: string;
-//     caption?: string;
-//     asset: {
-//       _id: string;
-//       metadata: { lqip: string | null; dimensions: SanityImageDimensions | null } | null;
-//     } | null;
-//   })[] | null;
-//   layersBoundary: string | null;
-//   layers: {
-//     _key: string;
-//     name: string | null;
-//     tech: string | null;
-//     icon: "bell" | "cloud-off" | "cloud" | "code" | "database" | "globe" | "lock" | "phone" | "server" | null;
-//     group: "absent" | "core" | null;
-//     connector: string | null;
-//     sideBySide: boolean | null;
-//     decisions: string[] | null;
-//   }[] | null;
-//   decisions: {
-//     _key: string;
-//     code: string | null;
-//     title: string | null;
-//     shortLabel: string | null;
-//     context: string | null;
-//     decision: string | null;
-//     tradeoff: string | null;
-//     alternatives: string[] | null;
-//   }[] | null;
-//   seoTitle: string | null;
-//   seoDescription: string | null;
-//   ogImage: SanityImage | null;
-//   cover: (SanityImage & { alt?: string }) | null;
-//   siblings: { title: string | null; slug: string | null }[];
-// }
 
-const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
-  const { slug } = await params;
+type ProjectPageProps = {
+  content: SiteContent;
+  slug: string;
+};
+
+export async function ProjectPage({ content, slug }: ProjectPageProps) {
+  const { locale, nav, projectsPage } = content;
   const project = await getProject(slug);
 
   if (!project) notFound();
 
-  const url = absoluteUrl(`/projects/${slug}`);
+  const url = absoluteUrl(localizePath(locale, `/projects/${slug}`));
   const image = project.ogImage?.asset ? project.ogImage : project.cover;
 
   const jsonLd = {
@@ -166,6 +120,7 @@ const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
         author: { "@id": personId },
         creator: { "@id": personId },
         isPartOf: { "@id": websiteId },
+        inLanguage: locale,
         sameAs: [project.links?.live, project.links?.repo].filter(Boolean),
       },
       {
@@ -174,14 +129,14 @@ const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
           {
             "@type": "ListItem",
             position: 1,
-            name: "Home",
-            item: absoluteUrl("/"),
+            name: nav.home,
+            item: absoluteUrl(localizePath(locale)),
           },
           {
             "@type": "ListItem",
             position: 2,
-            name: "Projects",
-            item: absoluteUrl("/projects"),
+            name: projectsPage.title,
+            item: absoluteUrl(localizePath(locale, "/projects")),
           },
           {
             "@type": "ListItem",
@@ -199,19 +154,20 @@ const Page = async ({ params }: PageProps<"/projects/[slug]">) => {
       <JsonLd data={jsonLd} />
       <div className="w-full bg-section">
         <div className="container pt-15 pb-20 md:py-20 flex flex-col gap-4">
-          <ProjectHero project={project} />
+          <ProjectHero content={content} project={project} />
         </div>
       </div>
       <div className="w-full bg-page">
         <div className="container py-20 flex flex-col gap-20">
-          <ProjectGallery project={project} />
-          <ProjectArchitecture project={project} />
-          <ProjectDecisions project={project} />
-          <ProjectNavigation project={project} />
+          <ProjectGallery content={content.gallery} project={project} />
+          <ProjectArchitecture
+            content={content.architecture}
+            project={project}
+          />
+          <ProjectDecisions content={content.decisions} project={project} />
+          <ProjectNavigation content={content} project={project} />
         </div>
       </div>
     </div>
   );
-};
-
-export default Page;
+}

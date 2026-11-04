@@ -11,6 +11,7 @@ import {
   CarouselPrevious,
   CarouselApi,
 } from "@/components/ui/carousel";
+import { format } from "@/lib/i18n";
 import { urlFor } from "@/sanity/image";
 import type { SanityImageSource } from "@sanity/image-url";
 import { PhotoProvider, PhotoView } from "react-photo-view";
@@ -18,9 +19,10 @@ import "react-photo-view/dist/react-photo-view.css";
 
 type CarouselProps = {
   images: ProjectGalleryImage[];
+  imageAlt: string;
 };
 
-const Carousel = ({ images }: CarouselProps) => {
+const Carousel = ({ images, imageAlt }: CarouselProps) => {
   const [api, setApi] = React.useState<CarouselApi>();
   const count = images.length;
   const [current, setCurrent] = useState(1);
@@ -59,7 +61,7 @@ const Carousel = ({ images }: CarouselProps) => {
                           .width(1600)
                           .url()}
                         alt={
-                          image.alt ?? `Carousel image ${index + 1} of ${count}`
+                          image.alt ?? format(imageAlt, { index: index + 1, count })
                         }
                         width={1600}
                         height={Math.round(

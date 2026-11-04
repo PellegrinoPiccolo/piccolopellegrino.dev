@@ -1,12 +1,17 @@
 import type { Stack as StackData, StackGroup } from "@/constants/type";
 import React from "react";
 import Link from "next/link";
+import type { SiteContent } from "@/content/types";
+import { localizePath } from "@/lib/i18n";
 
 type StackProps = {
+  content: SiteContent;
   stack: StackData;
 };
 
-const Stack = ({ stack }: StackProps) => {
+const Stack = ({ content, stack }: StackProps) => {
+  const t = content.stack;
+
   return (
     <section
       className="w-full bg-section scroll-mt-20"
@@ -14,24 +19,30 @@ const Stack = ({ stack }: StackProps) => {
       aria-labelledby="stack-heading"
     >
       <div className="container py-20 flex flex-col items-start gap-4">
-        <p className="text-primary font-mono text-base">03 — Stack</p>
+        <p className="text-primary font-mono text-base">{t.eyebrow}</p>
         <h2
           id="stack-heading"
           className="text-3xl md:text-5xl font-bold text-heading"
         >
-          Tools I ship with
+          {t.heading}
         </h2>
         <p className="text-description text-lg">
-          Grouped by what they&apos;re for, and linked to where I used them.
+          {t.description}
         </p>
         {stack?.length ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full mt-8 border-b border-divider">
             {stack.map((item) => {
-              return <StackComponent key={item._key} stackItem={item} />;
+              return (
+                <StackComponent
+                  key={item._key}
+                  stackItem={item}
+                  content={content}
+                />
+              );
             })}
           </div>
         ) : (
-          <EmptyStack />
+          <EmptyStack content={t} />
         )}
       </div>
     </section>
@@ -47,7 +58,13 @@ export default Stack;
 //   projects: { _id: string; title: string | null; slug: string | null }[] | null;
 //   note: string | null;
 // }
-const StackComponent = ({ stackItem }: { stackItem: StackGroup }) => {
+const StackComponent = ({
+  stackItem,
+  content,
+}: {
+  stackItem: StackGroup;
+  content: SiteContent;
+}) => {
   const items = stackItem.items ?? [];
   const projects = stackItem.projects ?? [];
 
@@ -64,18 +81,21 @@ const StackComponent = ({ stackItem }: { stackItem: StackGroup }) => {
           ))}
         </p>
       ) : (
-        <p className="font-mono text-sm text-comment">{"/* Coming soon */"}</p>
+        <p className="font-mono text-sm text-comment">{content.stack.comingSoon}</p>
       )}
       {stackItem.note && (
         <p className="text-comment text-sm font-mono">{stackItem.note}</p>
       )}
       {projects.length > 0 && (
         <p className="text-fg text-base font-medium">
-          Used in{" "}
+          {content.stack.usedIn}{" "}
           {projects.map((project, index) => (
             <React.Fragment key={project._id}>
               <Link
-                href={`/projects/${project.slug ?? ""}`}
+                href={localizePath(
+                  content.locale,
+                  `/projects/${project.slug ?? ""}`,
+                )}
                 className="text-link hover:underline"
               >
                 {project.title}
@@ -89,14 +109,14 @@ const StackComponent = ({ stackItem }: { stackItem: StackGroup }) => {
   );
 };
 
-const EmptyStack = () => {
+const EmptyStack = ({ content }: { content: SiteContent["stack"] }) => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-line-card px-6 py-16 text-center">
       <p className="font-mono text-sm md:text-base text-comment">
-        {"/* Work in progress */"}
+        {content.emptyEyebrow}
       </p>
       <p className="max-w-xl text-sm md:text-lg text-description">
-        I&apos;m putting together the tools I work with. Check back soon.
+        {content.emptyText}
       </p>
     </div>
   );
