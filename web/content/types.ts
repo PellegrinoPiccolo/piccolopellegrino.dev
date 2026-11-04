@@ -188,6 +188,7 @@ export type SiteContent = {
     position: string;
     next: string;
     previous: string;
+    allProjects: string;
   };
   privacy: {
     title: string;

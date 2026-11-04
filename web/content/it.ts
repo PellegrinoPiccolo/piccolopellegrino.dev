@@ -258,6 +258,7 @@ export const it: SiteContent = {
     position: "Progetto {index} di {total}.",
     next: "Progetto successivo",
     previous: "Progetto precedente",
+    allProjects: "Tutti i progetti",
   },
   privacy: {
     title: "Informativa sulla privacy",
