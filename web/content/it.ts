@@ -8,7 +8,7 @@ export const it: SiteContent = {
     title:
       "Sviluppatore web e programmatore a Montesarchio (BN) — Pellegrino Piccolo",
     description:
-      "Sviluppatore web e programmatore freelance a Montesarchio (BN): creo siti web, app mobile e gestionali per attività della Valle Caudina e della provincia di Benevento.",
+      "Pellegrino Piccolo, sviluppatore web e programmatore di Montesarchio (BN). Studio Informatica e realizzo siti web e app, anche su richiesta, nella Valle Caudina e in provincia di Benevento.",
     jobTitle: "Sviluppatore web e programmatore",
     keywords: [
       "Pellegrino Piccolo",
@@ -18,14 +18,14 @@ export const it: SiteContent = {
       "sviluppatore app Benevento",
       "realizzazione siti web Valle Caudina",
       "web developer Benevento",
-      "programmatore freelance Benevento",
+      "programmatore Benevento",
     ],
   },
   nav: {
     projects: "Progetti",
     about: "Chi sono",
     stack: "Stack",
-    services: "Servizi",
+    services: "Cosa faccio",
     contact: "Contatti",
     home: "Home",
     allProjects: "Tutti i progetti",
@@ -48,7 +48,7 @@ export const it: SiteContent = {
     label: "Footer",
     tagline:
       "Sviluppatore web e programmatore a Montesarchio (BN): siti web, app mobile e desktop, dal design al rilascio.",
-    available: "Disponibile per progetti freelance",
+    available: "Disponibile per nuovi progetti",
     navigate: "Naviga",
     connect: "Contatti",
     email: "Email",
@@ -60,18 +60,18 @@ export const it: SiteContent = {
   hero: {
     eyebrow: "/* Sviluppatore web e programmatore a Montesarchio */",
     description:
-      "Creo siti web, app mobile e software su misura per attività e professionisti della Valle Caudina e della provincia di Benevento: dall'idea alla pubblicazione, curando qualità e prestazioni.",
+      "Sviluppo siti web, app mobile e software su misura, curando qualità e prestazioni. Se hai un'idea o un'attività nella Valle Caudina o in provincia di Benevento, possiamo realizzarla insieme.",
     viewProjects: "Vedi i progetti",
     contactMe: "Contattami",
     latestWork: "Ultimi lavori",
-    available: "Disponibile per freelance",
+    available: "Disponibile per nuovi progetti",
     coverAlt: "Copertina del progetto",
   },
   services: {
-    eyebrow: "04 — Servizi",
-    heading: "Cosa posso realizzare per te",
+    eyebrow: "04 — Cosa faccio",
+    heading: "Cosa posso fare",
     description:
-      "Sono uno sviluppatore web e programmatore freelance: seguo il progetto dall'idea alla pubblicazione, con un unico referente.",
+      "Accanto agli studi realizzo progetti su richiesta, scelti uno alla volta, e li seguo dall'idea alla pubblicazione.",
     items: [
       {
         title: "Siti web",
@@ -86,21 +86,21 @@ export const it: SiteContent = {
         serviceType: "Sviluppo app mobile",
       },
       {
-        title: "Software e gestionali",
+        title: "Software su misura",
         description:
-          "Applicazioni web e desktop su misura per organizzare il lavoro: gestionali, strumenti interni e automazioni.",
+          "Piccole applicazioni web o desktop per organizzare il lavoro: strumenti interni e automazioni.",
         serviceType: "Sviluppo software su misura",
       },
       {
         title: "Manutenzione",
         description:
-          "Aggiornamenti, correzioni e nuove funzioni per siti e app già esistenti, anche se non li ho realizzati io.",
+          "Aggiornamenti, correzioni e nuove funzioni per siti e app già esistenti.",
         serviceType: "Manutenzione siti web e app",
       },
     ],
-    areaHeading: "Dove lavoro",
+    areaHeading: "Zona",
     areaDescription:
-      "Vivo a Montesarchio e lavoro con attività di tutta la Valle Caudina e della provincia di Benevento, di persona o da remoto. Tra i comuni vicini: {towns}. Da remoto seguo progetti in tutta Italia.",
+      "Vivo a Montesarchio e collaboro volentieri con attività e persone della Valle Caudina e della provincia di Benevento, di persona o da remoto. Tra i comuni vicini: {towns}.",
   },
   homeProjects: {
     eyebrow: "01 — Progetti",
@@ -154,7 +154,7 @@ export const it: SiteContent = {
     badge: "Scrivimi",
     heading: ["Hai un progetto", "in mente?"],
     description:
-      "Raccontami cosa vuoi realizzare: un'app, un sito web o un tool. Ti rispondo entro 24 ore.",
+      "Raccontami cosa vuoi realizzare: un'app, un sito web o un tool. Ti rispondo appena posso, di solito in giornata.",
     location:
       "Montesarchio (BN) · Valle Caudina e provincia di Benevento, di persona o da remoto",
   },
@@ -268,7 +268,7 @@ export const it: SiteContent = {
     sections: [
       {
         title: "Chi è il titolare",
-        body: "Il titolare del trattamento è Pellegrino Piccolo, sviluppatore freelance con sede in Italia. Puoi scrivermi a {email} per qualsiasi questione relativa ai tuoi dati.",
+        body: "Il titolare del trattamento è Pellegrino Piccolo, persona fisica residente in Italia. Puoi scrivermi a {email} per qualsiasi questione relativa ai tuoi dati.",
       },
       {
         title: "Quali dati raccolgo",

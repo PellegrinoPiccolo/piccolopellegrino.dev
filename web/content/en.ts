@@ -7,7 +7,7 @@ export const en: SiteContent = {
   meta: {
     title: "Pellegrino Piccolo — Web & App Developer near Benevento, Italy",
     description:
-      "Freelance web and app developer based in Montesarchio (Benevento), Italy. I build websites, mobile apps and custom software for businesses, locally and remotely.",
+      "Web and app developer from Montesarchio (Benevento), Italy. Computer Science student building websites, mobile apps and custom software, also on request.",
     jobTitle: "Full-stack & Mobile Developer",
     keywords: [
       "Pellegrino Piccolo",
@@ -16,7 +16,6 @@ export const en: SiteContent = {
       "React Native developer",
       "Next.js developer",
       "Electron",
-      "freelance developer",
       "web developer Benevento",
       "app developer Italy",
       "portfolio",
@@ -26,7 +25,7 @@ export const en: SiteContent = {
     projects: "Projects",
     about: "About",
     stack: "Stack",
-    services: "Services",
+    services: "What I do",
     contact: "Contact",
     home: "Home",
     allProjects: "All projects",
@@ -49,7 +48,7 @@ export const en: SiteContent = {
     label: "Footer",
     tagline:
       "Full-stack and mobile developer building web, mobile and desktop apps, from design to release.",
-    available: "Available for freelance",
+    available: "Open to new projects",
     navigate: "Navigate",
     connect: "Connect",
     email: "Email",
@@ -61,18 +60,18 @@ export const en: SiteContent = {
   hero: {
     eyebrow: "/* Full-stack & mobile developer */",
     description:
-      "I design and build seamless digital experiences from concept to launch, creating exceptional web and mobile applications focused on quality and performance.",
+      "I design and build websites, mobile apps and custom software, focused on quality and performance. If you have an idea or a business near Benevento, we can build it together.",
     viewProjects: "View Projects",
     contactMe: "Contact Me",
     latestWork: "Latest work",
-    available: "Available for freelance",
+    available: "Open to new projects",
     coverAlt: "Project cover",
   },
   services: {
-    eyebrow: "04 — Services",
-    heading: "What I can build for you",
+    eyebrow: "04 — What I do",
+    heading: "What I can do",
     description:
-      "I'm a freelance web and app developer: I take your project from idea to launch, with one point of contact.",
+      "Alongside my studies I take on projects on request, one at a time, and follow them from idea to launch.",
     items: [
       {
         title: "Websites",
@@ -89,19 +88,19 @@ export const en: SiteContent = {
       {
         title: "Custom software",
         description:
-          "Web and desktop tools built around how you work: management software, internal tools and automations.",
+          "Small web or desktop tools to organize your work: internal tools and automations.",
         serviceType: "Custom software development",
       },
       {
         title: "Maintenance",
         description:
-          "Updates, fixes and new features for existing websites and apps, even ones I didn't build.",
+          "Updates, fixes and new features for existing websites and apps.",
         serviceType: "Website and app maintenance",
       },
     ],
-    areaHeading: "Where I work",
+    areaHeading: "Area",
     areaDescription:
-      "I live in Montesarchio and work with businesses across the Valle Caudina and the province of Benevento, in person or remotely. Nearby towns include {towns}. Remotely, I work with clients anywhere.",
+      "I live in Montesarchio and I'm happy to work with businesses and people across the Valle Caudina and the province of Benevento, in person or remotely. Nearby towns include {towns}.",
   },
   homeProjects: {
     eyebrow: "01 — Projects",
@@ -154,7 +153,7 @@ export const en: SiteContent = {
     badge: "Get in touch",
     heading: ["Have a project", "in mind?"],
     description:
-      "Tell me what you're building: an app, a website or a tool. I'll get back to you within 24 hours.",
+      "Tell me what you're building: an app, a website or a tool. I'll get back to you as soon as I can, usually the same day.",
     location:
       "Montesarchio (BN), Italy - working locally and remotely in Italian and English",
   },
@@ -267,7 +266,7 @@ export const en: SiteContent = {
     sections: [
       {
         title: "Who is responsible",
-        body: "The data controller is Pellegrino Piccolo, a freelance developer based in Italy. You can reach me at {email} for anything related to your data.",
+        body: "The data controller is Pellegrino Piccolo, a private individual based in Italy. You can reach me at {email} for anything related to your data.",
       },
       {
         title: "What I collect",
