@@ -5,9 +5,9 @@ export const en: SiteContent = {
   dateLocale: "en-US",
   ogLocale: "en_US",
   meta: {
-    title: "Pellegrino Piccolo — Full-stack & Mobile Developer",
+    title: "Pellegrino Piccolo — Web & App Developer near Benevento, Italy",
     description:
-      "Pellegrino Piccolo is a full-stack and mobile developer based in Montesarchio (Benevento), Italy, building web, mobile and desktop apps with React Native, Next.js and Electron.",
+      "Freelance web and app developer based in Montesarchio (Benevento), Italy. I build websites, mobile apps and custom software for businesses, locally and remotely.",
     jobTitle: "Full-stack & Mobile Developer",
     keywords: [
       "Pellegrino Piccolo",
@@ -17,6 +17,8 @@ export const en: SiteContent = {
       "Next.js developer",
       "Electron",
       "freelance developer",
+      "web developer Benevento",
+      "app developer Italy",
       "portfolio",
     ],
   },
@@ -65,6 +67,41 @@ export const en: SiteContent = {
     available: "Available for freelance",
     coverAlt: "Project cover",
   },
+  services: {
+    eyebrow: "04 — Services",
+    heading: "What I can build for you",
+    description:
+      "I'm a freelance web and app developer: I take your project from idea to launch, with one point of contact.",
+    items: [
+      {
+        title: "Websites",
+        description:
+          "Showcase websites, product catalogs and landing pages that load fast, are easy to find on Google and easy to update.",
+        serviceType: "Website development",
+      },
+      {
+        title: "Mobile apps",
+        description:
+          "Android and iOS apps built with React Native, from screen design to store release.",
+        serviceType: "Mobile app development",
+      },
+      {
+        title: "Custom software",
+        description:
+          "Web and desktop tools built around how you work: management software, internal tools and automations.",
+        serviceType: "Custom software development",
+      },
+      {
+        title: "Maintenance",
+        description:
+          "Updates, fixes and new features for existing websites and apps, even ones I didn't build.",
+        serviceType: "Website and app maintenance",
+      },
+    ],
+    areaHeading: "Where I work",
+    areaDescription:
+      "I live in Montesarchio and work with businesses across the Valle Caudina and the province of Benevento, in person or remotely. Nearby towns include {towns}. Remotely, I work with clients anywhere.",
+  },
   homeProjects: {
     eyebrow: "01 — Projects",
     heading: "Selected work",
@@ -112,7 +149,7 @@ export const en: SiteContent = {
     emptyText: "I'm putting together the tools I work with. Check back soon.",
   },
   contact: {
-    eyebrow: "04 — Contact",
+    eyebrow: "05 — Contact",
     badge: "Get in touch",
     heading: ["Have a project", "in mind?"],
     description:

@@ -13,6 +13,29 @@ export const socialLinks = {
 
 export const navSections = ["projects", "about", "stack"] as const;
 
+export const serviceArea = {
+  home: "Montesarchio",
+  towns: [
+    "Montesarchio",
+    "Airola",
+    "Arpaia",
+    "Bonea",
+    "Bucciano",
+    "Forchia",
+    "Moiano",
+    "Pannarano",
+    "Paolisi",
+    "Cervinara",
+    "Rotondi",
+    "San Martino Valle Caudina",
+    "Roccabascerana",
+    "Sant'Agata de' Goti",
+    "Tocco Caudio",
+    "Benevento",
+  ],
+  regions: ["Valle Caudina", "Provincia di Benevento", "Campania"],
+};
+
 export const defaultOgImage = {
   url: "/og.png",
   width: 1200,

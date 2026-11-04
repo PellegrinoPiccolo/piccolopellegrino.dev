@@ -13,12 +13,14 @@ import { cache } from "react";
 import type { SiteContent } from "@/content/types";
 import { getResumeUrl } from "@/sanity/resume";
 import Stack from "@/components/home/Stack";
+import Services from "@/components/home/Services";
 import JsonLd from "@/components/ui/JsonLd";
 import { localizePath, type Locale } from "@/lib/i18n";
 import {
   absoluteUrl,
   localeAlternates,
   personId,
+  serviceArea,
   siteName,
   siteUrl,
   socialLinks,
@@ -42,7 +44,18 @@ export const homeMetadata = ({ locale }: SiteContent): Metadata => ({
 });
 
 export async function HomePage({ content }: HomePageProps) {
-  const { meta, locale } = content;
+  const { meta, locale, services } = content;
+  const areaServed = [
+    ...serviceArea.towns.map((name) => ({
+      "@type": "City",
+      name,
+      containedInPlace: { "@type": "Country", name: "Italia" },
+    })),
+    ...serviceArea.regions.map((name) => ({
+      "@type": "AdministrativeArea",
+      name,
+    })),
+  ];
   const projects = await getProjects(locale);
   const featuredProjects = await getFeaturedProjects(locale);
   const stack = await getStack(locale);
@@ -67,6 +80,7 @@ export async function HomePage({ content }: HomePageProps) {
         url: siteUrl,
         jobTitle: meta.jobTitle,
         description: meta.description,
+        knowsLanguage: ["it", "en"],
         knowsAbout: [
           "React Native",
           "Next.js",
@@ -81,6 +95,7 @@ export async function HomePage({ content }: HomePageProps) {
           address: {
             "@type": "PostalAddress",
             addressLocality: "Montesarchio",
+            postalCode: "82016",
             addressRegion: "BN",
             addressCountry: "IT",
           },
@@ -91,6 +106,16 @@ export async function HomePage({ content }: HomePageProps) {
         },
         sameAs: [socialLinks.github, socialLinks.linkedin],
       },
+      ...services.items.map((item) => ({
+        "@type": "Service",
+        name: item.title,
+        serviceType: item.serviceType,
+        description: item.description,
+        provider: { "@id": personId },
+        areaServed,
+        availableLanguage: ["it", "en"],
+        url: absoluteUrl(`${localizePath(locale)}#services`),
+      })),
     ],
   };
 
@@ -101,6 +126,7 @@ export async function HomePage({ content }: HomePageProps) {
       <Projects content={content} featuredProjects={featuredProjects} />
       <About content={content.about} resumeUrl={resumeUrl} />
       <Stack content={content} stack={stack} />
+      <Services content={services} />
       <Contact content={content} />
     </div>
   );

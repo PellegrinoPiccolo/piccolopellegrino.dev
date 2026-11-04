@@ -83,6 +83,14 @@ export type SiteContent = {
     available: string;
     coverAlt: string;
   };
+  services: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    items: { title: string; description: string; serviceType: string }[];
+    areaHeading: string;
+    areaDescription: string;
+  };
   homeProjects: {
     eyebrow: string;
     heading: string;
