@@ -132,7 +132,7 @@ const Header = ({ content, locale }: HeaderProps) => {
               alt={content.logoAlt}
               width={429}
               height={72}
-              className="w-50 md:w-65"
+              className="w-50 md:w-60 lg:w-65"
               loading="eager"
             />
           </Link>
@@ -143,7 +143,7 @@ const Header = ({ content, locale }: HeaderProps) => {
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
                 aria-current={isActive(item.href) ? "location" : undefined}
-                className={`relative py-1 transition-colors hover:text-link after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-indicator after:transition-transform after:duration-300 ${
+                className={`relative md:text-sm lg:text-base py-1 transition-colors hover:text-link after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:rounded-full after:bg-indicator after:transition-transform after:duration-300 ${
                   isActive(item.href)
                     ? "text-link after:scale-x-100"
                     : "text-fg after:scale-x-0"
@@ -156,7 +156,7 @@ const Header = ({ content, locale }: HeaderProps) => {
               href={contactHref}
               onClick={(e) => handleNavClick(e, contactHref)}
               aria-current={isActive(contactHref) ? "location" : undefined}
-              className={`border rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong ${
+              className={`border md:text-sm lg:text-base rounded-md p-3 transition-colors hover:bg-card hover:border-line-strong ${
                 isActive(contactHref)
                   ? "text-link border-indicator"
                   : "text-fg border-divider"
