@@ -4,6 +4,8 @@ import { FiDownload, FiExternalLink, FiGithub } from "react-icons/fi";
 import { FaArrowRight } from "react-icons/fa6";
 import type { SanityImageSource } from "@sanity/image-url/signed";
 import type { FeaturedProjectItem, ProjectItem } from "@/constants/type";
+import type { SiteContent } from "@/content/types";
+import { format, localizePath } from "@/lib/i18n";
 import { urlFor } from "@/sanity/image";
 
 /**
@@ -24,15 +26,17 @@ import { urlFor } from "@/sanity/image";
  */
 
 type ProjectCardProps = {
+  content: SiteContent;
   project: FeaturedProjectItem | ProjectItem;
 };
 
-const ProjectCard = ({ project }: ProjectCardProps) => {
+const ProjectCard = ({ content, project }: ProjectCardProps) => {
+  const t = content.projectCard;
   const year = project.releaseDate?.slice(0, 4);
   const { repo, live, store, storeLabel } = project.links ?? {};
 
   return (
-    <article className="flex flex-col h-full overflow-hidden bg-card border border-line-card rounded-card transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-line hover:shadow-[0_10px_30px_-12px_var(--color-indicator)]">
+    <article className="relative flex flex-col h-full overflow-hidden bg-card border border-line-card rounded-card transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-line hover:shadow-[0_10px_30px_-12px_var(--color-indicator)]">
       <div className="relative aspect-16/10 bg-page border-b border-line-card">
         {project.cover?.asset ? (
           <Image
@@ -40,7 +44,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
               .width(800)
               .height(500)
               .url()}
-            alt={project.cover.alt ?? project.title ?? "Project cover"}
+            alt={project.cover.alt ?? project.title ?? t.coverAlt}
             fill
             sizes="(width >= 64rem) 33vw, (width >= 48rem) 50vw, 100vw"
             placeholder={project.cover.asset.metadata?.lqip ? "blur" : "empty"}
@@ -54,7 +58,7 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
         )}
         {project.kind && (
           <span className="absolute top-4 left-4 bg-page/80 backdrop-blur border border-line-strong rounded-pill px-3 py-1 font-mono text-sm text-fg lowercase">
-            {project.kind}
+            {content.kinds[project.kind]}
           </span>
         )}
         <div className="absolute left-6 -bottom-8 p-1 bg-card rounded-icon-lg">
@@ -79,11 +83,16 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
       <div className="flex flex-1 flex-col gap-3 px-6 pt-12 pb-6">
         <div className="flex items-baseline justify-between gap-4">
-          <h3 className="text-h3 md:text-3xl font-bold text-heading">
+          <h3
+            title={project.title ?? undefined}
+            className="min-w-0 truncate text-h3 md:text-3xl font-bold text-heading"
+          >
             {project.title}
           </h3>
           {year && (
-            <span className="font-mono text-caption text-muted">{year}</span>
+            <span className="shrink-0 font-mono text-caption text-muted">
+              {year}
+            </span>
           )}
         </div>
         {project.excerpt && (
@@ -106,25 +115,28 @@ const ProjectCard = ({ project }: ProjectCardProps) => {
 
         <div className="mt-auto flex items-center justify-between gap-4 pt-6">
           <Link
-            href={`/projects/${project.slug}`}
-            className="group flex items-center gap-2 font-bold text-link transition-colors hover:text-tag focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+            href={localizePath(content.locale, `/projects/${project.slug}`)}
+            aria-label={format(t.readCaseStudyLabel, {
+              title: project.title ?? "",
+            })}
+            className="group flex items-center gap-2 font-bold text-link transition-colors after:absolute after:inset-0 after:rounded-card hover:text-tag focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
           >
-            Read case study
+            {t.readCaseStudy}
             <FaArrowRight className="text-sm transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
-          <div className="flex gap-2">
+          <div className="relative z-10 flex gap-2">
             {repo && (
-              <ProjectLink href={repo} label="Source code">
+              <ProjectLink href={repo} label={t.sourceCode}>
                 <FiGithub />
               </ProjectLink>
             )}
             {live && (
-              <ProjectLink href={live} label="Live site">
+              <ProjectLink href={live} label={t.liveSite}>
                 <FiExternalLink />
               </ProjectLink>
             )}
             {store && (
-              <ProjectLink href={store} label={storeLabel ?? "Download"}>
+              <ProjectLink href={store} label={storeLabel ?? t.download}>
                 <FiDownload />
               </ProjectLink>
             )}

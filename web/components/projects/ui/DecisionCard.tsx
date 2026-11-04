@@ -1,6 +1,9 @@
 import type { ProjectDecision } from "@/constants/type";
 
+import type { SiteContent } from "@/content/types";
+
 type DecisionCardProps = {
+  content: SiteContent["decisions"];
   decision: ProjectDecision;
 };
 
@@ -15,22 +18,22 @@ type DecisionCardProps = {
 //   alternatives: string[] | null;
 // }
 
-const DecisionCard = ({ decision }: DecisionCardProps) => {
+const DecisionCard = ({ content, decision }: DecisionCardProps) => {
   const DecisionContent = [
     {
-      title: "Context",
+      title: content.context,
       content: decision.context,
     },
     {
-      title: "Decision",
+      title: content.decision,
       content: decision.decision,
     },
     {
-      title: "Tradeoff",
+      title: content.tradeoff,
       content: decision.tradeoff,
     },
     {
-      title: "Alternatives",
+      title: content.alternatives,
       content: decision.alternatives?.join(", "),
     },
   ];

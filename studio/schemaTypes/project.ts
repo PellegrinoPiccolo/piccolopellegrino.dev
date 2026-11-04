@@ -1,5 +1,6 @@
 import {defineArrayMember, defineField, defineType} from 'sanity'
 import {PaddedObjectInput} from '../components/PaddedObjectInput'
+import {localized} from '../languages'
 
 const LAYER_ICONS = [
   'phone',
@@ -73,6 +74,13 @@ export const project = defineType({
       initialValue: false,
     }),
     defineField({
+      name: 'hidden',
+      type: 'boolean',
+      group: 'general',
+      description: 'Hide this project from the site without deleting it',
+      initialValue: false,
+    }),
+    defineField({
       name: 'releaseDate',
       type: 'date',
       group: 'general',
@@ -94,18 +102,22 @@ export const project = defineType({
         defineField({
           name: 'alt',
           title: 'Alternative text',
-          type: 'string',
+          type: 'internationalizedArrayString',
           validation: (rule) => rule.required().warning('Alt text is important for accessibility'),
         }),
       ],
     }),
     defineField({
       name: 'excerpt',
-      type: 'text',
+      type: 'internationalizedArrayText',
       group: 'general',
-      rows: 3,
-      description: 'Short description for cards and the case study header',
-      validation: (rule) => rule.max(220),
+      description: 'Short description for cards and the case study header (max 220 characters)',
+      validation: (rule) =>
+        rule.custom((values) =>
+          ((values ?? []) as {value?: string}[]).some((item) => (item.value?.length ?? 0) > 220)
+            ? 'Max 220 characters per language'
+            : true,
+        ),
     }),
     defineField({
       name: 'stack',
@@ -116,21 +128,21 @@ export const project = defineType({
     }),
     defineField({
       name: 'role',
-      type: 'string',
+      type: 'internationalizedArrayString',
       group: 'general',
-      placeholder: 'Design & development (solo)',
+      description: 'e.g. Design & development (solo)',
     }),
     defineField({
       name: 'platforms',
-      type: 'string',
+      type: 'internationalizedArrayString',
       group: 'general',
-      placeholder: 'Android · Google Play',
+      description: 'e.g. Android · Google Play',
     }),
     defineField({
       name: 'architectureSummary',
-      type: 'string',
+      type: 'internationalizedArrayString',
       group: 'general',
-      placeholder: 'Offline-first, no backend',
+      description: 'e.g. Offline-first, no backend',
     }),
     defineField({
       name: 'links',
@@ -142,8 +154,8 @@ export const project = defineType({
         defineField({name: 'store', title: 'Store', type: 'url'}),
         defineField({
           name: 'storeLabel',
-          type: 'string',
-          placeholder: 'Download on Google Play',
+          type: 'internationalizedArrayString',
+          description: 'e.g. Download on Google Play',
         }),
       ],
     }),
@@ -168,10 +180,10 @@ export const project = defineType({
             defineField({
               name: 'alt',
               title: 'Alternative text',
-              type: 'string',
+              type: 'internationalizedArrayString',
               validation: (rule) => rule.required(),
             }),
-            defineField({name: 'caption', type: 'string'}),
+            defineField({name: 'caption', type: 'internationalizedArrayString'}),
           ],
         }),
       ],
@@ -180,10 +192,9 @@ export const project = defineType({
     // Architecture
     defineField({
       name: 'layersBoundary',
-      type: 'string',
+      type: 'internationalizedArrayString',
       group: 'architecture',
-      description: 'Label of the dashed container',
-      placeholder: 'ON THE DEVICE',
+      description: 'Label of the dashed container, e.g. ON THE DEVICE',
     }),
     defineField({
       name: 'layers',
@@ -195,8 +206,8 @@ export const project = defineType({
           type: 'object',
           components: {input: PaddedObjectInput},
           fields: [
-            defineField({name: 'name', type: 'string', validation: (rule) => rule.required()}),
-            defineField({name: 'tech', type: 'string', description: 'Technology or short description'}),
+            defineField({name: 'name', type: 'internationalizedArrayString', validation: (rule) => rule.required()}),
+            defineField({name: 'tech', type: 'internationalizedArrayString', description: 'Technology or short description'}),
             defineField({
               name: 'icon',
               type: 'string',
@@ -216,9 +227,8 @@ export const project = defineType({
             }),
             defineField({
               name: 'connector',
-              type: 'string',
-              description: 'Label on the line below this layer',
-              placeholder: 'user actions',
+              type: 'internationalizedArrayString',
+              description: 'Label on the line below this layer, e.g. user actions',
             }),
             defineField({
               name: 'sideBySide',
@@ -246,8 +256,8 @@ export const project = defineType({
           preview: {
             select: {title: 'name', subtitle: 'tech', group: 'group'},
             prepare: ({title, subtitle, group}) => ({
-              title: group === 'absent' ? `${title} (absent)` : title,
-              subtitle,
+              title: group === 'absent' ? `${localized(title)} (absent)` : localized(title),
+              subtitle: localized(subtitle),
             }),
           },
         }),
@@ -271,25 +281,22 @@ export const project = defineType({
               description: 'e.g. D1, also used as the #d1 anchor',
               validation: (rule) => rule.required(),
             }),
-            defineField({name: 'title', type: 'string', validation: (rule) => rule.required()}),
+            defineField({name: 'title', type: 'internationalizedArrayString', validation: (rule) => rule.required()}),
             defineField({
               name: 'shortLabel',
-              type: 'string',
-              description: 'Short text for the layer badges',
-              placeholder: 'Offline-first',
+              type: 'internationalizedArrayString',
+              description: 'Short text for the layer badges, e.g. Offline-first',
             }),
-            defineField({name: 'context', type: 'text', rows: 3}),
-            defineField({name: 'decision', type: 'text', rows: 3}),
-            defineField({name: 'tradeoff', type: 'text', rows: 3}),
-            defineField({
-              name: 'alternatives',
-              type: 'array',
-              of: [defineArrayMember({type: 'string'})],
-            }),
+            defineField({name: 'context', type: 'internationalizedArrayText'}),
+            defineField({name: 'decision', type: 'internationalizedArrayText'}),
+            defineField({name: 'tradeoff', type: 'internationalizedArrayText'}),
+            defineField({name: 'alternatives', type: 'internationalizedArrayStringList'}),
           ],
           preview: {
             select: {code: 'code', title: 'title'},
-            prepare: ({code, title}) => ({title: [code, title].filter(Boolean).join(' · ')}),
+            prepare: ({code, title}) => ({
+              title: [code, localized(title)].filter(Boolean).join(' · '),
+            }),
           },
         }),
       ],
@@ -301,12 +308,11 @@ export const project = defineType({
     }),
 
     // SEO
-    defineField({name: 'seoTitle', title: 'SEO title', type: 'string', group: 'seo'}),
+    defineField({name: 'seoTitle', title: 'SEO title', type: 'internationalizedArrayString', group: 'seo'}),
     defineField({
       name: 'seoDescription',
       title: 'SEO description',
-      type: 'text',
-      rows: 3,
+      type: 'internationalizedArrayText',
       group: 'seo',
     }),
     defineField({name: 'ogImage', title: 'Open Graph image', type: 'image', group: 'seo'}),
@@ -327,6 +333,11 @@ export const project = defineType({
     },
   ],
   preview: {
-    select: {title: 'title', subtitle: 'kind', media: 'icon'},
+    select: {title: 'title', subtitle: 'kind', media: 'icon', hidden: 'hidden'},
+    prepare: ({title, subtitle, media, hidden}) => ({
+      title,
+      subtitle: hidden ? ['Hidden', subtitle].filter(Boolean).join(' · ') : subtitle,
+      media,
+    }),
   },
 })

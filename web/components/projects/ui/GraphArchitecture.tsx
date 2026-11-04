@@ -15,8 +15,10 @@ import type {
   ProjectDetail,
   ProjectLayer,
 } from "@/constants/type";
+import type { SiteContent } from "@/content/types";
 
 type GraphArchitectureProps = {
+  content: SiteContent["architecture"];
   project: ProjectDetail;
 };
 
@@ -32,7 +34,7 @@ const ICONS: Record<NonNullable<ProjectLayer["icon"]>, LucideIcon> = {
   server: Server,
 };
 
-const GraphArchitecture = ({ project }: GraphArchitectureProps) => {
+const GraphArchitecture = ({ content, project }: GraphArchitectureProps) => {
   const layers = project.layers ?? [];
   const decisions = project.decisions ?? [];
   const core = layers.filter((layer) => layer.group !== "absent");
@@ -45,7 +47,7 @@ const GraphArchitecture = ({ project }: GraphArchitectureProps) => {
     return acc;
   }, []);
 
-  if (!layers.length) return <EmptyGraph />;
+  if (!layers.length) return <EmptyGraph content={content} />;
 
   return (
     <div className="flex flex-col gap-4 py-5 px-0 md:p-10">
@@ -188,14 +190,18 @@ const DecisionBadges = ({
   );
 };
 
-const EmptyGraph = () => {
+const EmptyGraph = ({
+  content,
+}: {
+  content: SiteContent["architecture"];
+}) => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 rounded-lg border-2 border-dashed border-line-card px-6 py-16 text-center">
       <p className="font-mono text-sm md:text-base text-comment">
-        {"/* No architecture */"}
+        {content.emptyEyebrow}
       </p>
       <p className="max-w-xl text-sm md:text-lg text-description">
-        The architecture of this project has not been documented yet.
+        {content.emptyText}
       </p>
     </div>
   );
