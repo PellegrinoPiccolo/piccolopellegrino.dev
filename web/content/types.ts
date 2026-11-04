@@ -9,6 +9,7 @@ export type NavContent = {
   projects: string;
   about: string;
   stack: string;
+  services: string;
   contact: string;
   home: string;
   allProjects: string;

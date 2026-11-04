@@ -26,6 +26,7 @@ export const en: SiteContent = {
     projects: "Projects",
     about: "About",
     stack: "Stack",
+    services: "Services",
     contact: "Contact",
     home: "Home",
     allProjects: "All projects",

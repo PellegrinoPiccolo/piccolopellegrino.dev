@@ -25,6 +25,7 @@ export const it: SiteContent = {
     projects: "Progetti",
     about: "Chi sono",
     stack: "Stack",
+    services: "Servizi",
     contact: "Contatti",
     home: "Home",
     allProjects: "Tutti i progetti",

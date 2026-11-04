@@ -11,7 +11,12 @@ export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/pellegrino-piccolo-2a6739247",
 };
 
-export const navSections = ["projects", "about", "stack"] as const;
+export const navSections = [
+  "projects",
+  "about",
+  "stack",
+  "services",
+] as const;
 
 export const serviceArea = {
   home: "Montesarchio",
