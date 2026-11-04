@@ -64,7 +64,7 @@ export const it: SiteContent = {
     viewProjects: "Vedi i progetti",
     contactMe: "Contattami",
     latestWork: "Ultimi lavori",
-    available: "Disponibile per progetti freelance",
+    available: "Disponibile per freelance",
     coverAlt: "Copertina del progetto",
   },
   services: {
@@ -104,7 +104,7 @@ export const it: SiteContent = {
   },
   homeProjects: {
     eyebrow: "01 — Progetti",
-    heading: "Lavori selezionati",
+    heading: "Progetti scelti",
     allProjects: "Tutti i progetti",
     emptyEyebrow: "/* Lavori in corso */",
     emptyTitle: "Nuovi progetti in arrivo",
