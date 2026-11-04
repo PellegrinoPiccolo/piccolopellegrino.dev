@@ -28,6 +28,13 @@ const ProjectNavigation = ({ content, project }: ProjectNavigationProps) => {
       <p className="text-description text-lg">
         {format(t.position, { index: index + 1, total: siblings.length })}
       </p>
+      <Link
+        href={localizePath(content.locale, "/projects")}
+        className="mt-4 flex items-center gap-2 text-indicator"
+      >
+        <FaArrowLeft />
+        {t.allProjects}
+      </Link>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <NavigationLink sibling={prev} direction="prev" content={content} />
         {next.slug !== prev.slug && (

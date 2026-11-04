@@ -256,6 +256,7 @@ export const en: SiteContent = {
     position: "Project {index} of {total}.",
     next: "Next project",
     previous: "Previous project",
+    allProjects: "All projects",
   },
   privacy: {
     title: "Privacy policy",
