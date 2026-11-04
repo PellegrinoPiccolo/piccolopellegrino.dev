@@ -138,6 +138,7 @@ export async function ProjectsPage({ content }: ProjectsPageProps) {
             items={projects.map((project) => ({
               id: project._id,
               category: project.category,
+              isClientWork: project.isClientWork === true,
               year: project.releaseDate?.slice(0, 4) ?? null,
               card: <ProjectCard project={project} content={content} />,
             }))}

@@ -62,9 +62,16 @@ const ProjectHero = ({ content, project }: ProjectHeroProps) => {
             </div>
           )}
           <div className="flex min-w-0 flex-col gap-2 text-center md:text-left">
-            <h1 className="text-3xl md:text-4xl font-bold text-heading wrap-break-word">
-              {project.title}
-            </h1>
+            <div className="flex flex-col md:flex-row items-center gap-3">
+              <h1 className="text-3xl md:text-4xl font-bold text-heading wrap-break-word">
+                {project.title}
+              </h1>
+              {project.isClientWork && (
+                <span className="shrink-0 border border-indicator rounded-pill px-3 py-1 font-mono text-sm text-indicator lowercase">
+                  {content.clientWork}
+                </span>
+              )}
+            </div>
             <p className="text-base text-description">
               {[
                 project.kind && content.kinds[project.kind],

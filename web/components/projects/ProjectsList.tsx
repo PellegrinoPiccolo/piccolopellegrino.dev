@@ -6,13 +6,16 @@ import type { ProjectCategory, ProjectsListContent } from "@/content/types";
 export type ProjectsListItem = {
   id: string;
   category: ProjectCategory | null;
+  isClientWork: boolean;
   year: string | null;
   card: ReactNode;
 };
 
-type Filter = ProjectCategory | "all";
+type Filter = ProjectCategory | "all" | "client";
 
 const CATEGORIES: ProjectCategory[] = ["app", "web", "desktop"];
+
+const MIN_CLIENT_WORK = 3;
 
 type ProjectsListProps = {
   content: ProjectsListContent;
@@ -22,13 +25,23 @@ type ProjectsListProps = {
 const ProjectsList = ({ content, items }: ProjectsListProps) => {
   const [filter, setFilter] = useState<Filter>("all");
 
-  const categories = CATEGORIES.filter(
-    (category) => items.some((item) => item.category === category),
+  const categories = CATEGORIES.filter((category) =>
+    items.some((item) => item.category === category),
   );
-  const filters: Filter[] = ["all", ...categories];
+  const hasClientWork =
+    items.filter((item) => item.isClientWork).length >= MIN_CLIENT_WORK;
+  const filters: Filter[] = [
+    "all",
+    ...categories,
+    ...(hasClientWork ? (["client"] as const) : []),
+  ];
 
   const visible =
-    filter === "all" ? items : items.filter((item) => item.category === filter);
+    filter === "all"
+      ? items
+      : filter === "client"
+        ? items.filter((item) => item.isClientWork)
+        : items.filter((item) => item.category === filter);
 
   const groups = visible.reduce<{ year: string; items: ProjectsListItem[] }[]>(
     (acc, item) => {
@@ -62,7 +75,11 @@ const ProjectsList = ({ content, items }: ProjectsListProps) => {
                   : "border-line-strong text-fg hover:border-indicator hover:bg-indigo-deep hover:text-link"
               }`}
             >
-              {value === "all" ? content.all : content.categories[value]}
+              {value === "all"
+                ? content.all
+                : value === "client"
+                  ? content.client
+                  : content.categories[value]}
             </button>
           );
         })}

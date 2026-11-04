@@ -44,6 +44,7 @@ export const en: SiteContent = {
     "Web app": "Web app",
     Website: "Website",
   },
+  clientWork: "Client",
   footer: {
     label: "Footer",
     tagline:
@@ -204,6 +205,7 @@ export const en: SiteContent = {
     all: "All",
     upcoming: "Upcoming",
     categories: { app: "App", web: "Web", desktop: "Desktop" },
+    client: "Client work",
   },
   projectCard: {
     coverAlt: "Project cover",
