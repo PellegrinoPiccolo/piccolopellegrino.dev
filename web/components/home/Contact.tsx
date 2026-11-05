@@ -1,10 +1,16 @@
 import Form from "./ui/Form";
 import { MdOutlineEmail } from "react-icons/md";
-import { FiGithub } from "react-icons/fi";
 import { FiLinkedin } from "react-icons/fi";
 import { LuMapPin } from "react-icons/lu";
 import type { SiteContent } from "@/content/types";
-import { contactEmail, siteName, socialLinks } from "@/lib/site";
+import {
+  contactEmail,
+  contactPhone,
+  siteName,
+  socialLinks,
+  whatsappUrl,
+} from "@/lib/site";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const Contacts = [
   {
@@ -20,10 +26,10 @@ const Contacts = [
     value: siteName,
   },
   {
-    icon: FiGithub,
-    link: socialLinks.github,
-    title: "GitHub",
-    value: "PellegrinoPiccolo",
+    icon: FaWhatsapp,
+    link: whatsappUrl,
+    title: "WhatsApp",
+    value: contactPhone,
   },
 ];
 
@@ -43,7 +49,9 @@ const Contact = ({ content }: ContactProps) => {
       <div className="container my-20 py-10 flex flex-col lg:flex-row lg:items-start bg-section rounded-lg border border-primary/40 gap-8">
         <div className="flex flex-col gap-8 flex-1">
           <div className="flex flex-row items-center justify-between">
-            <p className="text-primary font-mono text-base">{contact.eyebrow}</p>
+            <p className="text-primary font-mono text-base">
+              {contact.eyebrow}
+            </p>
             <div className="flex flex-row items-center gap-2 bg-green-800/30 border border-green-600 p-2 rounded-full">
               <div className="w-2 h-2 bg-green-600 rounded-full" />
               <p className="text-green-600 font-mono text-sm font-bold">
@@ -57,9 +65,7 @@ const Contact = ({ content }: ContactProps) => {
           >
             {contact.heading[0]} <br /> {contact.heading[1]}
           </h2>
-          <p className="text-description text-lg">
-            {contact.description}
-          </p>
+          <p className="text-description text-lg">{contact.description}</p>
           <div className="flex flex-col border-t border-divider">
             {Contacts.map((item, index) => (
               <div
@@ -86,9 +92,7 @@ const Contact = ({ content }: ContactProps) => {
             ))}
             <div className="flex flex-row items-center gap-2 mt-4">
               <LuMapPin className="text-description text-sm" />
-              <p className="text-description text-sm">
-                {contact.location}
-              </p>
+              <p className="text-description text-sm">{contact.location}</p>
             </div>
           </div>
         </div>

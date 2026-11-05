@@ -5,18 +5,15 @@ export const siteUrl = "https://piccolopellegrino.dev";
 export const siteName = "Pellegrino Piccolo";
 
 export const contactEmail = "piccolopellegrino.dev@gmail.com";
+export const contactPhone = "+39 392 757 1897";
+export const whatsappUrl = `https://wa.me/${contactPhone.replace(/\D/g, "")}`;
 
 export const socialLinks = {
   github: "https://github.com/PellegrinoPiccolo",
   linkedin: "https://www.linkedin.com/in/pellegrino-piccolo-2a6739247",
 };
 
-export const navSections = [
-  "projects",
-  "about",
-  "stack",
-  "services",
-] as const;
+export const navSections = ["projects", "about", "stack", "services"] as const;
 
 export const serviceArea = {
   home: "Montesarchio",
