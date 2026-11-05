@@ -11,7 +11,10 @@ export const whatsappUrl = `https://wa.me/${contactPhone.replace(/\D/g, "")}`;
 export const socialLinks = {
   github: "https://github.com/PellegrinoPiccolo",
   linkedin: "https://www.linkedin.com/in/pellegrino-piccolo-2a6739247",
+  instagram: "https://www.instagram.com/piccolopellegrino.dev",
 };
+
+export const instagramHandle = "@piccolopellegrino.dev";
 
 export const navSections = ["projects", "about", "stack", "services"] as const;
 
