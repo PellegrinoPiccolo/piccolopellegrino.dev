@@ -56,10 +56,19 @@ const ProjectCard = ({ content, project }: ProjectCardProps) => {
             {project.title}
           </div>
         )}
-        {project.kind && (
-          <span className="absolute top-4 left-4 bg-page/80 backdrop-blur border border-line-strong rounded-pill px-3 py-1 font-mono text-sm text-fg lowercase">
-            {content.kinds[project.kind]}
-          </span>
+        {(project.kind || project.isClientWork) && (
+          <div className="absolute top-4 left-4 flex flex-wrap gap-2">
+            {project.kind && (
+              <span className="bg-page/80 backdrop-blur border border-line-strong rounded-pill px-3 py-1 font-mono text-sm text-fg lowercase">
+                {content.kinds[project.kind]}
+              </span>
+            )}
+            {project.isClientWork && (
+              <span className="bg-page/80 backdrop-blur border border-indicator rounded-pill px-3 py-1 font-mono text-sm text-indicator lowercase">
+                {content.clientWork}
+              </span>
+            )}
+          </div>
         )}
         <div className="absolute left-6 -bottom-8 p-1 bg-card rounded-icon-lg">
           {project.icon?.asset ? (

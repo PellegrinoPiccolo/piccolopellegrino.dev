@@ -49,6 +49,7 @@ export type ProjectsListContent = {
   all: string;
   upcoming: string;
   categories: Record<ProjectCategory, string>;
+  client: string;
 };
 
 export type SiteContent = {
@@ -63,6 +64,7 @@ export type SiteContent = {
   };
   nav: NavContent;
   kinds: Record<ProjectKind, string>;
+  clientWork: string;
   footer: {
     label: string;
     tagline: string;
@@ -188,6 +190,7 @@ export type SiteContent = {
     position: string;
     next: string;
     previous: string;
+    allProjects: string;
   };
   privacy: {
     title: string;
