@@ -1,12 +1,12 @@
 import Form from "./ui/Form";
 import { MdOutlineEmail } from "react-icons/md";
-import { FiLinkedin } from "react-icons/fi";
+import { FiInstagram } from "react-icons/fi";
 import { LuMapPin } from "react-icons/lu";
 import type { SiteContent } from "@/content/types";
 import {
   contactEmail,
   contactPhone,
-  siteName,
+  instagramHandle,
   socialLinks,
   whatsappUrl,
 } from "@/lib/site";
@@ -20,16 +20,16 @@ const Contacts = [
     value: contactEmail,
   },
   {
-    icon: FiLinkedin,
-    link: socialLinks.linkedin,
-    title: "LinkedIn",
-    value: siteName,
-  },
-  {
     icon: FaWhatsapp,
     link: whatsappUrl,
     title: "WhatsApp",
     value: contactPhone,
+  },
+  {
+    icon: FiInstagram,
+    link: socialLinks.instagram,
+    title: "Instagram",
+    value: instagramHandle,
   },
 ];
 
