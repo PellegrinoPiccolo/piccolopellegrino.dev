@@ -1,6 +1,5 @@
 import Form from "./ui/Form";
 import { MdOutlineEmail } from "react-icons/md";
-import { FiGithub } from "react-icons/fi";
 import { FiLinkedin } from "react-icons/fi";
 import { LuMapPin } from "react-icons/lu";
 import type { SiteContent } from "@/content/types";
@@ -21,22 +20,16 @@ const Contacts = [
     value: contactEmail,
   },
   {
-    icon: FaWhatsapp,
-    link: whatsappUrl,
-    title: "WhatsApp",
-    value: contactPhone,
-  },
-  {
     icon: FiLinkedin,
     link: socialLinks.linkedin,
     title: "LinkedIn",
     value: siteName,
   },
   {
-    icon: FiGithub,
-    link: socialLinks.github,
-    title: "GitHub",
-    value: "PellegrinoPiccolo",
+    icon: FaWhatsapp,
+    link: whatsappUrl,
+    title: "WhatsApp",
+    value: contactPhone,
   },
 ];
 
