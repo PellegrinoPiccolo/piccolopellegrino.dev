@@ -3,6 +3,7 @@ import {
   FiArrowUp,
   FiDownload,
   FiGithub,
+  FiInstagram,
   FiLinkedin,
 } from "react-icons/fi";
 import { MdOutlineEmail } from "react-icons/md";
@@ -33,6 +34,7 @@ const Footer = async ({ content }: FooterProps) => {
     { href: `mailto:${contactEmail}`, label: footer.email, icon: MdOutlineEmail },
     { href: socialLinks.github, label: "GitHub", icon: FiGithub },
     { href: socialLinks.linkedin, label: "LinkedIn", icon: FiLinkedin },
+    { href: socialLinks.instagram, label: "Instagram", icon: FiInstagram },
   ];
   const resumeUrl = await getResumeUrl();
   const links = resumeUrl

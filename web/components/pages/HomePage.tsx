@@ -104,7 +104,7 @@ export async function HomePage({ content }: HomePageProps) {
           "@type": "CollegeOrUniversity",
           name: "University of Salerno",
         },
-        sameAs: [socialLinks.github, socialLinks.linkedin],
+        sameAs: [socialLinks.github, socialLinks.linkedin, socialLinks.instagram],
       },
       ...services.items.map((item) => ({
         "@type": "Service",
