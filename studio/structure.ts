@@ -41,7 +41,7 @@ const projectList = (
         .id(id)
         .title(title)
         .schemaType('project')
-        .filter(`_type == "project" && ${filter}`)
+        .filter(`_type == "project" && (${filter})`)
         .params(params)
         .apiVersion('2025-01-01')
         .defaultOrdering([
