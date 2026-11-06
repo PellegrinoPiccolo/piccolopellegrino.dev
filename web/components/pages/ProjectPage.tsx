@@ -8,6 +8,7 @@ import { client } from "@/sanity/client";
 import { urlFor } from "@/sanity/image";
 import { PROJECT_QUERY, PROJECT_SLUGS_QUERY } from "@/sanity/queries";
 import ProjectHero from "@/components/projects/ProjectHero";
+import ProjectVideos from "@/components/projects/ProjectVideos";
 import ProjectGallery from "@/components/projects/ProjectGallery";
 import ProjectArchitecture from "@/components/projects/ProjectArchitecture";
 import ProjectDecisions from "@/components/projects/ProjectDecisions";
@@ -97,6 +98,13 @@ export async function ProjectPage({ content, slug }: ProjectPageProps) {
 
   if (!project) notFound();
 
+  const hasVideos = Boolean(project.videos?.some((video) => video.url));
+  let section = 0;
+  const numbered = <T extends { eyebrow: string }>(block: T): T => ({
+    ...block,
+    eyebrow: `${String(++section).padStart(2, "0")} — ${block.eyebrow}`,
+  });
+
   const url = absoluteUrl(localizePath(locale, `/projects/${slug}`));
   const image = project.ogImage?.asset ? project.ogImage : project.cover;
 
@@ -159,13 +167,25 @@ export async function ProjectPage({ content, slug }: ProjectPageProps) {
       </div>
       <div className="w-full bg-page">
         <div className="container py-20 flex flex-col gap-20">
-          <ProjectGallery content={content.gallery} project={project} />
+          {hasVideos && (
+            <ProjectVideos content={numbered(content.videos)} project={project} />
+          )}
+          <ProjectGallery content={numbered(content.gallery)} project={project} />
           <ProjectArchitecture
-            content={content.architecture}
+            content={numbered(content.architecture)}
             project={project}
           />
-          <ProjectDecisions content={content.decisions} project={project} />
-          <ProjectNavigation content={content} project={project} />
+          <ProjectDecisions
+            content={numbered(content.decisions)}
+            project={project}
+          />
+          <ProjectNavigation
+            content={{
+              ...content,
+              projectNavigation: numbered(content.projectNavigation),
+            }}
+            project={project}
+          />
         </div>
       </div>
     </div>

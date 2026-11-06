@@ -159,6 +159,12 @@ export type SiteContent = {
     visitSite: string;
     download: string;
   };
+  videos: {
+    eyebrow: string;
+    heading: string;
+    description: string;
+    videoLabel: string;
+  };
   gallery: {
     eyebrow: string;
     heading: string;
