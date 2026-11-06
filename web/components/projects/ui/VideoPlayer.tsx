@@ -30,7 +30,7 @@ const VideoPlayer = ({ video, label }: VideoPlayerProps) => {
       poster={poster}
       controls
       playsInline
-      preload="metadata"
+      preload={poster ? "none" : "metadata"}
       onPlay={pauseOthers}
       className="aspect-9/16 w-full rounded-lg object-contain [&:fullscreen]:rounded-none"
     >
