@@ -32,7 +32,7 @@ const VideoPlayer = ({ video, label }: VideoPlayerProps) => {
       playsInline
       preload="metadata"
       onPlay={pauseOthers}
-      className="aspect-9/16 w-full rounded-lg border-2 border-line-card bg-card/40 object-cover"
+      className="aspect-9/16 w-full rounded-lg object-contain [&:fullscreen]:rounded-none"
     >
       <source src={video.url ?? undefined} type={video.mimeType ?? undefined} />
     </video>

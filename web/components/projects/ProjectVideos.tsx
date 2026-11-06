@@ -13,6 +13,11 @@ const ProjectVideos = ({ content, project }: ProjectVideosProps) => {
 
   if (!videos.length) return null;
 
+  const single = videos.length === 1;
+  const hasCaptions = videos.some((video) => video.caption);
+  const itemClassName = `${single ? "w-full" : "w-[70vw] sm:w-[42vw]"} mx-auto max-w-[calc(75svh*9/16)] shrink-0 snap-center md:w-[calc((100%-2rem)/3)]`;
+  const rowClassName = "flex gap-4 md:flex-wrap md:justify-center";
+
   return (
     <section aria-labelledby="videos-heading" className="flex flex-col gap-2">
       <p className="text-primary font-mono text-base">{content.eyebrow}</p>
@@ -23,29 +28,39 @@ const ProjectVideos = ({ content, project }: ProjectVideosProps) => {
         {content.heading}
       </h2>
       <p className="text-description text-lg">{content.description}</p>
-      <div className="mt-4 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:flex-wrap md:justify-center md:overflow-visible md:px-0 md:pb-0">
-        {videos.map((video, index) => (
-          <figure
-            key={video._key}
-            className="w-[75%] max-w-sm shrink-0 snap-center sm:w-[45%] md:w-[calc((100%-2rem)/3)]"
-          >
-            <VideoPlayer
-              video={video}
-              label={
-                video.label ??
-                format(content.videoLabel, {
-                  index: index + 1,
-                  count: videos.length,
-                })
-              }
-            />
-            {video.caption && (
-              <figcaption className="mt-3 px-2 text-center font-mono text-sm md:text-base text-heading">
-                {video.caption}
-              </figcaption>
-            )}
-          </figure>
-        ))}
+      <div className="mt-4 snap-x snap-mandatory overflow-x-auto md:overflow-visible">
+        <div
+          className={`flex flex-col gap-3 ${single ? "w-full" : "w-max min-w-full md:w-full"}`}
+        >
+          <div className={`${rowClassName} rounded-lg bg-card/40 p-2 md:p-4`}>
+            {videos.map((video, index) => (
+              <div key={video._key} className={itemClassName}>
+                <VideoPlayer
+                  video={video}
+                  label={
+                    video.label ??
+                    format(content.videoLabel, {
+                      index: index + 1,
+                      count: videos.length,
+                    })
+                  }
+                />
+              </div>
+            ))}
+          </div>
+          {hasCaptions && (
+            <div className={`${rowClassName} px-2 md:px-4`}>
+              {videos.map((video) => (
+                <p
+                  key={video._key}
+                  className={`${itemClassName} px-2 text-center font-mono text-sm md:text-base text-heading`}
+                >
+                  {video.caption}
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
