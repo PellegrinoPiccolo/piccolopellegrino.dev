@@ -81,6 +81,14 @@ export const PROJECT_QUERY = defineQuery(`
     "architectureSummary": coalesce(architectureSummary[language == $lang][0].value, architectureSummary[language == "en"][0].value, architectureSummary[language == "it"][0].value),
     links { repo, live, store, "storeLabel": coalesce(storeLabel[language == $lang][0].value, storeLabel[language == "en"][0].value, storeLabel[language == "it"][0].value) },
     icon,
+    "videos": videos[defined(asset) && ^.hideVideos != true] {
+      _key,
+      "label": coalesce(label[language == $lang][0].value, label[language == "en"][0].value, label[language == "it"][0].value),
+      "caption": coalesce(caption[language == $lang][0].value, caption[language == "en"][0].value, caption[language == "it"][0].value),
+      "url": asset->url,
+      "mimeType": asset->mimeType,
+      poster
+    },
     gallery[] {
       ...,
       "alt": coalesce(alt[language == $lang][0].value, alt[language == "en"][0].value, alt[language == "it"][0].value),

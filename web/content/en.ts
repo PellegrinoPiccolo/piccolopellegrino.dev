@@ -226,8 +226,14 @@ export const en: SiteContent = {
     visitSite: "Visit site",
     download: "Download",
   },
+  videos: {
+    eyebrow: "Videos",
+    heading: "The project in motion",
+    description: "Short videos showing the app in action.",
+    videoLabel: "Video {index} of {count}",
+  },
   gallery: {
-    eyebrow: "01 — Gallery",
+    eyebrow: "Gallery",
     heading: "The app, screen by screen",
     description: "A look at the main screens of the app.",
     emptyEyebrow: "/* No screenshots */",
@@ -235,7 +241,7 @@ export const en: SiteContent = {
     imageAlt: "Carousel image {index} of {count}",
   },
   architecture: {
-    eyebrow: "02 — Architecture",
+    eyebrow: "Architecture",
     heading: "How it's built",
     description:
       "The app, layer by layer. Each badge links to the decision that shaped that layer.",
@@ -243,7 +249,7 @@ export const en: SiteContent = {
     emptyText: "The architecture of this project has not been documented yet.",
   },
   decisions: {
-    eyebrow: "03 — Decisions",
+    eyebrow: "Decisions",
     heading: "Decision log",
     description: "Context, choice and the price paid for each one.",
     context: "Context",
@@ -253,7 +259,7 @@ export const en: SiteContent = {
   },
   projectNavigation: {
     label: "Project navigation",
-    eyebrow: "04 — More projects",
+    eyebrow: "More projects",
     heading: "Keep exploring",
     position: "Project {index} of {total}.",
     next: "Next project",

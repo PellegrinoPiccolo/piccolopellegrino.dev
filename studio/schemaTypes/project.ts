@@ -20,6 +20,7 @@ export const project = defineType({
   type: 'document',
   groups: [
     {name: 'general', title: 'General', default: true},
+    {name: 'videos', title: 'Videos'},
     {name: 'gallery', title: 'Gallery'},
     {name: 'architecture', title: 'Architecture'},
     {name: 'decisions', title: 'Decisions'},
@@ -164,6 +165,54 @@ export const project = defineType({
       type: 'number',
       group: 'general',
       description: 'Tie-breaker for projects with the same release date (lists and previous/next navigation)',
+    }),
+
+    // Videos
+    defineField({
+      name: 'hideVideos',
+      title: 'Hide videos',
+      type: 'boolean',
+      group: 'videos',
+      description: 'Hide the videos section on the site without deleting the videos',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'videos',
+      type: 'array',
+      group: 'videos',
+      description: 'Vertical 9:16 videos (e.g. Instagram reels), shown before the gallery',
+      of: [
+        defineArrayMember({
+          name: 'video',
+          title: 'Video',
+          type: 'file',
+          options: {accept: 'video/mp4,video/webm'},
+          description: 'MP4 (H.264) or WebM, compressed and ideally under 20 MB',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Accessible label',
+              type: 'internationalizedArrayString',
+              description: 'Short description of what the video shows',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({name: 'caption', type: 'internationalizedArrayString'}),
+            defineField({
+              name: 'poster',
+              type: 'image',
+              description: 'Frame shown before playback (9:16)',
+            }),
+          ],
+          validation: (rule) => rule.required().assetRequired(),
+          preview: {
+            select: {label: 'label', media: 'poster'},
+            prepare: ({label, media}) => ({
+              title: localized(label) || 'Video',
+              media,
+            }),
+          },
+        }),
+      ],
     }),
 
     // Gallery

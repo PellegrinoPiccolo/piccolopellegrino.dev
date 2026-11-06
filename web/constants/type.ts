@@ -10,6 +10,7 @@ export type ProjectItem = Projects[number];
 
 export type ProjectDetail = NonNullable<PROJECT_QUERY_RESULT>;
 export type ProjectGalleryImage = NonNullable<ProjectDetail["gallery"]>[number];
+export type ProjectVideo = NonNullable<ProjectDetail["videos"]>[number];
 export type ProjectLayer = NonNullable<ProjectDetail["layers"]>[number];
 export type ProjectDecision = NonNullable<ProjectDetail["decisions"]>[number];
 export type ProjectLinks = NonNullable<ProjectDetail["links"]>;
