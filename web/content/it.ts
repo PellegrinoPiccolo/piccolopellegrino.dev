@@ -227,8 +227,14 @@ export const it: SiteContent = {
     visitSite: "Visita il sito",
     download: "Scarica",
   },
+  videos: {
+    eyebrow: "Video",
+    heading: "Il progetto in movimento",
+    description: "Brevi video che mostrano l'app in azione.",
+    videoLabel: "Video {index} di {count}",
+  },
   gallery: {
-    eyebrow: "01 — Galleria",
+    eyebrow: "Galleria",
     heading: "L'app, schermata per schermata",
     description: "Uno sguardo alle schermate principali dell'app.",
     emptyEyebrow: "/* Nessuno screenshot */",
@@ -236,7 +242,7 @@ export const it: SiteContent = {
     imageAlt: "Immagine {index} di {count}",
   },
   architecture: {
-    eyebrow: "02 — Architettura",
+    eyebrow: "Architettura",
     heading: "Com'è fatta",
     description:
       "L'app, livello per livello. Ogni badge rimanda alla decisione che ha definito quel livello.",
@@ -245,7 +251,7 @@ export const it: SiteContent = {
       "L'architettura di questo progetto non è ancora stata documentata.",
   },
   decisions: {
-    eyebrow: "03 — Decisioni",
+    eyebrow: "Decisioni",
     heading: "Registro delle decisioni",
     description: "Contesto, scelta e il prezzo pagato per ognuna.",
     context: "Contesto",
@@ -255,7 +261,7 @@ export const it: SiteContent = {
   },
   projectNavigation: {
     label: "Navigazione tra i progetti",
-    eyebrow: "04 — Altri progetti",
+    eyebrow: "Altri progetti",
     heading: "Continua a esplorare",
     position: "Progetto {index} di {total}.",
     next: "Progetto successivo",

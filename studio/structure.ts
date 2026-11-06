@@ -6,11 +6,13 @@ import {DocumentsIcon} from '@sanity/icons/Documents'
 import {EyeClosedIcon} from '@sanity/icons/EyeClosed'
 import {FilterIcon} from '@sanity/icons/Filter'
 import {FolderIcon} from '@sanity/icons/Folder'
+import {PlayIcon} from '@sanity/icons/Play'
 import {ProjectsIcon} from '@sanity/icons/Projects'
 import {StackIcon} from '@sanity/icons/Stack'
 import {StarIcon} from '@sanity/icons/Star'
 import {TagIcon} from '@sanity/icons/Tag'
 import {UserIcon} from '@sanity/icons/User'
+import {VideoIcon} from '@sanity/icons/Video'
 import type {ComponentType} from 'react'
 import type {StructureBuilder, StructureResolver} from 'sanity/structure'
 
@@ -39,7 +41,7 @@ const projectList = (
         .id(id)
         .title(title)
         .schemaType('project')
-        .filter(`_type == "project" && ${filter}`)
+        .filter(`_type == "project" && (${filter})`)
         .params(params)
         .apiVersion('2025-01-01')
         .defaultOrdering([
@@ -140,6 +142,39 @@ export const structure: StructureResolver = (S, context) => {
               projectList(S, 'client-work', 'Client work', 'isClientWork == true', {}, CaseIcon),
               projectList(S, 'personal', 'Personal', 'isClientWork != true', {}, UserIcon),
               projectList(S, 'hidden', 'Hidden', 'hidden == true', {}, EyeClosedIcon),
+              S.divider(),
+              S.listItem()
+                .id('by-videos')
+                .title('By videos')
+                .icon(VideoIcon)
+                .child(
+                  S.list()
+                    .title('By videos')
+                    .items([
+                      projectList(
+                        S,
+                        'videos-shown',
+                        'With videos',
+                        'count(videos[defined(asset)]) > 0 && hideVideos != true',
+                        {},
+                        PlayIcon,
+                      ),
+                      projectList(
+                        S,
+                        'videos-hidden',
+                        'With hidden videos',
+                        'count(videos[defined(asset)]) > 0 && hideVideos == true',
+                        {},
+                        EyeClosedIcon,
+                      ),
+                      projectList(
+                        S,
+                        'videos-none',
+                        'Without videos',
+                        'count(videos[defined(asset)]) == 0 || !defined(videos)',
+                      ),
+                    ]),
+                ),
             ]),
         ),
       S.divider(),
