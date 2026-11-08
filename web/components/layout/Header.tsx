@@ -128,11 +128,11 @@ const Header = ({ content, locale }: HeaderProps) => {
         <div className="container flex flex-row items-center justify-between py-4">
           <Link href={home} className="flex items-center">
             <Image
-              src="/logo.png"
+              src="/logo.svg"
               alt={content.logoAlt}
-              width={429}
-              height={72}
-              className="w-50 md:w-60 lg:w-65"
+              width={491}
+              height={165}
+              className="h-14 w-auto lg:h-18"
               loading="eager"
             />
           </Link>
@@ -199,11 +199,11 @@ const Header = ({ content, locale }: HeaderProps) => {
         <div className="flex justify-between px-4 py-4">
           <Link href={home} className="flex items-center" onClick={closeMenu}>
             <Image
-              src="/logo.png"
+              src="/logo.svg"
               alt={content.logoAlt}
-              width={429}
-              height={72}
-              className="w-50"
+              width={491}
+              height={165}
+              className="h-11 w-auto"
               loading="eager"
             />
           </Link>
