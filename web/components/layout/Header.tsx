@@ -132,7 +132,7 @@ const Header = ({ content, locale }: HeaderProps) => {
               alt={content.logoAlt}
               width={491}
               height={165}
-              className="h-14 w-auto lg:h-18"
+              className={`w-auto ${scrolled ? "h-15 lg:h-18" : "h-18 lg:h-24"} transition-all duration-300`}
               loading="eager"
             />
           </Link>
