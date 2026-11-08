@@ -11,6 +11,7 @@ import {
   whatsappUrl,
 } from "@/lib/site";
 import { FaWhatsapp } from "react-icons/fa6";
+import { FiLinkedin } from "react-icons/fi";
 
 const Contacts = [
   {
@@ -30,6 +31,12 @@ const Contacts = [
     link: socialLinks.instagram,
     title: "Instagram",
     value: instagramHandle,
+  },
+  {
+    icon: FiLinkedin,
+    link: socialLinks.linkedin,
+    title: "LinkedIn",
+    value: "Pellegrino Piccolo",
   },
 ];
 
@@ -61,9 +68,10 @@ const Contact = ({ content }: ContactProps) => {
           </div>
           <h2
             id="contact-heading"
-            className="text-3xl md:text-5xl font-bold text-heading leading-snug"
+            className="text-3xl md:text-5xl font-bold text-heading leading-snug md:leading-none"
           >
-            {contact.heading[0]} <br /> {contact.heading[1]}
+            {contact.heading[0]} <br /> {contact.heading[1]}{" "}
+            <span className="text-indicator">{contact.heading[2]}</span>
           </h2>
           <p className="text-description text-lg">{contact.description}</p>
           <div className="flex flex-col border-t border-divider">

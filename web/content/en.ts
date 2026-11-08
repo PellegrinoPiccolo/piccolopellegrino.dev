@@ -152,7 +152,7 @@ export const en: SiteContent = {
   contact: {
     eyebrow: "05 — Contact",
     badge: "Get in touch",
-    heading: ["Have a project", "in mind?"],
+    heading: ["Have a project", "in", "mind?"],
     description:
       "Tell me what you're building: an app, a website or a tool. I'll get back to you as soon as I can, usually the same day.",
     location:

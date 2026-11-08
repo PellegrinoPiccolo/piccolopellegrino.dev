@@ -123,7 +123,7 @@ export type SiteContent = {
   contact: {
     eyebrow: string;
     badge: string;
-    heading: [string, string];
+    heading: [string, string, string];
     description: string;
     location: string;
   };

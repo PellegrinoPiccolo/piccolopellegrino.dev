@@ -153,7 +153,7 @@ export const it: SiteContent = {
   contact: {
     eyebrow: "05 — Contatti",
     badge: "Scrivimi",
-    heading: ["Hai un progetto", "in mente?"],
+    heading: ["Hai un progetto", "in", "mente?"],
     description:
       "Raccontami cosa vuoi realizzare: un'app, un sito web o un tool. Ti rispondo appena posso, di solito in giornata.",
     location:
