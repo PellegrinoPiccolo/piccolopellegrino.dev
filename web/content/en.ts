@@ -59,7 +59,7 @@ export const en: SiteContent = {
     backToTop: "Back to top",
   },
   hero: {
-    eyebrow: "/* Full-stack & mobile developer */",
+    eyebrow: "Full-stack & mobile developer",
     description:
       "I design and build websites, mobile apps and custom software, focused on quality and performance. If you have an idea or a business near Benevento, we can build it together.",
     viewProjects: "View Projects",
@@ -143,7 +143,8 @@ export const en: SiteContent = {
   stack: {
     eyebrow: "03 — Stack",
     heading: "Tools I ship with",
-    description: "Grouped by what they're for, and linked to where I used them.",
+    description:
+      "Grouped by what they're for, and linked to where I used them.",
     comingSoon: "/* Coming soon */",
     usedIn: "Used in",
     emptyEyebrow: "/* Work in progress */",

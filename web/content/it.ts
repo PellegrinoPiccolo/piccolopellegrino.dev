@@ -59,7 +59,7 @@ export const it: SiteContent = {
     backToTop: "Torna su",
   },
   hero: {
-    eyebrow: "/* Sviluppatore web e programmatore a Montesarchio */",
+    eyebrow: "Sviluppatore web e programmatore a Montesarchio",
     description:
       "Sviluppo siti web, app mobile e software su misura, curando qualità e prestazioni. Se hai un'idea o un'attività nella Valle Caudina o in provincia di Benevento, possiamo realizzarla insieme.",
     viewProjects: "Vedi i progetti",
