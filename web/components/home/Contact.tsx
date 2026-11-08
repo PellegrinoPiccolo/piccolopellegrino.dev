@@ -49,7 +49,7 @@ const Contact = ({ content }: ContactProps) => {
       <div className="container my-20 py-10 flex flex-col lg:flex-row lg:items-start bg-section rounded-lg border border-primary/40 gap-8">
         <div className="flex flex-col gap-8 flex-1">
           <div className="flex flex-row items-center justify-between">
-            <p className="text-primary font-mono text-base">
+            <p className="text-comment font-mono text-base">
               {contact.eyebrow}
             </p>
             <div className="flex flex-row items-center gap-2 bg-green-800/30 border border-green-600 p-2 rounded-full">

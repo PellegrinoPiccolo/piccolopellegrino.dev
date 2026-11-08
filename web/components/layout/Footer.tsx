@@ -71,7 +71,7 @@ const Footer = async ({ content }: FooterProps) => {
           </div>
         </div>
         <nav aria-label={footer.label} className="flex flex-col gap-4">
-          <p className="font-mono text-sm uppercase text-primary">
+          <p className="font-mono text-sm uppercase text-comment">
             {footer.navigate}
           </p>
           <ul className="flex flex-col gap-2">
@@ -85,7 +85,7 @@ const Footer = async ({ content }: FooterProps) => {
           </ul>
         </nav>
         <div className="flex flex-col gap-4">
-          <p className="font-mono text-sm uppercase text-primary">
+          <p className="font-mono text-sm uppercase text-comment">
             {footer.connect}
           </p>
           <ul className="flex flex-col gap-2">

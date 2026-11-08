@@ -37,7 +37,7 @@ const Hero = ({ content, recentProjects }: HeroProps) => {
     <div className="w-full bg-page">
       <div className="container flex flex-col pt-15 pb-20 md:py-20 gap-4 md:gap-0">
         <h1 className="flex flex-col gap-4 md:gap-0">
-          <span className="font-mono text-sm lg:text-base text-primary font-medium">
+          <span className="font-mono text-sm lg:text-base text-comment font-medium">
             {hero.eyebrow}
           </span>
           <span className="text-6xl md:text-hero font-bold text-heading leading-[1.1]">

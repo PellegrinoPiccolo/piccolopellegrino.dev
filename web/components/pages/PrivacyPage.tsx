@@ -42,7 +42,7 @@ export function PrivacyPage({ content }: PrivacyPageProps) {
           <FaArrowLeft />
           {nav.home}
         </Link>
-        <p className="font-mono text-sm lg:text-base text-primary font-medium">
+        <p className="font-mono text-sm lg:text-base text-comment font-medium">
           {privacy.eyebrow}
         </p>
         <h1 className="text-3xl md:text-5xl font-bold text-heading">
@@ -62,7 +62,7 @@ export function PrivacyPage({ content }: PrivacyPageProps) {
               key={section.title}
               className="flex flex-col gap-2 border-b border-divider py-8"
             >
-              <p className="text-primary font-mono text-sm">
+              <p className="text-comment font-mono text-sm">
                 {String(index + 1).padStart(2, "0")}
               </p>
               <h2 className="text-xl md:text-2xl font-bold text-heading">
