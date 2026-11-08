@@ -23,9 +23,9 @@ const About = ({ content, resumeUrl }: AboutProps) => {
       <div className="container py-12 md:py-20 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
         <div className="w-full max-w-sm lg:max-w-none aspect-square relative lg:flex-1">
           <Image
-            src="/about.jpg"
+            src="/about.png"
             alt=""
-            className="rounded-lg object-cover"
+            className="rounded-lg object-contain"
             sizes="(min-width: 1024px) 33vw, 384px"
             fill
             loading="lazy"
