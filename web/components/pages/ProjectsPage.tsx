@@ -155,7 +155,7 @@ export async function ProjectsPage({ content }: ProjectsPageProps) {
           </div>
           <Link
             href={`${localizePath(locale)}#contact`}
-            className="text-base text-heading font-bold bg-indicator rounded-full px-6 py-3 hover:-translate-y-0.5 transition-all duration-300 hover:shadow-[0_10px_30px_-12px_var(--color-indicator)]"
+            className="text-base text-heading font-bold bg-indigo-bright rounded-full px-6 py-3 hover:-translate-y-0.5 hover:brightness-110 transition-all duration-300 hover:shadow-[0_10px_30px_-8px_var(--color-indigo-bright)]"
           >
             {t.ctaButton}
           </Link>

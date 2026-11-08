@@ -161,7 +161,7 @@ const Form = ({ content, locale }: FormProps) => {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="flex items-center justify-center gap-3 w-full rounded-full bg-indicator/90 hover:bg-indicator py-4 text-heading text-lg font-bold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        className="flex items-center justify-center gap-3 w-full rounded-full bg-indigo-bright hover:brightness-110 py-4 text-heading text-lg font-bold transition-all disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {status === "sending" ? (
           <>
