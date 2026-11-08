@@ -20,7 +20,7 @@ const ProjectVideos = ({ content, project }: ProjectVideosProps) => {
 
   return (
     <section aria-labelledby="videos-heading" className="flex flex-col gap-2">
-      <p className="text-primary font-mono text-base">{content.eyebrow}</p>
+      <p className="text-comment font-mono text-base">{content.eyebrow}</p>
       <h2
         id="videos-heading"
         className="text-3xl md:text-5xl font-bold text-heading leading-snug"

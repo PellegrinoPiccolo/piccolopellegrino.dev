@@ -21,7 +21,7 @@ const ProjectNavigation = ({ content, project }: ProjectNavigationProps) => {
 
   return (
     <nav aria-label={t.label} className="flex flex-col gap-2">
-      <p className="text-primary font-mono text-base">{t.eyebrow}</p>
+      <p className="text-comment font-mono text-base">{t.eyebrow}</p>
       <h2 className="text-3xl md:text-5xl font-bold text-heading leading-snug">
         {t.heading}
       </h2>

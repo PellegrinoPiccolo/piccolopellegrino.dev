@@ -3,15 +3,43 @@ import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
 import type { SiteContent } from "@/content/types";
 import { format, localizePath } from "@/lib/i18n";
-import { contactEmail as email, localeAlternates } from "@/lib/site";
+import {
+  contactEmail as email,
+  defaultOgImage,
+  localeAlternates,
+  siteName,
+} from "@/lib/site";
 
 const lastUpdated = new Date("2026-11-02T00:00:00Z");
 
-export const privacyMetadata = ({ privacy, locale }: SiteContent): Metadata => ({
-  title: privacy.title,
-  description: privacy.description,
-  alternates: localeAlternates(locale, "/privacy"),
-});
+export const privacyMetadata = ({
+  privacy,
+  locale,
+  ogLocale,
+}: SiteContent): Metadata => {
+  const title = `${privacy.title} — ${siteName}`;
+
+  return {
+    title: privacy.title,
+    description: privacy.description,
+    alternates: localeAlternates(locale, "/privacy"),
+    openGraph: {
+      type: "website",
+      siteName,
+      locale: ogLocale,
+      title,
+      description: privacy.description,
+      url: localizePath(locale, "/privacy"),
+      images: [{ ...defaultOgImage, alt: title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: privacy.description,
+      images: [{ ...defaultOgImage, alt: title }],
+    },
+  };
+};
 
 const withEmail = (text: string) =>
   text.split("{email}").map((part, index) => (
@@ -42,7 +70,7 @@ export function PrivacyPage({ content }: PrivacyPageProps) {
           <FaArrowLeft />
           {nav.home}
         </Link>
-        <p className="font-mono text-sm lg:text-base text-primary font-medium">
+        <p className="font-mono text-sm lg:text-base text-comment font-medium">
           {privacy.eyebrow}
         </p>
         <h1 className="text-3xl md:text-5xl font-bold text-heading">
@@ -62,7 +90,7 @@ export function PrivacyPage({ content }: PrivacyPageProps) {
               key={section.title}
               className="flex flex-col gap-2 border-b border-divider py-8"
             >
-              <p className="text-primary font-mono text-sm">
+              <p className="text-comment font-mono text-sm">
                 {String(index + 1).padStart(2, "0")}
               </p>
               <h2 className="text-xl md:text-2xl font-bold text-heading">

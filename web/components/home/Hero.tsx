@@ -36,14 +36,25 @@ const Hero = ({ content, recentProjects }: HeroProps) => {
   return (
     <div className="w-full bg-page">
       <div className="container flex flex-col pt-15 pb-20 md:py-20 gap-4 md:gap-0">
-        <h1 className="flex flex-col gap-4 md:gap-0">
-          <span className="font-mono text-sm lg:text-base text-primary font-medium">
-            {hero.eyebrow}
-          </span>
-          <span className="text-6xl md:text-hero font-bold text-heading leading-[1.1]">
-            Pellegrino <br /> Piccolo
-          </span>
-        </h1>
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
+          <h1 className="flex flex-col gap-4 md:gap-0">
+            <span className="font-mono text-sm lg:text-base text-comment font-medium">
+              {hero.eyebrow}
+            </span>
+            <span className="text-6xl md:text-hero font-bold text-heading leading-none">
+              Pellegrino <br /> <span className="text-indicator">Piccolo</span>
+            </span>
+          </h1>
+          <Image
+            src="hero.png"
+            alt={hero.coverAlt}
+            width={180}
+            height={180}
+            className="rounded-lg w-30 md:w-35 lg:w-40"
+            loading="eager"
+            priority={true}
+          />
+        </div>
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mt-4">
           <p className="text-fg flex-1 text-sm md:text-lg">
             {hero.description}
@@ -87,7 +98,9 @@ const Hero = ({ content, recentProjects }: HeroProps) => {
         </div>
         <div className="flex flex-col gap-4 mt-8 lg:mt-16">
           <div className="flex flex-row justify-between items-center">
-            <p className="font-mono text-fg text-xs md:text-sm">{hero.latestWork}</p>
+            <p className="font-mono text-fg text-xs md:text-sm">
+              {hero.latestWork}
+            </p>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full" />
               <p className="font-mono text-fg text-xs md:text-sm">
@@ -142,6 +155,7 @@ const RecentProjectCard = ({
             blurDataURL={project.cover.asset.metadata?.lqip ?? undefined}
             sizes="(width >= 48rem) 33vw, (width >= 40rem) 50vw, 100vw"
             className="max-h-full max-w-full w-auto h-auto rounded-md"
+            priority={true}
           />
         ) : (
           <span className="font-mono text-caption text-muted">

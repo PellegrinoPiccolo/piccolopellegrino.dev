@@ -19,7 +19,7 @@ const Services = ({ content }: ServicesProps) => {
       aria-labelledby="services-heading"
     >
       <div className="container py-20 flex flex-col items-start gap-4">
-        <p className="text-primary font-mono text-base">{content.eyebrow}</p>
+        <p className="text-comment font-mono text-base">{content.eyebrow}</p>
         <h2
           id="services-heading"
           className="text-3xl md:text-5xl font-bold text-heading"

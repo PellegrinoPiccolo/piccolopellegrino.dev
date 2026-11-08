@@ -32,7 +32,7 @@ const About = ({ content, resumeUrl }: AboutProps) => {
           />
         </div>
         <div className="lg:flex-2 w-full flex flex-col gap-4">
-          <p className="text-primary font-mono text-base">{content.eyebrow}</p>
+          <p className="text-comment font-mono text-base">{content.eyebrow}</p>
           <h2
             id="about-heading"
             className="text-3xl md:text-5xl font-bold text-heading"
@@ -69,7 +69,7 @@ const About = ({ content, resumeUrl }: AboutProps) => {
                 key={step.number}
                 className={`flex flex-col gap-2 border-t-2 ${step.number === "01" ? "border-t-indicator shadow-lg" : "border-t-primary/40"} py-4`}
               >
-                <p className="text-primary font-mono text-base">
+                <p className="text-comment font-mono text-base">
                   {step.number}
                 </p>
                 <h3 className="text-lg font-bold text-heading">{step.title}</h3>

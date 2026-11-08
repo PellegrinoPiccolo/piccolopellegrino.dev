@@ -115,7 +115,7 @@ export const it: SiteContent = {
   },
   about: {
     eyebrow: "02 — Chi sono",
-    heading: "Dall'idea al rilascio, tutto io.",
+    heading: "Dall'idea al rilascio",
     paragraphs: [
       "Sono Pellegrino Piccolo, sviluppatore web e programmatore di Montesarchio. Porto i prodotti dall'idea fino agli store: design, codice, rilascio e tutte le parti noiose nel mezzo. Mi interessano siti e app veloci e facili da mantenere.",
       "Sono anche studente della Laurea Magistrale in Informatica (Cloud Computing) all'Università di Salerno, quindi passo molto tempo a pensare a come sono costruiti i sistemi, non solo a come appaiono.",
@@ -153,7 +153,7 @@ export const it: SiteContent = {
   contact: {
     eyebrow: "05 — Contatti",
     badge: "Scrivimi",
-    heading: ["Hai un progetto", "in mente?"],
+    heading: ["Hai un progetto", "in", "mente?"],
     description:
       "Raccontami cosa vuoi realizzare: un'app, un sito web o un tool. Ti rispondo appena posso, di solito in giornata.",
     location:

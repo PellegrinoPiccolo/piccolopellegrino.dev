@@ -42,7 +42,7 @@ export const serviceArea = {
 };
 
 export const defaultOgImage = {
-  url: "/og.png",
+  url: "/og-v2.png",
   width: 1200,
   height: 630,
 };

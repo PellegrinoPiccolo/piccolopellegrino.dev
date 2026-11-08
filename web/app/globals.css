@@ -115,7 +115,11 @@
     0%,
     60% {
       border-color: var(--color-indicator);
-      background-color: color-mix(in oklab, var(--color-indicator) 5%, var(--color-card));
+      background-color: color-mix(
+        in oklab,
+        var(--color-indicator) 5%,
+        var(--color-card)
+      );
     }
   }
 
@@ -134,4 +138,14 @@
 @theme inline {
   --font-sans: var(--font-noto-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+  --font-display:
+    var(--font-bricolage), var(--font-noto-sans), ui-sans-serif, system-ui,
+    sans-serif;
+}
+
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-display);
+  }
 }
