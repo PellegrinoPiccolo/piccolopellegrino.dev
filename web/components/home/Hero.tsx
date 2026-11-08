@@ -38,19 +38,30 @@ const Hero = ({ content, recentProjects }: HeroProps) => {
       <div className="container flex flex-col pt-15 pb-20 md:py-20 gap-4 md:gap-0">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between">
           <h1 className="flex flex-col gap-4 md:gap-0">
-            <span className="font-mono text-sm lg:text-base text-comment font-medium">
-              {hero.eyebrow}
-            </span>
+            <div className="flex flex-row items-center gap-2">
+              <Image
+                src="/hero.png"
+                alt={hero.coverAlt}
+                width={30}
+                height={30}
+                className="rounded-lg md:hidden w-auto h-12"
+                loading="eager"
+                priority={true}
+              />
+              <span className="font-mono text-sm lg:text-base text-comment font-medium">
+                {hero.eyebrow}
+              </span>
+            </div>
             <span className="text-6xl md:text-hero font-bold text-heading leading-none">
               Pellegrino <br /> <span className="text-indicator">Piccolo</span>
             </span>
           </h1>
           <Image
-            src="hero.png"
+            src="/hero.png"
             alt={hero.coverAlt}
             width={180}
             height={180}
-            className="rounded-lg w-30 md:w-35 lg:w-40"
+            className="rounded-lg hidden md:block md:w-35 lg:w-40"
             loading="eager"
             priority={true}
           />
