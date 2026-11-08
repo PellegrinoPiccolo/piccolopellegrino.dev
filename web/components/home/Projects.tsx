@@ -20,7 +20,7 @@ const Projects = ({ content, featuredProjects }: ProjectsProps) => {
       aria-labelledby="projects-heading"
     >
       <div className="container py-20 flex flex-col gap-2">
-        <p className="text-primary font-mono text-base">
+        <p className="text-comment font-mono text-base">
           {homeProjects.eyebrow}
         </p>
         <div className="flex flex-row justify-between items-center">

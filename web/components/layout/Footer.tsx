@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   FiArrowUp,
@@ -31,23 +32,34 @@ const Footer = async ({ content }: FooterProps) => {
     { href: localizePath(locale, "/projects"), label: nav.allProjects },
   ];
   const connectLinks = [
-    { href: `mailto:${contactEmail}`, label: footer.email, icon: MdOutlineEmail },
+    {
+      href: `mailto:${contactEmail}`,
+      label: footer.email,
+      icon: MdOutlineEmail,
+    },
     { href: socialLinks.github, label: "GitHub", icon: FiGithub },
     { href: socialLinks.linkedin, label: "LinkedIn", icon: FiLinkedin },
     { href: socialLinks.instagram, label: "Instagram", icon: FiInstagram },
   ];
   const resumeUrl = await getResumeUrl();
   const links = resumeUrl
-    ? [...connectLinks, { href: resumeUrl, label: footer.resume, icon: FiDownload }]
+    ? [
+        ...connectLinks,
+        { href: resumeUrl, label: footer.resume, icon: FiDownload },
+      ]
     : connectLinks;
 
   return (
     <footer className="w-full bg-page border-t border-divider">
       <div className="container py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[2fr_1fr_1fr] gap-10">
         <div className="flex flex-col gap-4 sm:col-span-2 md:col-span-1">
-          <p className="font-mono text-heading font-medium">
-            {"/* PellegrinoPiccolo */"}
-          </p>
+          <Image
+            src="/logo.svg"
+            alt={siteName}
+            width={491}
+            height={165}
+            className="h-12 w-auto self-start"
+          />
           <p className="max-w-sm text-sm lg:text-base text-description">
             {footer.tagline}
           </p>
@@ -59,7 +71,9 @@ const Footer = async ({ content }: FooterProps) => {
           </div>
         </div>
         <nav aria-label={footer.label} className="flex flex-col gap-4">
-          <p className="font-mono text-sm uppercase text-primary">{footer.navigate}</p>
+          <p className="font-mono text-sm uppercase text-comment">
+            {footer.navigate}
+          </p>
           <ul className="flex flex-col gap-2">
             {footerNav.map((item) => (
               <li key={item.href}>
@@ -71,7 +85,9 @@ const Footer = async ({ content }: FooterProps) => {
           </ul>
         </nav>
         <div className="flex flex-col gap-4">
-          <p className="font-mono text-sm uppercase text-primary">{footer.connect}</p>
+          <p className="font-mono text-sm uppercase text-comment">
+            {footer.connect}
+          </p>
           <ul className="flex flex-col gap-2">
             {links.map((item) => (
               <li key={item.label}>

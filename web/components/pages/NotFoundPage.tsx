@@ -32,7 +32,7 @@ export function NotFoundPage({ content }: NotFoundPageProps) {
       />
 
       <div className="container relative flex min-h-[calc(100svh-10rem)] flex-col items-center justify-center gap-8 py-20 text-center">
-        <p className="font-mono text-sm lg:text-base text-primary font-medium">
+        <p className="font-mono text-sm lg:text-base text-comment font-medium">
           {t.eyebrow}
         </p>
 

@@ -11,6 +11,7 @@ import {
   whatsappUrl,
 } from "@/lib/site";
 import { FaWhatsapp } from "react-icons/fa6";
+import { FiLinkedin } from "react-icons/fi";
 
 const Contacts = [
   {
@@ -31,6 +32,12 @@ const Contacts = [
     title: "Instagram",
     value: instagramHandle,
   },
+  {
+    icon: FiLinkedin,
+    link: socialLinks.linkedin,
+    title: "LinkedIn",
+    value: "Pellegrino Piccolo",
+  },
 ];
 
 type ContactProps = {
@@ -49,7 +56,7 @@ const Contact = ({ content }: ContactProps) => {
       <div className="container my-20 py-10 flex flex-col lg:flex-row lg:items-start bg-section rounded-lg border border-primary/40 gap-8">
         <div className="flex flex-col gap-8 flex-1">
           <div className="flex flex-row items-center justify-between">
-            <p className="text-primary font-mono text-base">
+            <p className="text-comment font-mono text-base">
               {contact.eyebrow}
             </p>
             <div className="flex flex-row items-center gap-2 bg-green-800/30 border border-green-600 p-2 rounded-full">
@@ -61,9 +68,10 @@ const Contact = ({ content }: ContactProps) => {
           </div>
           <h2
             id="contact-heading"
-            className="text-3xl md:text-5xl font-bold text-heading leading-snug"
+            className="text-3xl md:text-5xl font-bold text-heading leading-snug md:leading-none"
           >
-            {contact.heading[0]} <br /> {contact.heading[1]}
+            {contact.heading[0]} <br /> {contact.heading[1]}{" "}
+            <span className="text-indicator">{contact.heading[2]}</span>
           </h2>
           <p className="text-description text-lg">{contact.description}</p>
           <div className="flex flex-col border-t border-divider">

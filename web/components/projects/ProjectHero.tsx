@@ -122,7 +122,7 @@ const ProjectHero = ({ content, project }: ProjectHeroProps) => {
               href={project.links.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3 rounded-lg bg-primary px-6 py-3 font-bold text-heading transition-all duration-300 ease-out hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
+              className="group flex items-center gap-3 rounded-lg bg-indigo-bright px-6 py-3 font-bold text-heading transition-all duration-300 ease-out hover:-translate-y-0.5 hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indicator"
             >
               {t.visitSite}
               <FiArrowUpRight className="text-lg transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

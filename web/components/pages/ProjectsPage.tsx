@@ -113,7 +113,7 @@ export async function ProjectsPage({ content }: ProjectsPageProps) {
           <FaArrowLeft />
           {nav.home}
         </Link>
-        <p className="font-mono text-sm lg:text-base text-primary font-medium">
+        <p className="font-mono text-sm lg:text-base text-comment font-medium">
           {t.eyebrow}
         </p>
         <div className="flex flex-row items-end gap-4">
@@ -146,7 +146,7 @@ export async function ProjectsPage({ content }: ProjectsPageProps) {
         </div>
         <div className="bg-section flex flex-col md:flex-row justify-between items-center p-8 rounded-3xl border border-primary/40 mt-8 gap-8 md:gap-0">
           <div className="flex flex-col items-center md:items-start gap-2 md:gap-4">
-            <p className="text-center md:text-left text-sm md:text-base text-primary font-mono">
+            <p className="text-center md:text-left text-sm md:text-base text-comment font-mono">
               {t.ctaEyebrow}
             </p>
             <p className="text-center md:text-left text-2xl md:text-4xl font-bold text-heading">
@@ -155,7 +155,7 @@ export async function ProjectsPage({ content }: ProjectsPageProps) {
           </div>
           <Link
             href={`${localizePath(locale)}#contact`}
-            className="text-base text-heading font-bold bg-indicator rounded-full px-6 py-3 hover:-translate-y-0.5 transition-all duration-300 hover:shadow-[0_10px_30px_-12px_var(--color-indicator)]"
+            className="text-base text-heading font-bold bg-indigo-bright rounded-full px-6 py-3 hover:-translate-y-0.5 hover:brightness-110 transition-all duration-300 hover:shadow-[0_10px_30px_-8px_var(--color-indigo-bright)]"
           >
             {t.ctaButton}
           </Link>

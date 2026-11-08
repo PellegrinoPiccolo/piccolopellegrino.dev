@@ -19,7 +19,7 @@ const Stack = ({ content, stack }: StackProps) => {
       aria-labelledby="stack-heading"
     >
       <div className="container py-20 flex flex-col items-start gap-4">
-        <p className="text-primary font-mono text-base">{t.eyebrow}</p>
+        <p className="text-comment font-mono text-base">{t.eyebrow}</p>
         <h2
           id="stack-heading"
           className="text-3xl md:text-5xl font-bold text-heading"
