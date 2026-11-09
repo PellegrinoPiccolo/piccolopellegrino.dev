@@ -21,12 +21,12 @@ const About = ({ content, resumeUrl }: AboutProps) => {
       aria-labelledby="about-heading"
     >
       <div className="container py-12 md:py-20 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-        <div className="w-full max-w-sm lg:max-w-none aspect-square relative lg:flex-1">
+        <div className="w-full max-w-40 md:max-w-60 lg:max-w-none aspect-square relative lg:flex-1">
           <Image
             src="/about.png"
-            alt=""
+            alt="About image"
             className="rounded-lg object-contain"
-            sizes="(min-width: 1024px) 33vw, 384px"
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 240px, 160px"
             fill
             loading="lazy"
           />
