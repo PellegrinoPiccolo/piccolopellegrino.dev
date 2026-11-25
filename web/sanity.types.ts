@@ -379,7 +379,7 @@ export type AllSanitySchemaTypes =
 export type PROJECTS_QUERY_RESULT = Array<{
   _id: string;
   title: string | null;
-  slug: string | null;
+  slug: string;
   kind: "Desktop app" | "Mobile app" | "Tool" | "Web app" | "Website" | null;
   category: "app" | "desktop" | "web" | null;
   isClientWork: boolean | null;
@@ -483,13 +483,13 @@ export type RESUME_QUERY_RESULT = {
 // Source: ../web/sanity/queries.ts
 // Variable: PROJECT_SLUGS_QUERY
 // Query: *[_type == "project" && defined(slug.current) && hidden != true].slug.current
-export type PROJECT_SLUGS_QUERY_RESULT = Array<string | null>;
+export type PROJECT_SLUGS_QUERY_RESULT = Array<string>;
 
 // Source: ../web/sanity/queries.ts
 // Variable: SITEMAP_QUERY
 // Query: *[_type == "project" && defined(slug.current) && hidden != true] {    "slug": slug.current,    _updatedAt  }
 export type SITEMAP_QUERY_RESULT = Array<{
-  slug: string | null;
+  slug: string;
   _updatedAt: string;
 }>;
 
@@ -602,7 +602,7 @@ export type PROJECT_QUERY_RESULT = {
   _updatedAt: string;
   siblings: Array<{
     title: string | null;
-    slug: string | null;
+    slug: string;
   }>;
 } | null;
 
