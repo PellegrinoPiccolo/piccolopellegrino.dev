@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   output: "export",
   experimental: {
     globalNotFound: true,
+    agentUpgrade: "security",
   },
   images: {
     unoptimized: true,
