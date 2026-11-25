@@ -16,6 +16,9 @@ const ProjectVideos = ({ content, project }: ProjectVideosProps) => {
   const single = videos.length === 1;
   const hasCaptions = videos.some((video) => video.caption);
   const itemClassName = `${single ? "w-full" : "w-[70vw] sm:w-[42vw]"} mx-auto max-w-[calc(75svh*9/16)] shrink-0 snap-center md:w-[calc((100%-2rem)/3)]`;
+  const captionClassName = single
+    ? "mx-auto w-full max-w-3xl"
+    : itemClassName;
   const rowClassName = "flex gap-4 md:flex-wrap md:justify-center";
 
   return (
@@ -53,7 +56,7 @@ const ProjectVideos = ({ content, project }: ProjectVideosProps) => {
               {videos.map((video) => (
                 <p
                   key={video._key}
-                  className={`${itemClassName} px-2 text-center font-mono text-sm md:text-base text-heading`}
+                  className={`${captionClassName} px-2 text-center font-mono text-sm md:text-base text-heading`}
                 >
                   {video.caption}
                 </p>
